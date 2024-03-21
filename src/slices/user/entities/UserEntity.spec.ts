@@ -7,6 +7,7 @@ export const fakeUserEntity = {
     createdById: "123",
     name: "fakeUserEntity",
     email: "string",
+    role: "client",
     password: "string",
     appointmentsTotal: 1,
     photoUrl: "string",

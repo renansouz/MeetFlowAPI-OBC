@@ -3,6 +3,7 @@ export type UserData = {
     createdById: string;
     name: string;
     email: string;
+    role: string;
     password: string;
     appointmentsTotal?: number;
     photoUrl?: string;
@@ -22,6 +23,7 @@ export class UserEntity {
   createdById: string;
   name: string;
   email: string;
+  role: string;
   password: string;
   appointmentsTotal?: number;
   photoUrl?: string;
@@ -33,6 +35,7 @@ export class UserEntity {
     this.createdById = data.createdById;
     this.name = data.name;
     this.email = data.email;
+    this.role = data.role;
     this.password = data.password;
     this.appointmentsTotal = 0;
     this.photoUrl = data.photoUrl;
