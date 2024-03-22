@@ -7,10 +7,10 @@ export type AddUserSignature = (
   addUser: AddUserRepository,
 ) => AddUser;
 
-    export class AddUserClass{
-      constructor(private addUserRepository: AddUserRepository){}
+export class AddUserClass{
+  constructor(private addUserRepository: AddUserRepository){}
 
-      async execute(data: UserData): Promise<UserEntity | null> {
-        return this.addUserRepository.addUser(new UserEntity(data));
-      }
-    }
+  async execute(data: UserData): Promise<UserEntity | null> {
+    return this.addUserRepository.addUser(new UserEntity(data));
+  }
+}

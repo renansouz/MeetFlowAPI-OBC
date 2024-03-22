@@ -5,6 +5,8 @@ export type UserData = {
     email: string;
     role: string;
     password: string;
+    scheduleId?: string;
+    myScheduleId?: string;
     appointmentsTotal?: number;
     photoUrl?: string;
     photoId?: string;
@@ -25,6 +27,8 @@ export class UserEntity {
   email: string;
   role: string;
   password: string;
+  scheduleId?: string;
+  myScheduleId?: string;
   appointmentsTotal?: number;
   photoUrl?: string;
   photoId?: string;
@@ -37,6 +41,8 @@ export class UserEntity {
     this.email = data.email;
     this.role = data.role;
     this.password = data.password;
+    this.scheduleId = data.scheduleId;
+    this.myScheduleId = data.myScheduleId;
     this.appointmentsTotal = 0;
     this.photoUrl = data.photoUrl;
     this.photoId = data.photoId;
