@@ -28,6 +28,7 @@
     "mockdate": "^3.0.5",
     "plop": "^4.0.1",
     "prettier": "^3.2.5",
+    "prisma": "^5.11.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.2",
     "vite-tsconfig-paths": "^4.3.2"
