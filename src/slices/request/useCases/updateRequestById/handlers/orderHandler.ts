@@ -21,6 +21,7 @@ export class OrderHandler extends AbstractHandler {
         createdById: request?.createdById,
         createdAt: new Date(),
         updatedAt: new Date(),
+        totalValue: request?.order?.totalValue,
         professionalId: request?.professionalId,
         scheduleId: request?.scheduleId,
         clientId: request?.clientId,

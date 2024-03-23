@@ -7,10 +7,10 @@ import {
   differenceInDays as differenceInDaysDateFns,
   differenceInMinutes as differenceInMinutesDateFns,
   eachHourOfInterval as eachHourOfIntervalDateFns,
+  eachMinuteOfInterval as eachMinuteDateFns,
   endOfDay as endOfDayDateFns,
   formatISO as formatISODateFns,
   getDay as getDayDateFns,
-  //eachMinuteOfInterval as eachMinuteDateFns,
   intervalToDuration as intervalToDurationDateFns,
   isAfter as isAfterDateFns,
   isBefore as isBeforeDateFns,
@@ -111,7 +111,7 @@ export const eachHourInterval = (
 ): Date[] => {
   return eachHourOfIntervalDateFns({ start, end }, options);
 };
-export const eachMinuteOfInterval = (dirtyInterval: any, options: Options): Date[] => {
+/* export const eachMinuteOfInterval = (dirtyInterval: any, options: Options): Date[] => {
   const interval = dirtyInterval;
   const startDate = toDateDateFns(interval.start);
   const endDate = toDateDateFns(interval.end);
@@ -151,33 +151,32 @@ export const eachMinuteOfInterval = (dirtyInterval: any, options: Options): Date
   }
   return dates;
 };
+*/
 
-/* Possível uso da propriedade da biblioteca eachMinutesOfInterval - tem que tratar exceções
+export const eachMinuteOfInterval = (setInterval: any, options: Options): Date[] => {
+  const interval = setInterval;
+  const startDate = toDateDateFns(interval.start);
+  const endDate = toDateDateFns(interval.end);
+  const minutesArray: Date[] = [];
 
-export const eachMinuteOfInterval = (dirtyInterval: any, options: Options): Date[] => {
-    const interval = dirtyInterval;
-    const startDate = toDateDateFns(interval.start);
-    const endDate = toDateDateFns(interval.end);
-    const minutesArray: Date[] = [];
+  const step = options?.step || 1; // Defina um passo padrão caso não seja fornecido
 
-    const step = options?.step || 1; // Defina um passo padrão caso não seja fornecido
+  if (step < 1 || isNaN(step)) {
+    throw new Error("Step must be a number greater than 0");
+  }
 
-    if (step < 1 || isNaN(step)) {
-        throw new Error("Step must be a number greater than 0");
+  if (startDate > endDate) {
+    throw new Error("Start date is after end date");
+  }
+
+  eachMinuteDateFns({ start: startDate, end: endDate }, options).forEach(
+    (minute: Date) => {
+      minutesArray.push(minute);
     }
+  );
 
-    if (startDate > endDate) {
-        throw new Error("Start date is after end date");
-    }
-
-    eachMinuteDateFns({ start: startDate, end: endDate }, options).forEach(
-        (minute: Date) => {
-            minutesArray.push(minute);
-        }
-    );
-
-    return minutesArray;
-};*/
+  return minutesArray;
+};
 
 export const setMinutes = (date: number | Date, minutes: number): Date => {
   return setMinutesDateFns(date, minutes);

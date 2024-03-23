@@ -64,7 +64,7 @@ export const getValidStatusForNewStatus = (newStatus: string): string[] => {
     return [];
   }
 };
-// O status só pode ser: 
+//  status só pode ser: 
 // 1. Confirmado, se o status atual for solicitado e a data de início for maior que a data atual
 // 2. Cancelado pelo profissional, se o status atual for solicitado e a data de início for maior que a data atual e a diferença entre a data de início e a data atual for maior que 60 minutos
 // 3. Cancelado pelo cliente, se o status atual for solicitado e a data de início for maior que a data atual e a diferença entre a data de início e a data atual for maior que 60 minutos

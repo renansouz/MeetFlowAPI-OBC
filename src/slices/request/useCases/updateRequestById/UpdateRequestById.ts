@@ -5,6 +5,7 @@ import {
 } from "@/slices/appointment/repositories";
 import { UpdateClientRepository } from "@/slices/client/repositories";
 import { AddOrderRepository } from "@/slices/order/repositories";
+import { AddRecurrenceRepository } from "@/slices/recurrence/repositories";
 import { RequestData } from "@/slices/request/entities";
 import {
   LoadRequestRepository,
@@ -18,6 +19,7 @@ import { IUpdateRequestById } from "./contracts";
 import {
   AppointmentHandler,
   OrderHandler,
+  RecurrenceHandler,
 } from "./handlers";
 
 export class UpdateRequestById implements IUpdateRequestById {
@@ -30,6 +32,7 @@ export class UpdateRequestById implements IUpdateRequestById {
             UpdateAppointmentRepository,
         private readonly serviceRepository: UpdateServiceRepository,
         private readonly userRepository: UpdateUserRepository,
+        private readonly recurrenceRepository: AddRecurrenceRepository,
         private readonly clientRepository: UpdateClientRepository
   ) {}
 
@@ -61,8 +64,12 @@ export class UpdateRequestById implements IUpdateRequestById {
             this.userRepository,
             this.clientRepository
           );
+          const recurrenceHandler = new RecurrenceHandler(
+            this.recurrenceRepository
+          );
           appointmentHandler
-            .setNext(orderHandler);
+            .setNext(orderHandler)
+            .setNext(recurrenceHandler);
           await appointmentHandler.handle(requestUpdated);
           return requestUpdated;
         }

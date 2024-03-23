@@ -12,6 +12,8 @@ import { fakeClientEntity } from "@/slices/client/entities/ClientEntity.spec";
 import { UpdateClientRepository } from "@/slices/client/repositories";
 import { fakeOrderEntity } from "@/slices/order/entities/OrderEntity.spec";
 import { AddOrderRepository } from "@/slices/order/repositories";
+import { fakeRecurrenceEntity } from "@/slices/recurrence/entities/RecurrenceEntity.spec";
+import { AddRecurrenceRepository } from "@/slices/recurrence/repositories";
 import { fakeRequestEntity } from "@/slices/request/entities/RequestEntity.spec";
 import {
   LoadRequestRepository,
@@ -30,6 +32,7 @@ describe("UpdateRequestById useCase", () => {
   let mockAppointment: MockProxy<
     AddAppointmentRepository & LoadAppointmentRepository & UpdateAppointmentRepository>;
   let mockService: MockProxy<UpdateServiceRepository>;
+  let mockRecurrence: MockProxy<AddRecurrenceRepository>;
   let mockClient: MockProxy<UpdateClientRepository>;
   let mockUser: MockProxy<UpdateUserRepository>;
   beforeAll(() => {
@@ -50,6 +53,8 @@ describe("UpdateRequestById useCase", () => {
     mockService = mock();
     mockService.updateService.mockResolvedValue({ ...fakeServiceEntity });
     mockService.incrementAppointmentsTotal.mockResolvedValue({ ...fakeServiceEntity });
+    mockRecurrence = mock();
+    mockRecurrence.addRecurrence.mockResolvedValue({ ...fakeRecurrenceEntity });
     mockClient = mock();
     mockClient.updateClient.mockResolvedValue({ ...fakeClientEntity });
     mockClient.incrementAppointmentsTotal.mockResolvedValue({ ...fakeClientEntity });
@@ -64,6 +69,7 @@ describe("UpdateRequestById useCase", () => {
       mockAppointment,
       mockService,
       mockUser,
+      mockRecurrence,
       mockClient
     );
   });
@@ -256,6 +262,7 @@ describe("UpdateRequestById useCase", () => {
       name: "pedidoEfetivado",
       createdById: fakeRequestEntity?.createdById,
       createdAt: new Date(),
+      totalValue: fakeRequestEntity?.order?.totalValue,
       scheduleId: fakeRequestEntity?.scheduleId,
       clientId: fakeRequestEntity?.clientId,
       professionalId: fakeRequestEntity?.professionalId,
@@ -264,6 +271,21 @@ describe("UpdateRequestById useCase", () => {
       active: true,
     });
     expect(mockOrder.addOrder).toHaveBeenCalledTimes(1);
+  });
+  it("Should throws if was not add recurrence after call addRecurrence of recurrenceRepository when status updated is 0", async () => {
+    mockRecurrence.addRecurrence.mockResolvedValueOnce(null);
+    mockRepo.updateRequest.mockResolvedValueOnce({
+      ...fakeRequestEntity,
+      status: "solicitado",
+      initDate: subMinutes(new Date(), 4000).toISOString(),
+    });
+    expect(
+      testInstance.updateRequestById(fakeRequestEntity._id, {
+        ...fakeRequestEntity,
+        status: "finalizado",
+        initDate: subMinutes(new Date(), 4000).toISOString(),
+      })
+    ).rejects.toThrow("Não foi possível criar a recorrência");
   });
   it("Should throws if was not add appointment after call add appointment of appointmentRepository when status updated is 1", async () => {
     mockAppointment.addAppointment.mockResolvedValueOnce(null);
@@ -310,5 +332,29 @@ describe("UpdateRequestById useCase", () => {
         initDate: subMinutes(new Date(), 4000).toISOString(),
       })
     ).rejects.toThrow("Não foi possível cancelar o agendamento");
+  });
+  test("should call mockRecurrence.addRecurrence method with correct values", async () => {
+    const newfakeRequestEntity = { ...fakeRequestEntity, status: "solicitado" };
+    mockRepo.updateRequest.mockResolvedValueOnce(newfakeRequestEntity);
+    await testInstance.updateRequestById("123", fakeRequestEntity);
+    expect(mockRecurrence.addRecurrence).toHaveBeenCalledWith({
+      createdAt: new Date(),
+      type: fakeRequestEntity?.recurrence?.type,
+      createdById: fakeRequestEntity?.createdById,
+      accept: false,
+      appointmentsWasInserted: false,
+      initDate: fakeRequestEntity?.initDate,
+      endDate: fakeRequestEntity?.endDate,
+      professionalId: fakeRequestEntity?.professionalId,
+      clientId: fakeRequestEntity?.clientId,
+      serviceId: fakeRequestEntity?.serviceId,
+      scheduleId: fakeRequestEntity?.scheduleId,
+      frequency: fakeRequestEntity?.recurrence?.frequency,
+      requestId: "123",
+      name: "recorrenciaCriada",
+      updatedAt: new Date(),
+      active: true,
+    });
+    expect(mockRecurrence.addRecurrence).toHaveBeenCalledTimes(1);
   });
 });

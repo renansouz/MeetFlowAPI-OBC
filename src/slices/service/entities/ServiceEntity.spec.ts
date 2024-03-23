@@ -9,8 +9,8 @@ export const fakeServiceEntity = {
   active: true,
   createdAt: new Date(),
   updatedAt: new Date(),
+  price: 20,
   duration: 60,
-  categoryId: "any_category_id",
   description: "desc",
   appointmentsTotal: 1,
 };

@@ -1,4 +1,5 @@
 import { OrderData } from "@/slices/order/entities";
+import { RecurrenceData } from "@/slices/recurrence/entities";
 
 export type RequestData = {
     _id?: string;
@@ -17,6 +18,8 @@ export type RequestData = {
     createdForId: string;
     updatedById?: string | null;
     updatedByRole?: string | null;
+    haveRecurrence?: boolean;
+    recurrence?: RecurrenceData;
     order?: OrderData;
     initDate: string;
     endDate: string;
@@ -44,6 +47,8 @@ export class RequestEntity {
   createdForId: string;
   updatedById?: string | null;
   updatedByRole?: string | null;
+  haveRecurrence?: boolean;
+  recurrence?: RecurrenceData;
   order?: OrderData;
   initDate: string;
   endDate: string;
@@ -62,9 +67,11 @@ export class RequestEntity {
     this.professionalId = data.professionalId;
     this.status = "solicitado";
     this.createdForId = data.createdForId;
+    this.haveRecurrence = data.haveRecurrence;
     this.initDate = data.initDate;
     this.endDate = data.endDate;
     this.cancelledAt = data.cancelledAt;
+    this.recurrence = data.recurrence;
     this.order = data.order;
     this.updatedById = null;
     this.updatedByRole = null;

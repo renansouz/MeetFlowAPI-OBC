@@ -1,6 +1,7 @@
 import MockDate from "mockdate";
 
 import { fakeOrderEntity } from "@/slices/order/entities/OrderEntity.spec";
+import { fakeRecurrenceEntity } from "@/slices/recurrence/entities/RecurrenceEntity.spec";
 
 import { RequestEntity } from "./RequestEntity";
 
@@ -12,6 +13,7 @@ export const fakeRequestEntity = {
   active: true,
   createdAt: new Date(),
   updatedAt: new Date(),
+  haveRecurrence: true,
   message: "Olá fulano, gostaria de marcar horário as 10h da manhã",
   serviceId: "fakeServiceId",
   createdForId: "fakeUserId",
@@ -24,6 +26,7 @@ export const fakeRequestEntity = {
   endDate: new Date().toISOString(),
   cancelledAt: null,
   order: fakeOrderEntity,
+  recurrence: fakeRecurrenceEntity,
   updatedById: "61c1f9d0e399d2917bdff44e",
   updatedByRole: "admin",
 };

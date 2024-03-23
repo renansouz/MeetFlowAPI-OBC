@@ -10,6 +10,7 @@ export const fakeOrderEntity = {
   createdAt: new Date(),
   updatedAt: new Date(),
   appointmentDate: new Date(),
+  totalValue: 93,
 };
 export const fakeOrderPaginated = {
   total: 11,

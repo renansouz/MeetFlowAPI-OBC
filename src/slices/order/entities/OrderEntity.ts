@@ -5,6 +5,7 @@ export type OrderData = {
     active?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
+    totalValue?: number;
     professionalId?: string;
     scheduleId?: string;
     requestId?: string;
@@ -23,6 +24,7 @@ export class OrderEntity {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  totalValue?: number;
   professionalId?: string;
   scheduleId?: string;
   requestId?: string;
@@ -34,6 +36,7 @@ export class OrderEntity {
     this.active = false;
     this.createdAt = new Date();
     this.updatedAt = new Date();
+    this.totalValue = data.totalValue;
     this.professionalId = data.professionalId;
     this.scheduleId = data.scheduleId;
     this.requestId = data.requestId;

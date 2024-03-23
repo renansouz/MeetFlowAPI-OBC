@@ -3,9 +3,9 @@ export type ServiceData = {
     createdById: string;
     name: string;
     active?: boolean;
+    price?: number;
     createdAt?: Date;
     updatedAt?: Date;
-    categoryId: string;
     duration: number;
     description?: string;
     appointmentsTotal?: number;
@@ -22,7 +22,7 @@ export class ServiceEntity {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  categoryId: string;
+  price?: number;
   duration: number;
   description?: string;
   appointmentsTotal?: number;
@@ -36,7 +36,7 @@ export class ServiceEntity {
     this.description = data.description;
     this.createdById = data.createdById;
     this.appointmentsTotal = 0;
-    this.categoryId = data.categoryId;
+    this.price = data.price;
     this.duration = data.duration;
   }
 }
