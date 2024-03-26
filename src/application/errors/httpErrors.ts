@@ -42,6 +42,14 @@ export class EmailInUseError extends Error {
     this.name = "EmailInUseError";
   }
 }
+export class UserNotFound extends Error {
+  mensagem: string;
+  constructor() {
+    super("Incorrect email or password");
+    this.mensagem = "Incorrect email or password";
+    this.name = "UserNotFound";
+  }
+}
 export class AccessDeniedError extends Error {
   constructor() {
     super("Access denied");

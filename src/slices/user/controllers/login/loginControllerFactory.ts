@@ -1,4 +1,4 @@
-import { makeLogController } from "@/application/decorators";
+import { makeLogController } from "@/application/decorators/logControllerFactory";
 import { makeDbAuthentication, makeValidationComposite } from "@/application/factories";
 import { Controller } from "@/application/infra/contracts";
 import { makeAddAccountFactory } from "@/slices/account/useCases";
