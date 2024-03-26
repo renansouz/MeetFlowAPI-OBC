@@ -15,10 +15,10 @@ import { Middleware } from "@/application/infra/contracts";
 import { LoadUser } from "@/slices/user/useCases/loadUser";
 
 export class RefreshTokenMiddleware implements Middleware {
-  constructor(private readonly loadUser: LoadUser, private readonly roles: string[]) {}  
-  private async verifyToken(token: string, refreshPublicKey: any): Promise<any> {
+  constructor(private readonly loadUser: LoadUser, private readonly roles: string[]) {}   
+  private async verifyToken(token: string, publicKey: string): Promise<any> {
     try {
-      return jwt.verify(token, refreshPublicKey,  { algorithms: ["RS256"] });
+      return jwt.verify(token, publicKey,  { algorithms: ["RS256"] });
     } catch (error) {
       return null;
     }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import "./application/infra/config/module-alias";
 
+import cors from "@fastify/cors";
 import Fastify, { FastifyInstance } from "fastify";
 
 import { env, MongoHelper,routes } from "@/application/infra";
@@ -18,6 +19,11 @@ export const makeFastifyInstance = async (externalMongoClient = null) => {
     await fastify.register(require("@fastify/rate-limit"), {
       max: 100,
       timeWindow: "5 minute",
+    });
+    await fastify.register(cors, {
+      origin: "*",
+      methods: ["POST", "GET", "PATCH", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization", "authorization", "refreshtoken"],
     });
     if (env.environment === "production") {
       await fastify.register(require("@fastify/under-pressure"), {
