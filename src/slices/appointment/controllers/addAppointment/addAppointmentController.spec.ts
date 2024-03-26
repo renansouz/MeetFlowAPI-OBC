@@ -12,6 +12,7 @@ import { AddAppointmentController } from "./addAppointmentController";
 describe("AddAppointmentController", () => {
   let testInstance: AddAppointmentController;
   let addAppointment: jest.Mock;
+  let validateAvailableTimes: jest.Mock;
   let validation: MockProxy<Validation>;
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -20,14 +21,20 @@ describe("AddAppointmentController", () => {
       ...fakeAppointmentEntity,
       createdById: fakeUserEntity?._id,
     });
+    validateAvailableTimes = jest.fn();
+    validateAvailableTimes.mockResolvedValue(true);
     validation = mock();
-    validation.validate.mockResolvedValue([] as never);
+    validation.validate.mockReturnValue([] as never);
   });
   afterAll(() => {
     MockDate.reset();
   });
   beforeEach(() => {
-    testInstance = new AddAppointmentController(validation, addAppointment);
+    testInstance = new AddAppointmentController(
+      validation,
+      addAppointment,
+      validateAvailableTimes
+    );
   });
   it("should extends class Controller", async () => {
     expect(testInstance).toBeInstanceOf(Controller);
@@ -53,6 +60,23 @@ describe("AddAppointmentController", () => {
       createdById: fakeUserEntity?._id,
     });
     expect(addAppointment).toHaveBeenCalledTimes(1);
+  });
+  test("should call validateAvailableTimes with correct params and return bad request if returns false in validation", async () => {
+    validateAvailableTimes.mockResolvedValueOnce(false);
+    const result = await testInstance.execute({
+      body: fakeAppointmentEntity,
+      userId: fakeUserEntity?._id,
+    });
+    expect(result).toEqual(badRequest([]));
+    expect(validateAvailableTimes).toHaveBeenCalledWith({
+      date: fakeAppointmentEntity?.initDate,
+      initDate: fakeAppointmentEntity?.initDate,
+      endDate: fakeAppointmentEntity?.endDate,
+      professionalId: fakeAppointmentEntity?.professionalId,
+      scheduleId: fakeAppointmentEntity?.scheduleId,
+      serviceId: fakeAppointmentEntity?.serviceId,
+    });
+    expect(validateAvailableTimes).toHaveBeenCalledTimes(1);
   });
   test("should throws if addAppointment throw", async () => {
     addAppointment.mockRejectedValueOnce(new Error("error"));
