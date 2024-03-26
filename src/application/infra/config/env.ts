@@ -2,10 +2,12 @@ import { z } from "zod";
 
 export const envSchema = z.object({
   mongoUri: z.string().url({ message: "MONGO_URL inválida" }).default("mongodb://127.0.0.1:56328"),
-  jwtPrivateSecret: z.string(),
-  jwtPublicSecret: z.string(),
-  jwtRefreshPrivateSecret: z.string().default("privateRefreshToken"),
-  jwtRefreshPublicSecret: z.string().default("publicRefreshToken"),
+  jwtSecret: z.string().default("secret"),
+  jwtRefreshSecret: z.string().default("secretRefreshToken"),
+  // jwtPrivateSecret: z.string(),
+  // jwtPublicSecret: z.string(),
+  // jwtRefreshPrivateSecret: z.string().default("privateRefreshToken"),
+  // jwtRefreshPublicSecret: z.string().default("publicRefreshToken"),
   port: z.coerce.number().optional().default(3333),
   environment: z.enum(["development", "test", "production"], {
     errorMap: () => ({ message: "O ambiente deve ser development, test ou production" })
@@ -14,10 +16,11 @@ export const envSchema = z.object({
 
 const mappedEnv = {
   mongoUri: process.env.MONGO_URL,
-  jwtPrivateSecret: process.env.JWT_PRIVATE_KEY,
-  jwtPublicSecret: process.env.JWT_PUBLIC_KEY,
-  jwtRefreshPrivateSecret: process.env.JWT_REFRESH_PRIVATE_KEY,
-  jwtRefreshPublicSecret: process.env.JWT_PUBLIC_PRIVATE_KEY,
+  jwtSecret: process.env.JWT_SECRET,
+  // jwtPrivateSecret: process.env.JWT_PRIVATE_KEY,
+  // jwtPublicSecret: process.env.JWT_PUBLIC_KEY,
+  // jwtRefreshPrivateSecret: process.env.JWT_REFRESH_PRIVATE_KEY,
+  // jwtRefreshPublicSecret: process.env.JWT_PUBLIC_PRIVATE_KEY,
   port: process.env.PORT,
   environment: process.env.NODE_ENV,
 };
