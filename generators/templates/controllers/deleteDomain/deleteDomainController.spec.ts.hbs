@@ -1,5 +1,5 @@
 import MockDate from "mockdate";
-import { badRequest, ok, Validation } from "@/application/helpers";
+import { badRequest, success, Validation } from "@/application/helpers";
 import { MockProxy, mock } from "jest-mock-extended";
 import { Delete{{pascalCase name}}Controller } from "./delete{{pascalCase name}}Controller";
 import { fake{{pascalCase name}}Entity } from "@/slices/{{camelCase name}}/entities/{{pascalCase name}}Entity.spec";
@@ -39,7 +39,7 @@ describe("Delete{{pascalCase name}}Controller", () => {
       query: fakeQuery,
       userId: fakeUserEntity?._id,
     });
-    expect(result).toEqual(ok(true));
+    expect(result).toEqual(success(true));
     expect(delete{{pascalCase name}}).toHaveBeenCalledWith({
       fields: { ...fakeQuery, createdById: fakeUserEntity?._id },
       options: {},
