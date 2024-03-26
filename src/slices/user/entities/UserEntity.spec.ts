@@ -3,15 +3,18 @@ import MockDate from "mockdate";
 import { UserEntity } from "./UserEntity";
 
 export const fakeUserEntity = {
-    _id: "123",
-    createdById: "123",
-    name: "fakeUserEntity",
-    email: "string",
-    password: "string",
-    appointmentsTotal: 1,
-    photoUrl: "string",
-    photoId: "string",
-    active: true,
+  _id: "123",
+  createdById: "123",
+  name: "fakeUserEntity",
+  email: "string",
+  role: "client",
+  password: "string",
+  scheduleId: "string",
+  myScheduleId: "string",
+  appointmentsTotal: 1,
+  photoUrl: "string",
+  photoId: "string",
+  active: true,
 };
 export const fakeUserPaginated = {
   total: 11,
