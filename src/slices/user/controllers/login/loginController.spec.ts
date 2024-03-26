@@ -1,7 +1,7 @@
 import { mock,MockProxy } from "jest-mock-extended";
 import MockDate from "mockdate";
 
-import { EmailInUseError, MissingParamError } from "@/application/errors";
+import { MissingParamError, UserNotFound } from "@/application/errors";
 import {
   addDays,
   Authentication,
@@ -96,7 +96,7 @@ describe("LoginController", () => {
   test("should return forbidden request if user does not exists", async () => {
     loadUser.mockResolvedValueOnce(null);
     const httpResponse = await testInstance.execute({ body: fakeUserEntity });
-    expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
+    expect(httpResponse).toEqual(forbidden(new UserNotFound()));
   });
   test("should return unauthorized if token is null", async () => {
     authentication.auth.mockResolvedValueOnce(null);

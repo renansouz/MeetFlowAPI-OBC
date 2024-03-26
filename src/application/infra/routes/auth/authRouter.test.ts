@@ -104,7 +104,7 @@ describe("Route api/auth", () => {
       expect(responseBody).toEqual({
         error: "Forbidden",
         statusCode: 403,
-        message: "The received email is already in use",
+        message: "Incorrect email or password",
       });
     });
     test("Should return 200 if user exists and password is correct", async () => {

@@ -35,7 +35,7 @@ export class LoginController extends Controller {
       fields: { email },
       options: { projection: { password: 0 } },
     });
-    if (userExists === null || userExists === undefined) {
+    if (!userExists) {
       return forbidden(new UserNotFound());
     }
     const { accessToken = null, refreshToken = null } =

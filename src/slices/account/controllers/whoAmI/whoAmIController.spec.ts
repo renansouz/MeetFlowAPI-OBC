@@ -3,7 +3,7 @@ import MockDate from "mockdate";
 
 import {
   Authentication,
-  ok,
+  success,
   unauthorized,
   Validation,
 } from "@/application/helpers";
@@ -83,7 +83,7 @@ describe("WhoAmIController", () => {
   test("should return success if authentication loadUser succeeds", async () => {
     const httpResponse = await testInstance.execute(testInstanceParams);
     expect(httpResponse).toEqual(
-      ok({
+      success({
         user: fakeUserEntity,
       })
     );
