@@ -34,7 +34,6 @@ export class ServiceEntity {
     this.updatedAt = new Date();
     this.name = data.name;
     this.description = data.description;
-    this.createdById = data.createdById;
     this.appointmentsTotal = 0;
     this.price = data.price;
     this.duration = data.duration;

@@ -1,5 +1,5 @@
 /* eslint-disable no-unsafe-optional-chaining */
-import { EmailInUseError } from "@/application/errors";
+import { UserNotFound } from "@/application/errors";
 import {
   addDays,
   Authentication,
@@ -35,8 +35,8 @@ export class LoginController extends Controller {
       fields: { email },
       options: { projection: { password: 0 } },
     });
-    if (!userExists) {
-      return forbidden(new EmailInUseError());
+    if (userExists === null || userExists === undefined) {
+      return forbidden(new UserNotFound());
     }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.auth(email, password)) || {};
