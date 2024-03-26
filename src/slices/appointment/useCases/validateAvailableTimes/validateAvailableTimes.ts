@@ -2,7 +2,7 @@ import { intervalsOverlapping } from "@/application/helpers/dateFns";
 import { QueryVerifyAvailableTimes } from "@/slices/appointment/entities/AppointmentEntity";
 import { LoadAvailableTimes } from "@/slices/appointment/useCases/loadAvailableTimes";
 
-export type ValidateAvailableTimes = (
+export type ValidateAvailableTimesSchema = (
     query: QueryVerifyAvailableTimes
 ) => Promise<any | null>;
 

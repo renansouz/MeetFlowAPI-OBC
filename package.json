@@ -26,7 +26,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/module-alias": "^2.0.4",
     "@types/mongodb": "^4.0.7",
-    "@types/node": "^20.11.29",
+    "@types/node": "^20.11.30",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -41,7 +41,7 @@
     "plop": "^4.0.1",
     "prettier": "^3.2.5",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.4.2",
+    "typescript": "^5.4.3",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "dependencies": {
@@ -50,8 +50,8 @@
     "@fastify/rate-limit": "^9.1.0",
     "@fastify/request-context": "^5.1.0",
     "@fastify/under-pressure": "^8.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.3.1",
-    "@typescript-eslint/parser": "^7.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
     "bcrypt": "^5.1.1",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",

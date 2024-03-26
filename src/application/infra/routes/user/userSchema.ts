@@ -43,20 +43,11 @@ const paramsJsonSchema = {
   },
 };
 
-const headersJsonSchema = {
-  type: "object",
-  properties: {
-    test: { type: "string" },
-  },
-  required: ["test"],
-};
-
 export const userPostSchema = {
   schema: {
     querystring: queryStringJsonSchema,
     body: bodyJsonSchema,
     params: paramsJsonSchema,
-    headers: headersJsonSchema,
     response: {
       200: {
         type: "object",

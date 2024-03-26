@@ -12,8 +12,8 @@ import {
   loadAvailableTimes,
 } from "@/slices/appointment/useCases/loadAvailableTimes";
 import {
-  ValidateAvailableTimes,
   validateAvailableTimes,
+  ValidateAvailableTimesSchema,
 } from "@/slices/appointment/useCases/validateAvailableTimes";
 import { fakeScheduleEntity } from "@/slices/schedule/entities/ScheduleEntity.spec";
 import { LoadScheduleRepository } from "@/slices/schedule/repositories";
@@ -23,7 +23,7 @@ import { fakeUserEntity } from "@/slices/user/entities/UserEntity.spec";
 import { LoadUserRepository } from "@/slices/user/repositories";
 
 describe("ValidateAvailableTimes", () => {
-  let testInstance: ValidateAvailableTimes;
+  let testInstance: ValidateAvailableTimesSchema;
   let testLoadAvailableTimes: LoadAvailableTimes;
   let loadAvailableTimesRepository: MockProxy<LoadAvailableTimesRepository>;
   let serviceRepository: MockProxy<LoadServiceRepository>;
