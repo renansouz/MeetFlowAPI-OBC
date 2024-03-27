@@ -1,5 +1,5 @@
 import MockDate from "mockdate";
-import { badRequest, ok, Validation } from "@/application/helpers";
+import { badRequest, success, Validation } from "@/application/helpers";
 import { MockProxy, mock } from "jest-mock-extended";
 import { Load{{pascalCase name}}Controller } from "./load{{pascalCase name}}Controller";
 import { fake{{pascalCase name}}Entity } from "@/slices/{{camelCase name}}/entities/{{pascalCase name}}Entity.spec";
@@ -43,7 +43,7 @@ describe("Load{{pascalCase name}}Controller", () => {
       userId: fakeUserEntity?._id,
     });
     expect(result).toEqual(
-      ok({
+      success({
         ...fake{{pascalCase name}}Entity,
         createdById: fakeUserEntity?._id,
       })
