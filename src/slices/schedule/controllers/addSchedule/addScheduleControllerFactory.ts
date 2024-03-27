@@ -7,7 +7,6 @@ import { makeAddScheduleFactory, makeLoadScheduleFactory } from "@/slices/schedu
 export const makeAddScheduleController = (): Controller => {
   const requiredFields = [
     "description",
-    "haveDelivery",
     // "minimumTimeForReSchedule",
     "days1",
     "hourStart1",

@@ -1,5 +1,6 @@
 import { account } from "./account";
 import { auth } from "./auth";
+import { schedule } from "./schedule";
 import { service } from "./service";
 import { user } from "./user";
 // IMPORT MODULE FILES
@@ -9,6 +10,7 @@ const routes = [
   auth,
   account,
   service,
+  schedule,
   // ADD FUNCTION IMPORTS
 ];
 
