@@ -4,7 +4,7 @@ import {
   HttpResponse,
   Validation,
   badRequest,
-  ok,
+  success,
 } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
 import { Load{{pascalCase name}} } from "@/slices/{{camelCase name}}/useCases";
@@ -25,6 +25,6 @@ export class Load{{pascalCase name}}Controller extends Controller {
       fields: httpRequest?.query,
       options: {},
     });
-    return ok({{camelCase name}}Loaded);
+    return success({{camelCase name}}Loaded);
   }
 }

@@ -1,5 +1,5 @@
 import MockDate from "mockdate";
-import { badRequest, ok, Validation } from "@/application/helpers";
+import { badRequest, success, Validation } from "@/application/helpers";
 import { MockProxy, mock } from "jest-mock-extended";
 import { Load{{pascalCase name}}ByPageController } from "./load{{pascalCase name}}ByPageController";
 import {
@@ -46,7 +46,7 @@ describe("Load{{pascalCase name}}ByPageController", () => {
       query: fakeQuery,
       userId: fakeUserEntity?._id,
     });
-    expect(result).toEqual(ok(fake{{pascalCase name}}Paginated));
+    expect(result).toEqual(success(fake{{pascalCase name}}Paginated));
     expect(load{{pascalCase name}}ByPage).toHaveBeenCalledWith({
       fields: fakeQueryParams,
       options: { sort: { [fakeRestQuery?.sortBy]: 1 }, page: fakeRestQuery?.page },
@@ -58,7 +58,7 @@ describe("Load{{pascalCase name}}ByPageController", () => {
       query: { ...fakeQuery, typeSort: "desc" },
       userId: fakeUserEntity?._id,
     });
-    expect(result).toEqual(ok(fake{{pascalCase name}}Paginated));
+    expect(result).toEqual(success(fake{{pascalCase name}}Paginated));
     expect(load{{pascalCase name}}ByPage).toHaveBeenCalledWith({
       fields: fakeQueryParams,
       options: { sort: { [fakeRestQuery?.sortBy]: -1 }, page: fakeRestQuery?.page },
@@ -69,7 +69,7 @@ describe("Load{{pascalCase name}}ByPageController", () => {
     const result = await testInstance.execute({
       userId: fakeUserEntity?._id,
     });
-    expect(result).toEqual(ok(fake{{pascalCase name}}Paginated));
+    expect(result).toEqual(success(fake{{pascalCase name}}Paginated));
   });
   test("should throws if load{{pascalCase name}}ByPage throw", async () => {
     load{{pascalCase name}}ByPage.mockRejectedValueOnce(new Error("error"));

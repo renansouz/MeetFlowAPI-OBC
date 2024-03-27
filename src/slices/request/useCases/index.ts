@@ -3,3 +3,4 @@ export * from "./loadRequest";
 export * from "./deleteRequest";
 export * from "./updateRequest";
 export * from "./loadRequestByPage";
+export * from "./updateRequestById";
