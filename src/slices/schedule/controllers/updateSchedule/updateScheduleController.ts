@@ -19,7 +19,9 @@ export class UpdateScheduleController extends Controller {
   }
   async execute(httpRequest: HttpRequest<any>): Promise<HttpResponse<any>> {
     const errorsBody = this.validationBody.validate(httpRequest?.body);
-    daysValidator({ errors: errorsBody, body: httpRequest?.body });
+    if (httpRequest?.body?.days1) {
+      daysValidator({ errors: errorsBody, body: httpRequest?.body });
+    }
     if (
       httpRequest?.body?.hourStart1 ||
       httpRequest?.body?.hourEnd1 ||

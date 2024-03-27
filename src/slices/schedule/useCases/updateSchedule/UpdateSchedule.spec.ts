@@ -25,10 +25,12 @@ describe("UpdateSchedule", () => {
   });
   it("should call updateSchedule of UpdateScheduleRepository with correct values", async () => {
     await testInstance(fakeQuery, fakeScheduleEntity);
-    expect(updateScheduleRepository.updateSchedule).toHaveBeenCalledWith(
-      fakeQuery,
-      fakeScheduleEntity
-    );
+    expect(updateScheduleRepository.updateSchedule).toHaveBeenCalledWith(fakeQuery, {
+      hourStart1: fakeScheduleEntity?.hourStart1,
+      hourEnd1: fakeScheduleEntity?.hourEnd1,
+      days1: fakeScheduleEntity?.days1,
+      name: fakeScheduleEntity?.name,
+    } as any);
     expect(updateScheduleRepository.updateSchedule).toHaveBeenCalledTimes(1);
   });
   it("should return a schedule updateed when updateScheduleRepository insert it", async () => {
