@@ -1,6 +1,5 @@
 export type UserData = {
     _id?: string;
-    createdById: string;
     name: string;
     email: string;
     role: string;
@@ -22,7 +21,6 @@ export type UserPaginated = {
 
 export class UserEntity {
   _id?: string;
-  createdById: string;
   name: string;
   email: string;
   role: string;
@@ -36,7 +34,6 @@ export class UserEntity {
   createdAt?: Date;
   updatedAt?: Date;
   constructor(data: UserData) {
-    this.createdById = data.createdById;
     this.name = data.name;
     this.email = data.email;
     this.role = data.role;

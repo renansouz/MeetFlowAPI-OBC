@@ -4,7 +4,6 @@ import { UserEntity } from "./UserEntity";
 
 export const fakeUserEntity = {
   _id: "123",
-  createdById: "123",
   name: "fakeUserEntity",
   email: "string",
   role: "client",

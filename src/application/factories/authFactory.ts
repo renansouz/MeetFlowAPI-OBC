@@ -5,10 +5,8 @@ import { UserRepository } from "@/slices/user/repositories";
 export const makeDbAuthentication = (): Authentication => {
   const salt = 8;
   const bcryptAdapter = new BcryptAdapter(salt);
-  // const jwtAdapter = new JwtAdapter(env.jwtPrivateSecret, env.jwtPublicSecret, "120d");
-  // const jwtRefreshTokenAdapter = new JwtAdapter(env.jwtRefreshPrivateSecret, env.jwtRefreshPublicSecret, "10d");
-  const jwtAdapter = new JwtAdapter(env.jwtSecret, "120d");
-  const jwtRefreshTokenAdapter = new JwtAdapter(env.jwtRefreshSecret, "10d");
+  const jwtAdapter = new JwtAdapter(env.jwtSecret, "60d");
+  const jwtRefreshTokenAdapter = new JwtAdapter(env.jwtRefreshSecret, "90d");
   const userMongoRepository = new MongoRepository("user");
   const userRepository = new UserRepository(userMongoRepository);
   return new DbAuthentication(
@@ -18,3 +16,7 @@ export const makeDbAuthentication = (): Authentication => {
     jwtRefreshTokenAdapter
   );
 };
+
+
+// const jwtAdapter = new JwtAdapter(env.jwtPrivateSecret, env.jwtPublicSecret, "120d");
+// const jwtRefreshTokenAdapter = new JwtAdapter(env.jwtRefreshPrivateSecret, env.jwtRefreshPublicSecret, "10d");

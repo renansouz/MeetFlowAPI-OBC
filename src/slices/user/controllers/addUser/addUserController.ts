@@ -20,10 +20,7 @@ export class AddUserController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    const userCreated = await this.addUser({
-      ...httpRequest?.body,
-      createdById: httpRequest?.userId,
-    });
+    const userCreated = await this.addUser(httpRequest?.body);
     return success(userCreated);
   }
 }

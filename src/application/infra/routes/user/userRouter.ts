@@ -19,11 +19,7 @@ async function user(fastify: any, options: any) {
   fastify.addHook("preHandler", authLogged());
   fastify.post("/user/add", addUserPostSchema, addUserAdapter());
   fastify.get("/user/load", loadUserGetSchema, loadUserAdapter());
-  fastify.get(
-    "/user/loadByPage",
-    loadUserByPageGetSchema,
-    loadUserByPageAdapter()
-  );
+  fastify.get("/user/loadByPage", loadUserByPageGetSchema, loadUserByPageAdapter());
   fastify.delete("/user/delete", deleteUserSchema, deleteUserAdapter());
   fastify.patch("/user/update", updateUserSchema, updateUserAdapter());
 }

@@ -7,13 +7,13 @@ import { makeAddRequestFactory } from "@/slices/request/useCases";
 export const makeAddRequestController = (): Controller => {
   const requiredFields = [
     "status",
-    // "message",
+    "message",
     "serviceId",
     "scheduleId",
     "clientId",
     "professionalId",
     "createdForId",
-    // "haveRecurrence",
+    "haveRecurrence",
     "initDate",
     "endDate",
   ];

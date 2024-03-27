@@ -14,6 +14,7 @@ const routes = [
   service,
   schedule,
   appointment,
+  request,
   // ADD FUNCTION IMPORTS
 ];
 
