@@ -33,9 +33,10 @@ export class WhoAmIController extends Controller {
       },
       options: {},
     });
-    if (!accountExists) {
-      return unauthorized();
-    }
+    // Bug referente a conta não existir
+    // if (!accountExists) {
+    //   return unauthorized();
+    // }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.authRefreshToken(httpRequest?.userId as string)) || {};
     if (!accessToken || !refreshToken) {
@@ -45,6 +46,7 @@ export class WhoAmIController extends Controller {
       fields: { _id: httpRequest?.userId as string },
       options: {},
     });
+    console.log("User controller whoAmI", user);
     if (!user) {
       return unauthorized();
     }

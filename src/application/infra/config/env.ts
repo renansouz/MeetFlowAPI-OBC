@@ -3,7 +3,7 @@ import { z } from "zod";
 export const envSchema = z.object({
   mongoUri: z.string().url({ message: "MONGO_URL inválida" }).default("mongodb://127.0.0.1:56328"),
   jwtSecret: z.string().default("secret"),
-  jwtRefreshSecret: z.string().default("secretRefreshToken"),
+  jwtRefreshSecret: z.string().default("secret"),
   // jwtPrivateSecret: z.string(),
   // jwtPublicSecret: z.string(),
   // jwtRefreshPrivateSecret: z.string().default("privateRefreshToken"),
@@ -17,6 +17,7 @@ export const envSchema = z.object({
 const mappedEnv = {
   mongoUri: process.env.MONGO_URL,
   jwtSecret: process.env.JWT_SECRET,
+  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
   // jwtPrivateSecret: process.env.JWT_PRIVATE_KEY,
   // jwtPublicSecret: process.env.JWT_PUBLIC_KEY,
   // jwtRefreshPrivateSecret: process.env.JWT_REFRESH_PRIVATE_KEY,

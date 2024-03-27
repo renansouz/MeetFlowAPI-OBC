@@ -27,10 +27,12 @@ export class AuthMiddleware implements Middleware {
     try {
       const authHeader = httpRequest?.headers?.["authorization"];
       if (authHeader) {
-        const [, accessToken] = authHeader?.split?.(" ") ?? [];
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        const [, accessToken] = authHeader?.split?.(" ");
         if (accessToken) {
           const decoded = await this.verifyToken(accessToken, env.jwtSecret);
           if (!decoded) {
+            console.log("Não teve decoded auth Middleware", decoded);
             return unauthorized();
           }
           const { _id } = decoded;

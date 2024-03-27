@@ -26,6 +26,7 @@ export class UpdateUserController extends Controller {
     if (errorsQuery?.length > 0) {
       return badRequest(errorsQuery);
     }
+    console.log("httpRequest método update user", httpRequest);
     const query =
       httpRequest?.userLogged?.role === "admin"
         ? httpRequest?.query

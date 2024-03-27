@@ -71,7 +71,7 @@ describe("Route api/request", () => {
       const { token, _id } = await makeAccessToken("admin", "password");
       const serviceToAdd = {
         name: "any_name",
-        type: "service",
+        // type: "service",
         description: "any_description",
         price: 90,
         requestsTotal: 0,

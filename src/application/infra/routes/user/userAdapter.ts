@@ -9,7 +9,6 @@ import {
 
 export const addUserAdapter = () => adaptRoute(makeAddUserController());
 export const loadUserAdapter = () => adaptRoute(makeLoadUserController());
-export const loadUserByPageAdapter = () =>
-  adaptRoute(makeLoadUserByPageController());
+export const loadUserByPageAdapter = () => adaptRoute(makeLoadUserByPageController());
 export const deleteUserAdapter = () => adaptRoute(makeDeleteUserController());
 export const updateUserAdapter = () => adaptRoute(makeUpdateUserController());
