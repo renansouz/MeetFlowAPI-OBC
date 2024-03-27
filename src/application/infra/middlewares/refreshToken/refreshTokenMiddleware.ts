@@ -27,8 +27,10 @@ export class RefreshTokenMiddleware implements Middleware {
     try {
       const authHeader = httpRequest?.headers?.["refreshtoken"];
       if (authHeader) {
+        console.log("Teve authHeader", authHeader);
         const decoded = await this.verifyToken(authHeader, env.jwtRefreshSecret);
         if (!decoded) {
+          console.log("Não teve decoded", decoded);
           return unauthorized();
         }
         const { _id } = decoded;
@@ -39,7 +41,9 @@ export class RefreshTokenMiddleware implements Middleware {
           },
           options: { projection: { password: 0 } },
         };
+        console.log("Query", query);
         const user = await this.loadUser(query);
+        console.log("User", user);
         if (user) {
           return success({ userId: user?._id, userLogged: user });
         }
