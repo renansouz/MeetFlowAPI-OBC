@@ -10,7 +10,6 @@ export const makeAddServiceController = (): Controller => {
     "description",
     "price",
     "duration",
-    "appointmentsTotal",
   ];
   return makeLogController(
     "addService",
