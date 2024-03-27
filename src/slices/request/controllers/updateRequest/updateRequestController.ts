@@ -35,16 +35,18 @@ export class UpdateRequestController extends Controller {
       scheduleId: httpRequest?.body?.scheduleId,
       serviceId: httpRequest?.body?.serviceId,
     });
-    let newStatus = httpRequest?.body?.status;
+    const newStatus = httpRequest?.body?.status;
     const validStatusArray = ["solicitado"]; 
     if (!appointmentIsValid && validStatusArray?.includes?.(newStatus)) {
       return badRequest(errorsBody);
     }
-    const confirmedStatusArray = ["confirmado"];
+    // const confirmedStatusArray = ["confirmado"];
     // Se o status for confirmado e o agendamento não for válido, o status deve ser alterado para "Cancelado pelo profissional"
-    if (!appointmentIsValid && confirmedStatusArray?.includes?.(newStatus)) {
-      newStatus = "Cancelado pelo profissional";
-    }
+    // Bug na linha abaixo - falta adicionar conflito da agenda em status
+    // if (!appointmentIsValid && confirmedStatusArray?.includes?.(newStatus)) {
+    //   console.log("appointmentIsValid",appointmentIsValid || "Status confirmado");
+    //   newStatus = "Cancelado pelo profissional";
+    // }
     const requestUpdated = await this.updateRequest.updateRequestById(
       httpRequest?.query?._id,
       {

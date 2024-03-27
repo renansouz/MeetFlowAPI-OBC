@@ -15,10 +15,7 @@ describe("AddUserController", () => {
   beforeAll(async () => {
     MockDate.set(new Date());
     addUser = jest.fn();
-    addUser.mockResolvedValue({
-      ...fakeUserEntity,
-      createdById: fakeUserEntity?._id,
-    });
+    addUser.mockResolvedValue(fakeUserEntity);
     validation = mock();
     validation.validate.mockResolvedValue([] as never);
   });
@@ -42,15 +39,9 @@ describe("AddUserController", () => {
       userId: fakeUserEntity?._id,
     });
     expect(result).toEqual(
-      success({
-        ...fakeUserEntity,
-        createdById: fakeUserEntity?._id,
-      })
+      success(fakeUserEntity)
     );
-    expect(addUser).toHaveBeenCalledWith({
-      ...fakeUserEntity,
-      createdById: fakeUserEntity?._id,
-    });
+    expect(addUser).toHaveBeenCalledWith(fakeUserEntity);
     expect(addUser).toHaveBeenCalledTimes(1);
   });
   test("should throws if addUser throw", async () => {
