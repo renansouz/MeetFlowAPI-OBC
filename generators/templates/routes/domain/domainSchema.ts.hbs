@@ -1,15 +1,8 @@
-const bodyAddUserJsonSchema = {
+const bodyAdd{{pascalCase name}}JsonSchema = {
   type: "object",
-  required: ["name", "email", "password", "passwordConfirmation", "role"],
+  required: ["name"],
   properties: {
     name: { type: "string" },
-    email: { type: "string" },
-    role: {
-      type: "string",
-      enum: ["professional"],
-    },
-    password: { type: "string" },
-    passwordConfirmation: { type: "string" },
   },
 };
 const headersJsonSchema = {
@@ -19,32 +12,32 @@ const headersJsonSchema = {
   },
   required: ["authorization"],
 };
-const addUserResponse = {
+const add{{pascalCase name}}Response = {
   type: "object",
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
     name: { type: "string" },
-    email: { type: "string" },
     active: { type: "boolean" },
     createdById: { type: "string" },
     createdAt: { type: "string" },
   },
 };
-export const addUserPostSchema = {
+export const add{{pascalCase name}}PostSchema = {
   schema: {
-    body: bodyAddUserJsonSchema,
-    response: { 200: addUserResponse },
+    body: bodyAdd{{pascalCase name}}JsonSchema,
+    response: { 200: add{{pascalCase name}}Response },
+    headers: headersJsonSchema,
   },
 };
 
-const queryStringJsonLoadUserSchema = {
+const queryStringJsonLoad{{pascalCase name}}Schema = {
   type: "object",
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
   },
   required: ["_id"],
 };
-const loadUserResponse = {
+const load{{pascalCase name}}Response = {
   type: "object",
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
@@ -54,40 +47,40 @@ const loadUserResponse = {
     createdAt: { type: "string" },
   },
 };
-export const loadUserGetSchema = {
+export const load{{pascalCase name}}GetSchema = {
   schema: {
     headers: headersJsonSchema,
-    querystring: queryStringJsonLoadUserSchema,
+    querystring: queryStringJsonLoad{{pascalCase name}}Schema,
     response: {
-      200: loadUserResponse,
+      200: load{{pascalCase name}}Response,
     },
   },
 };
-const deleteUserResponse = { type: "boolean" };
-const queryStringJsonDeleteUserSchema = {
+const delete{{pascalCase name}}Response = { type: "boolean" };
+const queryStringJsonDelete{{pascalCase name}}Schema = {
   type: "object",
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
   },
   required: ["_id"],
 };
-export const deleteUserSchema = {
+export const delete{{pascalCase name}}Schema = {
   schema: {
     headers: headersJsonSchema,
-    querystring: queryStringJsonDeleteUserSchema,
+    querystring: queryStringJsonDelete{{pascalCase name}}Schema,
     response: {
-      200: deleteUserResponse,
+      200: delete{{pascalCase name}}Response,
     },
   },
 };
-const queryStringJsonUpdateUserSchema = {
+const queryStringJsonUpdate{{pascalCase name}}Schema = {
   type: "object",
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
   },
   required: ["_id"],
 };
-const updateUserResponse = {
+const update{{pascalCase name}}Response = {
   type: "object",
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
@@ -95,23 +88,23 @@ const updateUserResponse = {
     createdById: { type: "string" },
   },
 };
-const updateUserBody = {
+const update{{pascalCase name}}Body = {
   type: "object",
   properties: {
     name: { type: "string" },
   },
 };
-export const updateUserSchema = {
+export const update{{pascalCase name}}Schema = {
   schema: {
     headers: headersJsonSchema,
-    querystring: queryStringJsonUpdateUserSchema,
-    body: updateUserBody,
+    querystring: queryStringJsonUpdate{{pascalCase name}}Schema,
+    body: update{{pascalCase name}}Body,
     response: {
-      200: updateUserResponse,
+      200: update{{pascalCase name}}Response,
     },
   },
 };
-const queryStringJsonLoadUserByPageSchema = {
+const queryStringJsonLoad{{pascalCase name}}ByPageSchema = {
   type: "object",
   properties: {
     page: { type: "integer", minimum: 1 },
@@ -120,10 +113,10 @@ const queryStringJsonLoadUserByPageSchema = {
   },
   required: ["page"],
 };
-const loadUserByPageResponse = {
+const load{{pascalCase name}}ByPageResponse = {
   type: "object",
   properties: {
-    users: {
+    {{camelCase name}}s: {
       type: "array",
       maxItems: 10,
       items: {
@@ -131,10 +124,6 @@ const loadUserByPageResponse = {
         properties: {
           _id: { type: "string", maxLength: 24, minLength: 24 },
           name: { type: "string" },
-          role: {
-            type: "string",
-            enum: ["professional", "schedule", "client", "visitor"],
-          },
           active: { type: "boolean" },
           createdById: { type: "string" },
           createdAt: { type: "string" },
@@ -144,12 +133,12 @@ const loadUserByPageResponse = {
     total: { type: "integer" },
   },
 };
-export const loadUserByPageGetSchema = {
+export const load{{pascalCase name}}ByPageGetSchema = {
   schema: {
     headers: headersJsonSchema,
-    querystring: queryStringJsonLoadUserByPageSchema,
+    querystring: queryStringJsonLoad{{pascalCase name}}ByPageSchema,
     response: {
-      200: loadUserByPageResponse,
+      200: load{{pascalCase name}}ByPageResponse,
     },
   },
 };

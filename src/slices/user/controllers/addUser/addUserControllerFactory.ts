@@ -5,7 +5,7 @@ import { AddUserController } from "@/slices/user/controllers";
 import { makeAddUserFactory } from "@/slices/user/useCases";
 
 export const makeAddUserController = (): Controller => {
-  const requiredFields = ["name"];
+  const requiredFields = ["name", "email", "password", "role"];
   return makeLogController(
     "addUser",
     new AddUserController(
