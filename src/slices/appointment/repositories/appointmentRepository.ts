@@ -33,6 +33,7 @@ export class AppointmentRepository implements
     query: QueryAvailableTimesRepository
   ): Promise<AvailableTimesModelRepository | null> {
     if (!query?.professionalId || !query?.initDay || !query?.endDay) {
+      console.log("Não tem professionalId repositories appointment");
       return null;
     }
     const queryBuilded = new QueryBuilder()

@@ -20,6 +20,8 @@ const userBody = {
   role: "client",
   password: "123456",
   passwordConfirmation: "123456",
+  scheduleId: "",
+  myScheduleId: ""
 };
 const appointmentBody = {
   message: "any_email2@mail.com",
@@ -104,6 +106,9 @@ describe("Route api/appointment", () => {
         updatedAt: new Date(),
       };
       const { insertedId: scheduleId } = await scheduleCollection.insertOne(scheduleToAdd);
+      userBody.myScheduleId = scheduleId.toString();
+      console.log("userBody appointment Router", userBody);
+
       await userCollection.updateOne(
         { _id: new ObjectId(_id) },
         {
@@ -175,12 +180,14 @@ describe("Route api/appointment", () => {
         status: "solicitado",
         requestId: new ObjectId(requestId),
       };
+      console.log("appointmentToAdd appointment Router", appointmentToAdd);
       const responseAdd = await fastify.inject({
         method: "POST",
         url: "/api/appointment/add",
         headers: { authorization: `Bearer ${token}` },
         payload: appointmentToAdd,
       });
+      console.log("responseAdd appointment Router", responseAdd);
       const responseBodyAdd = JSON.parse(responseAdd.body);
       expect(responseAdd.statusCode).toBe(200);
       expect(responseBodyAdd?._id).toBeTruthy();

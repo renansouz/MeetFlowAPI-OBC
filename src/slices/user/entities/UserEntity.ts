@@ -12,6 +12,7 @@ export type UserData = {
     active?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
+    serviceIds?: string[];
 };
 
 export type UserPaginated = {
@@ -33,6 +34,7 @@ export class UserEntity {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  serviceIds?: string[];
   constructor(data: UserData) {
     this.name = data.name;
     this.email = data.email;
@@ -43,6 +45,7 @@ export class UserEntity {
     this.appointmentsTotal = 0;
     this.photoUrl = data.photoUrl;
     this.photoId = data.photoId;
+    this.serviceIds = data.serviceIds;
     this.active = false;
     this.createdAt = new Date();
     this.updatedAt = new Date();

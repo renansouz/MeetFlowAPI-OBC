@@ -3,6 +3,7 @@ import {
   HttpRequest,
   HttpResponse,
   success,
+  unauthorized,
   Validation,
 } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
@@ -24,6 +25,17 @@ export class LoadUserByPageController extends Controller {
     const fields = rest;
     const sort = { [sortBy]: typeSort === "asc" ? 1 : -1 };
     const options = { sort, page };
+    // Debater sobre usuário ver todos os usuários
+    // if (httpRequest?.userLogged?.role === "admin") {
+    //   const userLoaded = await this.loadUserByPage({
+    //     fields,
+    //     options,
+    //   });
+    //   return success(userLoaded);
+    // }
+    // if (httpRequest?.userId !== httpRequest?.query?._id) {
+    //   return unauthorized();
+    // }
     const userLoaded = await this.loadUserByPage({
       fields,
       options,

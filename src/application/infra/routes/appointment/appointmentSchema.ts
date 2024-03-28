@@ -6,7 +6,7 @@ const bodyAddAppointmentJsonSchema = {
     "scheduleId",
     "clientId",
     "clientUserId",
-    "professionalId",
+    // "professionalId",
     "createdForId",
     "endDate",
     "initDate",
@@ -22,7 +22,7 @@ const bodyAddAppointmentJsonSchema = {
     clientId: { type: "string", maxLength: 24, minLength: 24 },
     requestId: { type: "string", maxLength: 24, minLength: 24 },
     clientUserId: { type: "string", maxLength: 24, minLength: 24 },
-    professionalId: { type: "string", maxLength: 24, minLength: 24 },
+    // professionalId: { type: "string", maxLength: 24, minLength: 24 },
     createdForId: { type: "string", maxLength: 24, minLength: 24 },
     endDate: { type: "string" },
     initDate: { type: "string" },
@@ -103,6 +103,34 @@ export const loadAppointmentGetSchema = {
     querystring: queryStringJsonLoadAppointmentSchema,
     response: {
       200: loadAppointmentResponse,
+    },
+  },
+};
+
+const queryStringJsonloadAvailableTimesSchema = {
+  type: "object",
+  properties: {
+    // professionalId: { type: "string", maxLength: 24, minLength: 24 },
+    serviceId: { type: "string", maxLength: 24, minLength: 24 },
+    scheduleId: { type: "string", maxLength: 24, minLength: 24 },
+    date: { type: "string" },
+  },
+  required: ["date", "serviceId", "scheduleId"],
+};
+const loadAvailableTimesResponse = {
+  type: "object",
+  nullable: true,
+  properties: {
+    timeAvailableProfessional: { type: "array" },
+    timeAvailable: { type: "array" },
+  },
+};
+export const loadAvailableTimesSchema = {
+  schema: {
+    headers: headersJsonSchema,
+    querystring: queryStringJsonloadAvailableTimesSchema,
+    response: {
+      200: loadAvailableTimesResponse,
     },
   },
 };

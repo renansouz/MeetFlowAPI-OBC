@@ -57,7 +57,7 @@ export const getValidStatusForNewStatus = (newStatus: string): string[] => {
   case "confirmado":
   case "cancelado_profissional":
   case "cancelado_cliente":
-    return ["solicitado"];
+    return ["solicitado", "confirmado"];
   case "finalizado":
     return ["confirmado"];
   default:

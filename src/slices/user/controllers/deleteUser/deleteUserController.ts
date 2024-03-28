@@ -1,9 +1,9 @@
-import { UnauthorizedError } from "@/application/errors";
 import {
   badRequest,
   HttpRequest,
   HttpResponse,
   success,
+  unauthorized,
   Validation,
 } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
@@ -28,13 +28,13 @@ export class DeleteUserController extends Controller {
       });
       return success(userDeleted);
     }
-    if (httpRequest?.userId !== httpRequest?.query?._id) {
-      return badRequest(UnauthorizedError);
+    if (httpRequest?.userId?.toString() !== httpRequest?.query?._id) {
+      return unauthorized();
     }
-    const userDeleteed = await this.deleteUser({
-      fields: { ...httpRequest?.query, createdById: httpRequest?.userId },
+    const userDeleted = await this.deleteUser({
+      fields: {...httpRequest?.query, _id: httpRequest?.userId?.toString()},
       options: {},
     });
-    return success(userDeleteed);
+    return success(userDeleted);
   }
 }

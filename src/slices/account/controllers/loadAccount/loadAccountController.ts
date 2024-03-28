@@ -26,21 +26,20 @@ export class LoadAccountController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    console.log("httpRequest", httpRequest);
+    console.log("httpRequest controller loadAccount", httpRequest);
     const accountExists = await this.loadAccount({
       fields: {
         createdById: httpRequest?.userId,
         refreshToken: httpRequest?.headers?.refreshtoken,
-        expiresAt: new Date(),
+        isFutureexpiresAt: new Date(),
       },
       options: {},
     });
-    // Bug referente a conta não existir
-    // console.log("accountExists", accountExists);
-    // if (!accountExists) {
-    //   console.log("A conta não existe", accountExists);
-    //   return unauthorized();
-    // }
+    console.log("accountExists", accountExists);
+    if (!accountExists) {
+      console.log("A conta não existe", accountExists);
+      return unauthorized();
+    }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.authRefreshToken(httpRequest?.userId as string)) || {};
     if (!accessToken || !refreshToken) {

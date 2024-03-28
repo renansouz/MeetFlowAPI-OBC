@@ -20,6 +20,7 @@ export class LoadAvailableTimesController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
+    console.log("httpRequest controller loadAvailableTimes", httpRequest);
     const appointmentLoaded = await this.loadAvailableTimes(httpRequest?.query);
     return success(appointmentLoaded);
   }

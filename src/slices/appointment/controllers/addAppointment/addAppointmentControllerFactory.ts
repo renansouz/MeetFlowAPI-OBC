@@ -3,6 +3,7 @@ import { makeValidationComposite } from "@/application/factories";
 import { Controller } from "@/application/infra/contracts";
 import { AddAppointmentController } from "@/slices/appointment/controllers";
 import { makeAddAppointmentFactory, makeValidateAvailableTimesFactory } from "@/slices/appointment/useCases";
+import { makeLoadScheduleFactory } from "@/slices/schedule/useCases";
 
 export const makeAddAppointmentController = (): Controller => {
   const requiredFields = [
@@ -10,7 +11,7 @@ export const makeAddAppointmentController = (): Controller => {
     "serviceId",
     "scheduleId",
     "clientId",
-    "professionalId",
+    // "professionalId",
     "createdForId",
     "status",
     "initDate",
@@ -21,7 +22,8 @@ export const makeAddAppointmentController = (): Controller => {
     new AddAppointmentController(
       makeValidationComposite(requiredFields),
       makeAddAppointmentFactory(),
-      makeValidateAvailableTimesFactory()
+      makeValidateAvailableTimesFactory(),
+      makeLoadScheduleFactory()
     )
   );
 };

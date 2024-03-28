@@ -34,10 +34,10 @@ describe("LoadAvailableTimes", () => {
     fakeQueryAvailableTimesRepository = {
       endDay: queryDateGenerator(new Date().toISOString())?.endDay,
       initDay: queryDateGenerator(new Date().toISOString())?.initDay,
-      professionalId: "fakeUserId",
+      // professionalId: "fakeUserId",
     };
     fakeQueryAvailableTimes = {
-      professionalId: "fakeUserId",
+      // professionalId: "fakeUserId",
       serviceId: "fakeServiceId",
       scheduleId: "fakeUserId",
       date: new Date().toISOString(),
@@ -107,7 +107,7 @@ describe("LoadAvailableTimes", () => {
     loadAvailableTimesRepository.loadAvailableTimes.mockResolvedValueOnce(null);
     userRepository.loadUser.mockResolvedValueOnce(null);
     const appointment = await testInstance(fakeQueryAvailableTimes);
-    expect(appointment).toBeNull();
+    expect(appointment).toEqual({ timeAvailable: [], timeAvailableProfessional: [] });
   });
   it("should return null testInstance returns null", async () => {
     const appointment = await testInstance(null as any);

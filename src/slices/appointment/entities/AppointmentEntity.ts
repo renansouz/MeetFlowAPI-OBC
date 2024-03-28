@@ -9,7 +9,7 @@ export type AppointmentData = {
     message?: string; // Mensagem para mandar via push notification ou email
     service?: string; // Nome do serviço
     serviceId?: string;
-    scheduleId?: string;
+    scheduleId?: string; // Id da agenda do profissional
     clientId?: string;
     professionalId?: string;
     status?: string;
@@ -92,12 +92,12 @@ export type AvailableTimesModelRepository = {
     data: Array<any>;
 };
 export type QueryAvailableTimesRepository = {
-    professionalId: string | undefined;
+    professionalId? : string | undefined;
     endDay: string | undefined;
     initDay: string | undefined;
 };
 export type QueryAvailableTimes = {
-    professionalId: string | null;
+    professionalId?: string | null;
     date: string | null;
     serviceId: string | null;
     scheduleId: string | null;

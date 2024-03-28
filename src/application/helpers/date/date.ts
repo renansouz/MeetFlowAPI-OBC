@@ -551,7 +551,9 @@ export const queryDateGenerator = (date: string): QueryDate | null => {
     const dayOfWeekFound = dayOfWeek(dateQuery); // Dia da semana
     const endDay = formatISO(endOfDay(dateRequest)); // Fim do dia
     const initDay = formatISO(startOfDay(dateRequest)); // Inicio do dia
+    console.log("queryDateGenerator", { dayOfWeekFound, endDay, initDay, dateQuery });
     return { dayOfWeekFound, endDay, initDay, dateQuery }; 
   }
+  console.log("queryDateGenerator", null);
   return null;
 };
