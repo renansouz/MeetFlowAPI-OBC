@@ -13,6 +13,7 @@ describe("AddScheduleController", () => {
   let testInstance: AddScheduleController;
   let addSchedule: jest.Mock;
   let loadSchedule: jest.Mock;
+  let updateUser: jest.Mock;
   let validation: MockProxy<Validation>;
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -20,6 +21,11 @@ describe("AddScheduleController", () => {
     addSchedule.mockResolvedValue({
       ...fakeScheduleEntity,
       createdById: fakeUserEntity?._id,
+    });
+    updateUser = jest.fn();
+    updateUser.mockResolvedValue({
+      ...fakeUserEntity,
+      createdById: fakeScheduleEntity._id,
     });
     loadSchedule = jest.fn();
     loadSchedule.mockResolvedValue(null);
@@ -30,7 +36,7 @@ describe("AddScheduleController", () => {
     MockDate.reset();
   });
   beforeEach(() => {
-    testInstance = new AddScheduleController(validation, addSchedule, loadSchedule);
+    testInstance = new AddScheduleController(validation, addSchedule, loadSchedule, updateUser);
   });
   it("should extends class Controller", async () => {
     expect(testInstance).toBeInstanceOf(Controller);
