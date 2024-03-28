@@ -34,10 +34,10 @@ describe("LoadAvailableTimes", () => {
     fakeQueryAvailableTimesRepository = {
       endDay: queryDateGenerator(new Date().toISOString())?.endDay,
       initDay: queryDateGenerator(new Date().toISOString())?.initDay,
-      professionalId: "fakeUserId",
+      // professionalId: "fakeUserId",
     };
     fakeQueryAvailableTimes = {
-      professionalId: "fakeUserId",
+      // professionalId: "fakeUserId",
       serviceId: "fakeServiceId",
       scheduleId: "fakeUserId",
       date: new Date().toISOString(),

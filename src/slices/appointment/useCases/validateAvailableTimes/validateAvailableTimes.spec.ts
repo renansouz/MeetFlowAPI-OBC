@@ -56,7 +56,7 @@ describe("ValidateAvailableTimes", () => {
   });
   it("should return true if i have available times", async () => {
     testInstance = validateAvailableTimes(
-      jest.fn().mockImplementation((query) => fakeAvailableTimesModel)
+      jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance({
       professionalId: "fakeUserId",
@@ -70,14 +70,14 @@ describe("ValidateAvailableTimes", () => {
   });
   it("should return false if i pass null as param", async () => {
     testInstance = validateAvailableTimes(
-      jest.fn().mockImplementation((query) => fakeAvailableTimesModel)
+      jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance(null as any);
     expect(appointment).toBe(false);
   });
   it("should return false if pass endDate <= initDate", async () => {
     testInstance = validateAvailableTimes(
-      jest.fn().mockImplementation((query) => fakeAvailableTimesModel)
+      jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance({
       professionalId: "fakeUserId",
@@ -91,7 +91,7 @@ describe("ValidateAvailableTimes", () => {
   });
   it("should return false if loadAvailableTimes returns null", async () => {
     testInstance = validateAvailableTimes(
-      jest.fn().mockImplementation((query) => null)
+      jest.fn().mockImplementation(() => null)
     );
     const appointment = await testInstance({
       professionalId: "fakeUserId",
@@ -105,7 +105,7 @@ describe("ValidateAvailableTimes", () => {
   });
   it("should return true if i have time available", async () => {
     testInstance = validateAvailableTimes(
-      jest.fn().mockImplementation((query) => fakeAvailableTimesModel2)
+      jest.fn().mockImplementation(() => fakeAvailableTimesModel2)
     );
     const appointment = await testInstance({
       professionalId: "fakeUserId",
@@ -119,7 +119,7 @@ describe("ValidateAvailableTimes", () => {
   });
   it("should return false if i haven`t time available", async () => {
     testInstance = validateAvailableTimes(
-      jest.fn().mockImplementation((query) => fakeAvailableTimesModel)
+      jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance({
       professionalId: "fakeUserId",

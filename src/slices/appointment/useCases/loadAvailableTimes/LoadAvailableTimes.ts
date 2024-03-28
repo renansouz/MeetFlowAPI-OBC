@@ -18,16 +18,18 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
       const {
         date = null,
         serviceId = null,
-        professionalId = null,
+        // professionalId = null,
         scheduleId = null,
       } = query || {};
-      if (!date || !serviceId || !professionalId) {
+      if (!date || !serviceId /*|| !professionalId*/) {
         return null;
       }
+      console.log("query loadAvailableTimes", query);
       const service = await serviceRepository.loadService({
         fields: { _id: serviceId },
         options: {},
       });
+      console.log("service loadAvailableTimes", service);
       if (service?.duration) {
         const {
           dayOfWeekFound = null,
@@ -40,12 +42,14 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
         }
         const { _id: infoSchedule = null, data: appointments = null } =
         (await loadAvailableTimesRepository.loadAvailableTimes({
-          professionalId,
+          // professionalId,
           endDay,
           initDay,
         })) || {};
+        console.log("Cheguei aqui");
         if (infoSchedule && appointments) {
-        //esse é o caso em que existem agendamentos para o profissional no dia
+          //esse é o caso em que existem agendamentos para o profissional no dia
+          console.log("infoSchedule && appointments loadAvailableTimes", infoSchedule || appointments);
           return getArrayTimes({
             infoSchedule,
             appointments,
@@ -55,20 +59,34 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
           });
         }
         if (scheduleId) {
-          const { myScheduleId = null }: any =
-          (await userRepository.loadUser({
-            fields: { scheduleId },
+          console.log("scheduleId loadAvailableTimes", scheduleId);
+          const professionalScheduleId: any = 
+          (await scheduleRepository.loadSchedule({
+            fields: { _id: scheduleId},
             options: {},
-          })) || {};
-          let _id = myScheduleId;
-          if (_id === null) {
-            const res: any =
-            (await userRepository.loadUser({
-              fields: { _id: scheduleId },
-              options: {},
-            })) || {};
-            _id = res?.myScheduleId;
-          }
+          }));
+          console.log("professionalScheduleId loadAvailableTimes", professionalScheduleId);
+          const _id: string | null = professionalScheduleId?.createdById;
+          console.log("professionalScheduleId createdById loadAvailableTimes", _id);
+          // const { myScheduleId = null }: any =
+          // (await userRepository.loadUser({
+          //   fields: { professionalScheduleId },
+          //   options: {},
+          // })) || {};
+          // console.log("myScheduleId for loadAvailableTimes", myScheduleId);
+          // let _id = myScheduleId;
+          // console.log("myScheduleId loadAvailableTimes", _id);
+          // if (_id === null) {
+          //   console.log("myScheduleId null loadAvailableTimes", _id);
+          //   const res: any =
+          //   (await userRepository.loadUser({
+          //     fields: { _id: professionalScheduleId },
+          //     options: {},
+          //   })) || {};
+          //   console.log("tentativa 2 loadAvailableTimes", res);
+          //   _id = res?.myScheduleId;
+          //   console.log("tentativa 2 myScheduleId loadAvailableTimes", _id);
+          
           if (_id) {
             const {
               hourEnd1 = null,

@@ -26,6 +26,7 @@ export class AuthMiddleware implements Middleware {
   async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<any>> {
     try {
       const authHeader = httpRequest?.headers?.["authorization"];
+      console.log("authHeader middleware", authHeader);
       if (authHeader) {
         // eslint-disable-next-line no-unsafe-optional-chaining
         const [, accessToken] = authHeader?.split?.(" ");
@@ -43,7 +44,9 @@ export class AuthMiddleware implements Middleware {
             },
             options: { projection: { password: 0 } },
           };
+          console.log("query authMiddleware", query);
           const user = await this.loadUser(query);
+          console.log("loadUser authMiddleware", user);
           if (user) {
             return success({ userId: user?._id, userLogged: user });
           }

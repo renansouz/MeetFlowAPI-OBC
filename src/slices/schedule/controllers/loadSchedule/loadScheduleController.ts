@@ -20,6 +20,7 @@ export class LoadScheduleController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
+    console.log("httpRequest controller loadSchedule", httpRequest);
     const scheduleLoaded = await this.loadSchedule({
       fields: httpRequest?.query,
       options: {},
