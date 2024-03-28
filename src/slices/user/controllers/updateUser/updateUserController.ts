@@ -26,13 +26,12 @@ export class UpdateUserController extends Controller {
     if (errorsQuery?.length > 0) {
       return badRequest(errorsQuery);
     }
-    console.log("httpRequest método update user", httpRequest);
     const query =
       httpRequest?.userLogged?.role === "admin"
         ? httpRequest?.query
         : {
           ...httpRequest?.query,
-          createdById: httpRequest?.userId,
+          _id: httpRequest?.userId?.toString(),
         };
     const userUpdated = await this.updateUser(
       { fields: query, options: {} },
@@ -42,7 +41,7 @@ export class UpdateUserController extends Controller {
       return success(userUpdated);
     }
     const myUserUpdated = await this.updateUser(
-      { fields: { _id: httpRequest?.userId }, options: {} },
+      { fields: { _id: httpRequest?.userId?.toString() }, options: {} },
       httpRequest?.body
     );
     return success(myUserUpdated);

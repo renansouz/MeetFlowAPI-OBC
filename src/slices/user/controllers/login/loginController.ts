@@ -35,9 +35,10 @@ export class LoginController extends Controller {
       fields: { email },
       options: { projection: { password: 0 } },
     });
-    if (!userExists) {
-      return forbidden(new UserNotFound());
-    }
+    // bug de usuário não encontrado
+    // if (!userExists) {
+    //   return forbidden(new UserNotFound());
+    // }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.auth(email, password)) || {};
     if (!accessToken || !refreshToken) {

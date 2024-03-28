@@ -4,6 +4,7 @@ import {
   makeDeleteAppointmentController,
   makeLoadAppointmentByPageController,
   makeLoadAppointmentController,
+  makeLoadAvailableTimesController,
   makeUpdateAppointmentController,
 } from "@/slices/appointment/controllers";
 
@@ -13,3 +14,4 @@ export const loadAppointmentByPageAdapter = () =>
   adaptRoute(makeLoadAppointmentByPageController());
 export const deleteAppointmentAdapter = () => adaptRoute(makeDeleteAppointmentController());
 export const updateAppointmentAdapter = () => adaptRoute(makeUpdateAppointmentController());
+export const loadAvailableTimesAdapter = () => adaptRoute(makeLoadAvailableTimesController());

@@ -106,6 +106,34 @@ export const loadAppointmentGetSchema = {
     },
   },
 };
+
+const queryStringJsonloadAvailableTimesSchema = {
+  type: "object",
+  properties: {
+    professionalId: { type: "string", maxLength: 24, minLength: 24 },
+    serviceId: { type: "string", maxLength: 24, minLength: 24 },
+    scheduleId: { type: "string", maxLength: 24, minLength: 24 },
+    date: { type: "string" },
+  },
+  required: ["professionalId", "date", "serviceId", "scheduleId"],
+};
+const loadAvailableTimesResponse = {
+  type: "object",
+  nullable: true,
+  properties: {
+    timeAvailableProfessional: { type: "array" },
+    timeAvailable: { type: "array" },
+  },
+};
+export const loadAvailableTimesSchema = {
+  schema: {
+    headers: headersJsonSchema,
+    querystring: queryStringJsonloadAvailableTimesSchema,
+    response: {
+      200: loadAvailableTimesResponse,
+    },
+  },
+};
 const deleteAppointmentResponse = { type: "boolean" };
 const queryStringJsonDeleteAppointmentSchema = {
   type: "object",
