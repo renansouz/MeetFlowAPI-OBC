@@ -3,6 +3,8 @@ import { Collection, ObjectId } from "mongodb";
 
 import { env,MongoHelper } from "@/application/infra";
 import { makeFastifyInstance } from "@/index";
+
+import { scheduleBody } from "../schedule/scheduleRouter.test";
 jest.setTimeout(500000);
 
 let userCollection: Collection;
@@ -48,13 +50,21 @@ describe("Route api/service", () => {
   describe("POST /api/service/add", () => {
     test("Should return 200 on add", async () => {
       const { token } = await makeAccessToken("admin", "password");
+      await fastify.inject({
+        method: "POST",
+        url: "/api/schedule/add",
+        headers: { authorization: `Bearer ${token}` },
+        payload: scheduleBody,
+      });
       const responseAdd = await fastify.inject({
         method: "POST",
         url: "/api/service/add",
         headers: { authorization: `Bearer ${token}` },
         payload: serviceBody,
       });
+      console.log("respondeAdd", responseAdd.body);
       const responseBodyAdd = JSON.parse(responseAdd.body);
+      console.log("responseBody", responseBodyAdd);
       expect(responseAdd.statusCode).toBe(200);
       expect(responseBodyAdd._id).toBeTruthy();
     });

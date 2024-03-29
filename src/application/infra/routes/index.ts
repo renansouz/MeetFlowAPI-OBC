@@ -6,11 +6,12 @@ import { order } from "./order";
 import {request} from "./request";
 import { schedule } from "./schedule";
 import { service } from "./service";
-import { user } from "./user";
+import { user, userByPage } from "./user";
 // IMPORT MODULE FILES
 
 const routes = [
   user,
+  userByPage,
   auth,
   account,
   service,
