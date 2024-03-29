@@ -21,12 +21,10 @@ export class LoadServiceController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    console.log("httpRequest controller loadService", httpRequest);
     const serviceLoaded = await this.loadService({
       fields: httpRequest?.query,
       options: {},
     });
-    console.log("serviceLoaded", serviceLoaded);
     return success(serviceLoaded);
   }
 }

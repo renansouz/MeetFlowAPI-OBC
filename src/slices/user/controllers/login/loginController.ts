@@ -30,15 +30,13 @@ export class LoginController extends Controller {
       return badRequest(errors);
     }
     const { email, password } = httpRequest?.body;
-
     const userExists = await this.loadUser({
       fields: { email },
-      options: { projection: { password: 0 } },
+      options: { projection: { password: 0}},
     });
-    // bug de usuário não encontrado
-    // if (!userExists) {
-    //   return forbidden(new UserNotFound());
-    // }
+    if (!userExists) {
+      return forbidden(new UserNotFound());
+    }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.auth(email, password)) || {};
     if (!accessToken || !refreshToken) {

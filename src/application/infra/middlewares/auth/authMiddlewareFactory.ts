@@ -11,12 +11,11 @@ export const makeAuthMiddleware = (roles: string[]): Middleware => {
 
 export const authClient = () => adaptMiddleware(makeAuthMiddleware(["client", "admin"]));
 export const authAdmin = () => adaptMiddleware(makeAuthMiddleware(["admin"]));
-export const authSchedule = () => adaptMiddleware(makeAuthMiddleware(["schedule", "admin"]));
 export const authProfessional = () =>
-  adaptMiddleware(makeAuthMiddleware(["schedule", "professional", "admin"]));
+  adaptMiddleware(makeAuthMiddleware(["professional", "admin"]));
 export const authVisitor = () =>
   adaptMiddleware(
-    makeAuthMiddleware(["schedule", "professional", "client", "visitor", "admin"])
+    makeAuthMiddleware(["professional", "client", "visitor", "admin"])
   );
 export const authLogged = () =>
-  adaptMiddleware(makeAuthMiddleware(["schedule", "professional", "client", "admin"]));
+  adaptMiddleware(makeAuthMiddleware(["professional", "client", "admin"]));

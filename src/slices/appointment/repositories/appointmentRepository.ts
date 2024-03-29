@@ -33,7 +33,6 @@ export class AppointmentRepository implements
     query: QueryAvailableTimesRepository
   ): Promise<AvailableTimesModelRepository | null> {
     if (!query?.professionalId || !query?.initDay || !query?.endDay) {
-      console.log("Não tem professionalId repositories appointment");
       return null;
     }
     const queryBuilded = new QueryBuilder()
@@ -42,20 +41,20 @@ export class AppointmentRepository implements
         initDate: { $lte: query?.endDay, $gte: query?.initDay },
         endDate: { $lte: query?.endDay, $gte: query?.initDay },
         cancelled: false,
-        active: true,
+        // active: true,
       })
       .sort({ initDate: 1 })
       .lookup({
         from: "user",
         localField: "professionalId",
-        foreignField: "_id",
+        foreignField: "myScheduleId",
         as: "professionalDetails",
       })
-      .project({ initDate: 1, endDate: 1, professionalDetails: { scheduleId: 1 } })
+      .project({ initDate: 1, endDate: 1, professionalDetails: { myScheduleId: 1 } })
       .unwind({ path: "$professionalDetails" })
       .lookup({
         from: "schedule",
-        localField: "professionalDetails.scheduleId",
+        localField: "professionalDetails.myScheduleId",
         foreignField: "_id",
         as: "schedule",
       })

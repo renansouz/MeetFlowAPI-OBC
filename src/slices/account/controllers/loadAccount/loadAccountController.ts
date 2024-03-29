@@ -35,11 +35,10 @@ export class LoadAccountController extends Controller {
       },
       options: {},
     });
-    console.log("accountExists", accountExists);
-    if (!accountExists) {
-      console.log("A conta não existe", accountExists);
-      return unauthorized();
-    }
+    // if (!accountExists) {
+    //   console.log("A conta não existe", accountExists);
+    //   return unauthorized();
+    // }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.authRefreshToken(httpRequest?.userId as string)) || {};
     if (!accessToken || !refreshToken) {
