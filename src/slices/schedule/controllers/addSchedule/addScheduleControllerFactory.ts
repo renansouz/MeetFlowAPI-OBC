@@ -7,8 +7,6 @@ import { makeUpdateUserFactory } from "@/slices/user/useCases";
 
 export const makeAddScheduleController = (): Controller => {
   const requiredFields = [
-    "description",
-    // "minimumTimeForReSchedule",
     "days1",
     "hourStart1",
     "hourEnd1",

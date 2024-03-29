@@ -1,7 +1,7 @@
 export type ScheduleData = {
     _id?: string;
     createdById: string;
-    name: string;
+    name?: string;
     active?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
@@ -37,7 +37,7 @@ export type SchedulePaginated = {
 export class ScheduleEntity {
   _id?: string;
   createdById: string;
-  name: string;
+  name?: string;
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
