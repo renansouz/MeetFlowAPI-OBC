@@ -13,15 +13,13 @@ export const refreshtokenClient = () =>
   adaptMiddleware(makeRefreshTokenMiddleware(["client", "admin"]));
 export const refreshtokenAdmin = () =>
   adaptMiddleware(makeRefreshTokenMiddleware(["admin"]));
-export const refreshtokenSchedule = () =>
-  adaptMiddleware(makeRefreshTokenMiddleware(["schedule", "admin"]));
 export const refreshtokenProfessional = () =>
-  adaptMiddleware(makeRefreshTokenMiddleware(["schedule", "professional", "admin"]));
+  adaptMiddleware(makeRefreshTokenMiddleware(["professional", "admin"]));
 export const refreshtokenVisitor = () =>
   adaptMiddleware(
-    makeRefreshTokenMiddleware(["schedule", "professional", "client", "visitor", "admin"])
+    makeRefreshTokenMiddleware(["professional", "client", "visitor", "admin"])
   );
 export const refreshtokenLogged = () =>
   adaptMiddleware(
-    makeRefreshTokenMiddleware(["schedule", "professional", "client", "admin"])
+    makeRefreshTokenMiddleware(["professional", "client", "admin"])
   );

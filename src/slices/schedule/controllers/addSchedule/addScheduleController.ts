@@ -2,18 +2,22 @@ import {
   badRequest,
   HttpRequest,
   HttpResponse,
+  serverError,
   success,
-  Validation,
-} from "@/application/helpers";
+  Validation} from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
 import { AddSchedule, LoadSchedule } from "@/slices/schedule/useCases";
 import { daysValidator, handleHoursErrors } from "@/slices/schedule/validations";
+import { UpdateUser } from "@/slices/user/useCases";
 
 export class AddScheduleController extends Controller {
   constructor(
     private readonly validation: Validation,
     private readonly addSchedule: AddSchedule,
-    private readonly loadSchedule: LoadSchedule
+    private readonly loadSchedule: LoadSchedule,
+    private readonly updateUser: UpdateUser
+
+
   ) {
     super();
   }
@@ -28,13 +32,25 @@ export class AddScheduleController extends Controller {
       fields: { createdById: httpRequest?.userId },
       options: {},
     });
-    if (scheduleExists) {
+    if (scheduleExists && httpRequest?.userLogged?.role !== "admin") {
       return badRequest([{ field: "createdById", message: "Schedule already exists" }]);
     }
     const scheduleCreated = await this.addSchedule({
       ...httpRequest?.body,
       createdById: httpRequest?.userId,
     });
+    if (scheduleCreated) {
+      const userUpdated = await this.updateUser(
+        {
+          fields: { _id: httpRequest?.userId },
+          options: {},
+        },
+        {myScheduleId: scheduleCreated._id}
+      );
+      if (!userUpdated) {
+        return serverError(new Error("User not updated"));
+      };
+    }
     return success(scheduleCreated);
   }
 }

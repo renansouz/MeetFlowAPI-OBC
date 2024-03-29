@@ -32,7 +32,6 @@ export class AuthMiddleware implements Middleware {
         if (accessToken) {
           const decoded = await this.verifyToken(accessToken, env.jwtSecret);
           if (!decoded) {
-            console.log("Não teve decoded auth Middleware", decoded);
             return unauthorized();
           }
           const { _id } = decoded;

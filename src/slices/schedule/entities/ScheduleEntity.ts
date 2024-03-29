@@ -1,7 +1,7 @@
 export type ScheduleData = {
     _id?: string;
     createdById: string;
-    name: string;
+    name?: string;
     active?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
@@ -35,8 +35,9 @@ export type SchedulePaginated = {
 };
 
 export class ScheduleEntity {
+  _id?: string;
   createdById: string;
-  name: string;
+  name?: string;
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -65,7 +66,7 @@ export class ScheduleEntity {
   constructor(data: ScheduleData) {
     this.createdById = data.createdById;
     this.name = data.name;
-    this.active = false;
+    this.active = data.active;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.appointmentsTotal = 0;

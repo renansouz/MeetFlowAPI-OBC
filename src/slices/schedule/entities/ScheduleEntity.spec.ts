@@ -16,7 +16,7 @@ export const fakeScheduleEntity = {
     tuesday1: true,
     thursday1: true,
     friday1: true,
-    wednsday1: true,
+    wednesday1: true,
     saturday1: true,
   },
   hourEnd1: "23:59",
@@ -52,7 +52,7 @@ describe("Schedule", () => {
     expect(obj).toEqual({
       ...fakeScheduleEntity,
       _id: undefined,
-      active: false,
+      active: true,
       appointmentsTotal: 0,
       createdAt: new Date(),
       updatedAt: new Date(),

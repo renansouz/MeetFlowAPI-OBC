@@ -1,4 +1,5 @@
 import { authLogged } from "@/application/infra/middlewares";
+import {onSendRedis, preHandlerRedis} from "@/application/infra/redis";
 
 import {
   addUserAdapter,
@@ -15,12 +16,15 @@ import {
   updateUserSchema,
 } from "./userSchema";
 
-async function user(fastify: any, options: any) {
+export async function user(fastify: any, options: any) {
   fastify.addHook("preHandler", authLogged());
+  if (process.env.NODE_ENV === "production") {
+    fastify.addHook("preHandler", preHandlerRedis("user"));
+    fastify.addHook("onSend", onSendRedis("user", 120)); // 2 minutes
+  }
   fastify.post("/user/add", addUserPostSchema, addUserAdapter());
   fastify.get("/user/load", loadUserGetSchema, loadUserAdapter());
   fastify.get("/user/loadByPage", loadUserByPageGetSchema, loadUserByPageAdapter());
   fastify.delete("/user/delete", deleteUserSchema, deleteUserAdapter());
   fastify.patch("/user/update", updateUserSchema, updateUserAdapter());
 }
-export { user };

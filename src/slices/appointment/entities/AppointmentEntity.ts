@@ -9,7 +9,7 @@ export type AppointmentData = {
     message?: string; // Mensagem para mandar via push notification ou email
     service?: string; // Nome do serviço
     serviceId?: string;
-    scheduleId?: string;
+    scheduleId?: string; // Id da agenda do profissional
     clientId?: string;
     professionalId?: string;
     status?: string;
@@ -51,7 +51,7 @@ export class AppointmentEntity {
   constructor(data: AppointmentData) {
     this.createdById = data.createdById;
     this.name = data.name;
-    this.active = false;
+    this.active = data.active || false;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.requestId = data.requestId;
@@ -92,12 +92,12 @@ export type AvailableTimesModelRepository = {
     data: Array<any>;
 };
 export type QueryAvailableTimesRepository = {
-    professionalId: string | undefined;
+    professionalId? : string | undefined;
     endDay: string | undefined;
     initDay: string | undefined;
 };
 export type QueryAvailableTimes = {
-    professionalId: string | null;
+    professionalId?: string | null;
     date: string | null;
     serviceId: string | null;
     scheduleId: string | null;

@@ -2,7 +2,7 @@ import { mock,MockProxy } from "jest-mock-extended";
 import MockDate from "mockdate";
 
 import { MissingParamError } from "@/application/errors";
-import { badRequest, success, Validation } from "@/application/helpers";
+import { badRequest, success, unauthorized, Validation } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
 import { fakeUserEntity } from "@/slices/user/entities/UserEntity.spec";
 
@@ -16,10 +16,7 @@ describe("LoadUserController", () => {
   beforeAll(async () => {
     MockDate.set(new Date());
     loadUser = jest.fn();
-    loadUser.mockResolvedValue({
-      ...fakeUserEntity,
-      createdById: fakeUserEntity?._id,
-    });
+    loadUser.mockResolvedValue(fakeUserEntity);
     validation = mock();
     validation.validate.mockResolvedValue([] as never);
   });
@@ -44,12 +41,30 @@ describe("LoadUserController", () => {
       userId: fakeUserEntity?._id,
     });
     expect(result).toEqual(
-      success({
-        ...fakeUserEntity,
-        createdById: fakeUserEntity?._id,
-      })
+      success(fakeUserEntity)
     );
     expect(loadUser).toHaveBeenCalledWith({ fields: fakeQuery, options: {} });
+    expect(loadUser).toHaveBeenCalledTimes(1);
+  });
+  test("should return an incorrect request if the user tries to view another user's data and is not an administrator", async () => {
+    const result = await testInstance.execute({
+      query: fakeQuery,
+      userId: "IdNotExists",
+    });
+    expect(result).toEqual(unauthorized());
+  });
+  test("should allow admin to to view another user's account", async () => {
+    // Simular que o usuário logado é um administrador
+    const adminUser = { _id: "adminId", role: "admin" };
+
+    const result= await testInstance.execute({
+      query: { _id: "userIdToBeViewed" },
+      userId: fakeUserEntity?._id,
+      userLogged: adminUser, // Simular o usuário logado como administrador
+    });
+
+    expect(result).toEqual(success(fakeUserEntity));
+    expect(loadUser).toHaveBeenCalledWith({ fields: { _id: "userIdToBeViewed" }, options: {} });
     expect(loadUser).toHaveBeenCalledTimes(1);
   });
   test("should throws if loadUser throw", async () => {

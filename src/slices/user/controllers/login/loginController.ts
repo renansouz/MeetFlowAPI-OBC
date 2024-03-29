@@ -30,10 +30,9 @@ export class LoginController extends Controller {
       return badRequest(errors);
     }
     const { email, password } = httpRequest?.body;
-
     const userExists = await this.loadUser({
       fields: { email },
-      options: { projection: { password: 0 } },
+      options: { projection: { password: 0}},
     });
     if (!userExists) {
       return forbidden(new UserNotFound());

@@ -21,6 +21,7 @@ export type RequestData = {
     haveRecurrence?: boolean;
     recurrence?: RecurrenceData;
     order?: OrderData;
+    duration?: number;
     initDate: string;
     endDate: string;
     cancelledAt?: Date | null;
@@ -50,6 +51,7 @@ export class RequestEntity {
   haveRecurrence?: boolean;
   recurrence?: RecurrenceData;
   order?: OrderData;
+  duration?: number;
   initDate: string;
   endDate: string;
   cancelledAt?: Date | null;
@@ -68,11 +70,12 @@ export class RequestEntity {
     this.status = "solicitado";
     this.createdForId = data.createdForId;
     this.haveRecurrence = data.haveRecurrence;
+    this.duration = data.duration;
+    this.recurrence = data.recurrence;
+    this.order = data.order;
     this.initDate = data.initDate;
     this.endDate = data.endDate;
     this.cancelledAt = data.cancelledAt;
-    this.recurrence = data.recurrence;
-    this.order = data.order;
     this.updatedById = null;
     this.updatedByRole = null;
   }

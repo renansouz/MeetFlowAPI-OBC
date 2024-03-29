@@ -18,7 +18,7 @@ describe("UpdateUserController", () => {
     updateUser = jest.fn();
     updateUser.mockResolvedValue({
       ...fakeUserEntity,
-      createdById: fakeUserEntity?._id,
+      _id: fakeUserEntity?._id,
     });
     validationQuery = mock();
     validationQuery.validate.mockResolvedValue([] as never);
@@ -53,14 +53,14 @@ describe("UpdateUserController", () => {
     expect(result).toEqual(
       success({
         ...fakeUserEntity,
-        createdById: fakeUserEntity?._id,
+        _id: fakeUserEntity?._id,
       })
     );
     expect(updateUser).toHaveBeenCalledWith(
       {
         fields: {
           ...fakeUserEntity,
-          createdById: fakeUserEntity?._id,
+          _id: fakeUserEntity?._id,
         },
         options: {},
       },
@@ -78,14 +78,14 @@ describe("UpdateUserController", () => {
     expect(result).toEqual(
       success({
         ...fakeUserEntity,
-        createdById: fakeUserEntity?._id,
+        _id: fakeUserEntity?._id,
       })
     );
     expect(updateUser).toHaveBeenCalledWith(
       {
         fields: {
           ...fakeUserEntity,
-          createdById: fakeUserEntity?._id,
+          _id: fakeUserEntity?._id,
         },
         options: {},
       },
@@ -103,14 +103,14 @@ describe("UpdateUserController", () => {
     expect(result).toEqual(
       success({
         ...fakeUserEntity,
-        createdById: fakeUserEntity?._id,
+        _id: fakeUserEntity?._id,
       })
     );
     expect(updateUser).toHaveBeenCalledWith(
       {
         fields: {
           ...fakeUserEntity,
-          createdById: fakeUserEntity?._id,
+          _id: fakeUserEntity?._id,
         },
         options: {},
       },

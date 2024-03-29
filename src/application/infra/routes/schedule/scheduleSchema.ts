@@ -1,12 +1,9 @@
 const bodyAddScheduleJsonSchema = {
   type: "object",
   required: [
-    "description",
     "hourStart1",
     "hourEnd1",
     "days1",
-    "minimumTimeForReSchedule",
-    "name",
   ],
   properties: {
     name: { type: "string" },

@@ -12,7 +12,7 @@ export class DbAuthentication implements Authentication {
   async auth(email: string, password: string): Promise<any> {
     const user = await this.loadUserRepository.loadUser({
       fields: { email },
-      options: { projection: {} },
+      options: {},
     });
     if (user?._id && user?.password) {
       const isValid = await this.hashComparer.compare(password, user.password);

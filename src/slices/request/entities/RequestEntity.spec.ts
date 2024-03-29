@@ -22,6 +22,7 @@ export const fakeRequestEntity = {
   clientUserId: "fakeUserId",
   professionalId: "fakeUser2Id",
   status: "finalizado",
+  duration: 30,
   initDate: new Date().toISOString(),
   endDate: new Date().toISOString(),
   cancelledAt: null,

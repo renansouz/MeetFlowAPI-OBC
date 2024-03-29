@@ -66,7 +66,7 @@ describe("date tests business rules", () => {
         tuesday1: true,
         thursday1: true,
         friday1: true,
-        wednsday1: false,
+        wednesday1: false,
         saturday1: false,
       },
       days2: {
@@ -75,7 +75,7 @@ describe("date tests business rules", () => {
         tuesday2: false,
         thursday2: false,
         friday2: false,
-        wednsday2: true,
+        wednesday2: true,
         saturday2: false,
       },
       days3: {
@@ -84,7 +84,7 @@ describe("date tests business rules", () => {
         tuesday3: false,
         thursday3: false,
         friday3: false,
-        wednsday3: false,
+        wednesday3: false,
         saturday3: true,
       },
     };
@@ -113,7 +113,7 @@ describe("date tests business rules", () => {
         tuesday1: true,
         thursday1: true,
         friday1: true,
-        wednsday1: false,
+        wednesday1: false,
         saturday1: false,
       },
       days2: {
@@ -122,7 +122,7 @@ describe("date tests business rules", () => {
         tuesday2: false,
         thursday2: false,
         friday2: false,
-        wednsday2: true,
+        wednesday2: true,
         saturday2: false,
       },
       days3: {
@@ -131,7 +131,7 @@ describe("date tests business rules", () => {
         tuesday3: false,
         thursday3: false,
         friday3: false,
-        wednsday3: false,
+        wednesday3: false,
         saturday3: true,
       },
       dayOfWeek1: "monday1",
@@ -161,9 +161,9 @@ describe("date tests business rules", () => {
     expect(
       getHoursObject({
         ...mockHoursObject,
-        dayOfWeek1: "wednsday1",
-        dayOfWeek2: "wednsday2",
-        dayOfWeek3: "wednsday3",
+        dayOfWeek1: "wednesday1",
+        dayOfWeek2: "wednesday2",
+        dayOfWeek3: "wednesday3",
       })
     ).toEqual({
       hourStart: ["8", "00"],
@@ -301,7 +301,7 @@ describe("date tests business rules", () => {
             tuesday1: true,
             thursday1: true,
             friday1: true,
-            wednsday1: false,
+            wednesday1: false,
             saturday1: false,
           },
           days2: {
@@ -310,7 +310,7 @@ describe("date tests business rules", () => {
             tuesday2: false,
             thursday2: false,
             friday2: false,
-            wednsday2: true,
+            wednesday2: true,
             saturday2: false,
           },
           days3: {
@@ -319,7 +319,7 @@ describe("date tests business rules", () => {
             tuesday3: false,
             thursday3: false,
             friday3: false,
-            wednsday3: false,
+            wednesday3: false,
             saturday3: true,
           },
         },
@@ -875,7 +875,7 @@ describe("date tests business rules", () => {
         tuesday1: true,
         thursday1: true,
         friday1: true,
-        wednsday1: false,
+        wednesday1: false,
         saturday1: false,
       },
       days3: {
@@ -884,7 +884,7 @@ describe("date tests business rules", () => {
         tuesday3: false,
         thursday3: false,
         friday3: false,
-        wednsday3: false,
+        wednesday3: false,
         saturday3: true,
       },
     };
@@ -1008,7 +1008,7 @@ describe("date tests business rules", () => {
         tuesday1: true,
         thursday1: true,
         friday1: true,
-        wednsday1: false,
+        wednesday1: false,
         saturday1: false,
       },
       days3: {
@@ -1017,7 +1017,7 @@ describe("date tests business rules", () => {
         tuesday3: false,
         thursday3: false,
         friday3: false,
-        wednsday3: false,
+        wednesday3: false,
         saturday3: true,
       },
     };

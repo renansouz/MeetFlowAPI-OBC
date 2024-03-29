@@ -1,6 +1,8 @@
 import { account } from "./account";
 import { appointment } from "./appointment";
 import { auth } from "./auth";
+import { client } from "./client";
+import { order } from "./order";
 import {request} from "./request";
 import { schedule } from "./schedule";
 import { service } from "./service";
@@ -15,6 +17,8 @@ const routes = [
   schedule,
   appointment,
   request,
+  client,
+  order,
   // ADD FUNCTION IMPORTS
 ];
 

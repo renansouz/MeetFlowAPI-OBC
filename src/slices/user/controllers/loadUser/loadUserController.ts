@@ -3,6 +3,7 @@ import {
   HttpRequest,
   HttpResponse,
   success,
+  unauthorized,
   Validation,
 } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
@@ -20,8 +21,18 @@ export class LoadUserController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
+    if (httpRequest?.userLogged?.role === "admin") {
+      const userLoaded = await this.loadUser({
+        fields: httpRequest?.query,
+        options: {},
+      });
+      return success(userLoaded);
+    }
+    if (httpRequest?.userId?.toString() !== httpRequest?.query?._id) {
+      return unauthorized();
+    }
     const userLoaded = await this.loadUser({
-      fields: httpRequest?.query,
+      fields: {...httpRequest?.query, _id: httpRequest?.userId?.toString()},
       options: {},
     });
     return success(userLoaded);

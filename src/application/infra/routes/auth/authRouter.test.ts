@@ -98,7 +98,7 @@ describe("Route api/auth", () => {
         url: "/api/auth/login",
         payload: userBody,
       });
-
+    
       const responseBody = JSON.parse(response.body);
       expect(response.statusCode).toBe(403);
       expect(responseBody).toEqual({

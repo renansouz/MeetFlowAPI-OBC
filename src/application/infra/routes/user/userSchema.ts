@@ -1,6 +1,6 @@
 const bodyAddUserJsonSchema = {
   type: "object",
-  required: ["name", "email", "password", "passwordConfirmation", "role"],
+  required: ["name", "email", "password", "passwordConfirmation", "role", "serviceIds"],
   properties: {
     name: { type: "string" },
     email: { type: "string" },
@@ -10,6 +10,14 @@ const bodyAddUserJsonSchema = {
     },
     password: { type: "string" },
     passwordConfirmation: { type: "string" },
+    serviceIds: { type: "array", items: { type: "string", maxLength: 24, minLength: 24 } },
+    coord: {
+      type: "object",
+      properties: {
+        type: { type: "string", enum: ["Point"] },
+        coordinates: { type: "array", items: { type: "number" } },
+      },
+    },
   },
 };
 const headersJsonSchema = {
@@ -34,6 +42,7 @@ export const addUserPostSchema = {
   schema: {
     body: bodyAddUserJsonSchema,
     response: { 200: addUserResponse },
+    headers: headersJsonSchema,
   },
 };
 
@@ -49,6 +58,13 @@ const loadUserResponse = {
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
     name: { type: "string" },
+    serviceIds: {
+      type: "array",
+      nullable: true,
+      items: { type: "string", maxLength: 24, minLength: 24 },
+    },
+    scheduleId: { type: "string", maxLength: 24, minLength: 24 },
+    myScheduleId: { type: "string", maxLength: 24, minLength: 24 },
     active: { type: "boolean" },
     createdById: { type: "string" },
     createdAt: { type: "string" },
@@ -92,6 +108,11 @@ const updateUserResponse = {
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
     name: { type: "string" },
+    serviceIds: {
+      type: "array",
+      nullable: true,
+      items: { type: "string", maxLength: 24, minLength: 24 },
+    },
     createdById: { type: "string" },
   },
 };
@@ -133,7 +154,12 @@ const loadUserByPageResponse = {
           name: { type: "string" },
           role: {
             type: "string",
-            enum: ["professional", "schedule", "client", "visitor"],
+            enum: ["professional", "client", "visitor"],
+          },
+          serviceIds: {
+            type: "array",
+            nullable: true,
+            items: { type: "string", maxLength: 24, minLength: 24 },
           },
           active: { type: "boolean" },
           createdById: { type: "string" },
@@ -150,6 +176,53 @@ export const loadUserByPageGetSchema = {
     querystring: queryStringJsonLoadUserByPageSchema,
     response: {
       200: loadUserByPageResponse,
+    },
+  },
+};
+const loadUserGeoNearResponse = {
+  type: "object",
+  properties: {
+    users: {
+      type: "array",
+      maxItems: 10,
+      items: {
+        type: "object",
+        properties: {
+          _id: { type: "string", maxLength: 24, minLength: 24 },
+          name: { type: "string" },
+          distance: { type: "number" },
+          role: {
+            type: "string",
+            enum: ["professional", "client", "visitor"],
+          },
+          serviceIds: {
+            type: "array",
+            nullable: true,
+            items: { type: "string", maxLength: 24, minLength: 24 },
+          },
+          createdAt: { type: "string" },
+        },
+      },
+    },
+    total: { type: "integer" },
+    cache: { type: "boolean", nullable: true },
+  },
+};
+const queryStringJsonLoadUserGeoNearSchema = {
+  type: "object",
+  properties: {
+    page: { type: "integer", minimum: 1 },
+    sortBy: { type: "string" },
+    typeSort: { type: "string" },
+  },
+  required: ["page"],
+};
+export const loadUserByGeoNearSchema = {
+  schema: {
+    headers: headersJsonSchema,
+    querystring: queryStringJsonLoadUserGeoNearSchema,
+    response: {
+      200: loadUserGeoNearResponse,
     },
   },
 };
