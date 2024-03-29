@@ -17,6 +17,7 @@ export type ServicePaginated = {
 };
 
 export class ServiceEntity {
+  _id?: string;
   createdById: string;
   name: string;
   active?: boolean;
