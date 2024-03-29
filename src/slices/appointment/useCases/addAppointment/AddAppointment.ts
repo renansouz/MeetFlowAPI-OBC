@@ -7,5 +7,5 @@ export type AddAppointmentSignature = (addAppointment: AddAppointmentRepository)
 
 export const addAppointment: AddAppointmentSignature =
     (addAppointmentRepository: AddAppointmentRepository) => (data: AppointmentData) => {
-      return addAppointmentRepository.addAppointment(new AppointmentEntity(data));
+      return addAppointmentRepository.addAppointment(new AppointmentEntity({...data, active: true}));
     };

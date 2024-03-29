@@ -12,6 +12,8 @@ import { AddServiceController } from "./addServiceController";
 describe("AddServiceController", () => {
   let testInstance: AddServiceController;
   let addService: jest.Mock;
+  let loadUser: jest.Mock;
+  let updateUser: jest.Mock;
   let validation: MockProxy<Validation>;
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -20,6 +22,10 @@ describe("AddServiceController", () => {
       ...fakeServiceEntity,
       createdById: fakeUserEntity?._id,
     });
+    loadUser = jest.fn();
+    loadUser.mockResolvedValue(fakeUserEntity);
+    updateUser = jest.fn();
+    updateUser.mockResolvedValue(fakeUserEntity);
     validation = mock();
     validation.validate.mockResolvedValue([] as never);
   });
@@ -27,7 +33,10 @@ describe("AddServiceController", () => {
     MockDate.reset();
   });
   beforeEach(() => {
-    testInstance = new AddServiceController(validation, addService);
+    testInstance = new AddServiceController( validation,
+      addService,
+      loadUser,
+      updateUser);
   });
   it("should extends class Controller", async () => {
     expect(testInstance).toBeInstanceOf(Controller);
@@ -53,6 +62,33 @@ describe("AddServiceController", () => {
       createdById: fakeUserEntity?._id,
     });
     expect(addService).toHaveBeenCalledTimes(1);
+  });
+  test("should call loadUser with correct params", async () => {
+    await testInstance.execute({ body: fakeServiceEntity, userId: fakeUserEntity?._id });
+    expect(loadUser).toHaveBeenCalledWith({
+      fields: { _id: fakeUserEntity?._id },
+      options: {},
+    });
+    expect(loadUser).toHaveBeenCalledTimes(1);
+  });
+  test("should return bad request if user does not have a schedule", async () => {
+    loadUser.mockResolvedValueOnce({});
+    const httpResponse = await testInstance.execute({
+      body: fakeServiceEntity,
+      userId: fakeUserEntity?._id,
+    });
+    expect(httpResponse).toEqual(badRequest("User does not have a schedule"));
+  });
+  test("should call updateUser with correct params", async () => {
+    await testInstance.execute({ body: fakeServiceEntity, userId: fakeUserEntity?._id });
+    expect(updateUser).toHaveBeenCalledWith(
+      {
+        fields: { _id: fakeUserEntity?._id },
+        options: {},
+      },
+      { serviceIds: [fakeServiceEntity._id] }
+    );
+    expect(updateUser).toHaveBeenCalledTimes(1);
   });
   test("should throws if addService throw", async () => {
     addService.mockRejectedValueOnce(new Error("error"));

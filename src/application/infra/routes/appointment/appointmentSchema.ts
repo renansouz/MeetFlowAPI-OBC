@@ -27,6 +27,7 @@ const bodyAddAppointmentJsonSchema = {
     endDate: { type: "string" },
     initDate: { type: "string" },
     haveRecurrence: { type: "boolean" },
+    active: { type: "boolean" },
     // type: { type: "string" },
     status: { type: "string" },
   },

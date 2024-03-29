@@ -51,7 +51,7 @@ export class AppointmentEntity {
   constructor(data: AppointmentData) {
     this.createdById = data.createdById;
     this.name = data.name;
-    this.active = false;
+    this.active = data.active || false;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.requestId = data.requestId;

@@ -25,7 +25,7 @@ export class WhoAmIController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    const accountExists = await this.loadAccount({
+    await this.loadAccount({
       fields: {
         createdById: httpRequest?.userId,
         refreshToken: httpRequest?.headers?.refreshtoken,
@@ -33,10 +33,6 @@ export class WhoAmIController extends Controller {
       },
       options: {},
     });
-    // Bug referente a conta não existir
-    // if (!accountExists) {
-    //   return unauthorized();
-    // }
     const { accessToken = null, refreshToken = null } =
       (await this.authentication.authRefreshToken(httpRequest?.userId as string)) || {};
     if (!accessToken || !refreshToken) {
@@ -46,7 +42,6 @@ export class WhoAmIController extends Controller {
       fields: { _id: httpRequest?.userId as string },
       options: {},
     });
-    console.log("User controller whoAmI", user);
     if (!user) {
       return unauthorized();
     }

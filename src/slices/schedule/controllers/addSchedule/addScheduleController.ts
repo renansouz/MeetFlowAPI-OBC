@@ -28,7 +28,6 @@ export class AddScheduleController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    console.log("testando testando");
     const scheduleExists = await this.loadSchedule({
       fields: { createdById: httpRequest?.userId },
       options: {},
@@ -40,9 +39,7 @@ export class AddScheduleController extends Controller {
       ...httpRequest?.body,
       createdById: httpRequest?.userId,
     });
-    console.log("scheduleCreated controller Schedule", scheduleCreated);
     if (scheduleCreated) {
-      console.log("Antes do updated no user controller Schedule", scheduleCreated);
       const userUpdated = await this.updateUser(
         {
           fields: { _id: httpRequest?.userId },
@@ -50,7 +47,6 @@ export class AddScheduleController extends Controller {
         },
         {myScheduleId: scheduleCreated._id}
       );
-      console.log("userUpdated controller Schedule", userUpdated);
       if (!userUpdated) {
         return serverError(new Error("User not updated"));
       };

@@ -197,13 +197,13 @@ describe("Appointment Mongo Repository", () => {
       {
         $lookup: {
           as: "professionalDetails",
-          foreignField: "_id",
+          foreignField: "myScheduleId",
           from: "user",
           localField: "professionalId",
         },
       },
       {
-        $project: { endDate: 1, initDate: 1, professionalDetails: { scheduleId: 1 } },
+        $project: { endDate: 1, initDate: 1, professionalDetails: { myScheduleId: 1 } },
       },
       { $unwind: { path: "$professionalDetails" } },
       {
@@ -211,7 +211,7 @@ describe("Appointment Mongo Repository", () => {
           as: "schedule",
           foreignField: "_id",
           from: "schedule",
-          localField: "professionalDetails.scheduleId",
+          localField: "professionalDetails.myScheduleId",
         },
       },
       {

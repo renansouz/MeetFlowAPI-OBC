@@ -33,7 +33,6 @@ export class AppointmentRepository implements
     query: QueryAvailableTimesRepository
   ): Promise<AvailableTimesModelRepository | null> {
     if (!query?.professionalId || !query?.initDay || !query?.endDay) {
-      console.log("Não tem professionalId repositories appointment");
       return null;
     }
     const queryBuilded = new QueryBuilder()
@@ -48,14 +47,14 @@ export class AppointmentRepository implements
       .lookup({
         from: "user",
         localField: "professionalId",
-        foreignField: "_id",
+        foreignField: "myScheduleId",
         as: "professionalDetails",
       })
-      .project({ initDate: 1, endDate: 1, professionalDetails: { scheduleId: 1 } })
+      .project({ initDate: 1, endDate: 1, professionalDetails: { myScheduleId: 1 } })
       .unwind({ path: "$professionalDetails" })
       .lookup({
         from: "schedule",
-        localField: "professionalDetails.scheduleId",
+        localField: "professionalDetails.myScheduleId",
         foreignField: "_id",
         as: "schedule",
       })
@@ -85,6 +84,7 @@ export class AppointmentRepository implements
       .project({ _id: 1, data: { initDate: 1, endDate: 1 } })
       .build();
     const appointments = await this.repository.aggregate(queryBuilded);
+    console.log( "Appointments", appointments);
     if (
       appointments?.length > 0 &&
             appointments?.[0]?._id &&

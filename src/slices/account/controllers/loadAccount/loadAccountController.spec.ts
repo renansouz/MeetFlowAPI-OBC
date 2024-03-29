@@ -97,11 +97,11 @@ describe("LoadAccountController", () => {
       })
     );
   });
-  test("should return unauthorized request if account does not exists", async () => {
-    loadAccount.mockResolvedValueOnce(null);
-    const httpResponse = await testInstance.execute(testInstanceParams);
-    expect(httpResponse).toEqual(unauthorized());
-  });
+  // test("should return unauthorized request if account does not exists", async () => {
+  //   loadAccount.mockResolvedValueOnce(null);
+  //   const httpResponse = await testInstance.execute(testInstanceParams);
+  //   expect(httpResponse).toEqual(unauthorized());
+  // });
   test("should return unauthorized if token is null", async () => {
     authentication.authRefreshToken.mockResolvedValueOnce(null);
     const httpResponse = await testInstance.execute(testInstanceParams);

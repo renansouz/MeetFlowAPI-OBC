@@ -23,14 +23,12 @@ export class AddAppointmentController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    console.log("httpRequest controller addAppointment", httpRequest);
     const professionalSchedule = await this.loadSchedule({
       fields: { _id: httpRequest?.body?.scheduleId },
       options: {},
     });
   
     const professional = professionalSchedule?.createdById;
-    console.log("professional", professional);
     const appointmentIsValid = await this.validateAvailableTimes({
       date: httpRequest?.body?.initDate,
       initDate: httpRequest?.body?.initDate,
@@ -39,9 +37,7 @@ export class AddAppointmentController extends Controller {
       scheduleId: httpRequest?.body?.scheduleId,
       serviceId: httpRequest?.body?.serviceId,
     });
-    console.log("appointmentIsValid", appointmentIsValid);
     if (!appointmentIsValid) {
-      console.log("O horário não está disponível", appointmentIsValid);
       return badRequest(errors);
     }
     const appointmentCreated = await this.addAppointment({

@@ -6,7 +6,7 @@ const bodyJsonSchema = {
     email: { type: "string" },
     password: { type: "string" },
     passwordConfirmation: { type: "string" },
-    role: { type: "string", enum: ["client", "schedule", "visitor"] },
+    role: { type: "string", enum: ["client", "professional", "visitor"] },
   },
 };
 const signupResponse = {

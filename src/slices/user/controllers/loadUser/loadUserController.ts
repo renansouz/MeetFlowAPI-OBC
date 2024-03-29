@@ -21,10 +21,9 @@ export class LoadUserController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    console.log("httpRequest load User Controller", httpRequest);
     if (httpRequest?.userLogged?.role === "admin") {
       const userLoaded = await this.loadUser({
-        fields: { ...httpRequest?.query },
+        fields: httpRequest?.query,
         options: {},
       });
       return success(userLoaded);

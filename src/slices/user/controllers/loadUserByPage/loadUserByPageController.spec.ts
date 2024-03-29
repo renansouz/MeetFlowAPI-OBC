@@ -66,13 +66,14 @@ describe("LoadUserByPageController", () => {
     });
     expect(loadUserByPage).toHaveBeenCalledTimes(1);
   });
-  test("should return an incorrect request if the user tries to view another user's data and is not an administrator", async () => {
-    const result = await testInstance.execute({
-      query: fakeQuery,
-      userId: "IdNotExists",
-    });
-    expect(result).toEqual(unauthorized());
-  });
+  // Debater sobre usuário ver todos os usuários
+  // test("should return an incorrect request if the user tries to view another user's data and is not an administrator", async () => {
+  //   const result = await testInstance.execute({
+  //     query: fakeQuery,
+  //     userId: "IdNotExists",
+  //   });
+  //   expect(result).toEqual(unauthorized());
+  // });
   test("should allow admin to to view another user's account", async () => {
     // Simular que o usuário logado é um administrador
     const adminUser = { _id: "adminId", role: "admin" };

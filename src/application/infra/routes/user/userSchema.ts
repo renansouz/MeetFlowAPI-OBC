@@ -154,7 +154,7 @@ const loadUserByPageResponse = {
           name: { type: "string" },
           role: {
             type: "string",
-            enum: ["professional", "schedule", "client", "visitor"],
+            enum: ["professional", "client", "visitor"],
           },
           serviceIds: {
             type: "array",
@@ -193,7 +193,7 @@ const loadUserGeoNearResponse = {
           distance: { type: "number" },
           role: {
             type: "string",
-            enum: ["professional", "schedule", "client", "guest"],
+            enum: ["professional", "client", "visitor"],
           },
           serviceIds: {
             type: "array",
