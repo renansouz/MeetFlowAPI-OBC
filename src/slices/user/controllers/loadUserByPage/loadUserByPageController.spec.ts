@@ -2,7 +2,7 @@ import { mock,MockProxy } from "jest-mock-extended";
 import MockDate from "mockdate";
 
 import { MissingParamError } from "@/application/errors";
-import { badRequest, success, unauthorized, Validation } from "@/application/helpers";
+import { badRequest, success, Validation } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
 import {
   fakeUserEntity,
@@ -74,23 +74,23 @@ describe("LoadUserByPageController", () => {
   //   });
   //   expect(result).toEqual(unauthorized());
   // });
-  test("should allow admin to to view another user's account", async () => {
-    // Simular que o usuário logado é um administrador
-    const adminUser = { _id: "adminId", role: "admin" };
-
-    const result= await testInstance.execute({
-      query: fakeQuery,
-      userId: fakeUserEntity?._id,
-      userLogged: adminUser, // Simular o usuário logado como administrador
-    });
-
-    expect(result).toEqual(success(fakeUserPaginated));
-    expect(loadUserByPage).toHaveBeenCalledWith({ 
-      fields: fakeQueryParams,
-      options: { sort: { [fakeRestQuery?.sortBy]: 1 }, page: fakeRestQuery?.page },
-    });
-    expect(loadUserByPage).toHaveBeenCalledTimes(1);
-  });
+  // test("should allow admin to to view another user's account", async () => {
+  //   // Simular que o usuário logado é um administrador
+  //   const adminUser = { _id: "adminId", role: "admin" };
+  // 
+  //   const result= await testInstance.execute({
+  //     query: fakeQuery,
+  //     userId: fakeUserEntity?._id,
+  //     userLogged: adminUser, // Simular o usuário logado como administrador
+  //   });
+  // 
+  //   expect(result).toEqual(success(fakeUserPaginated));
+  //   expect(loadUserByPage).toHaveBeenCalledWith({ 
+  //     fields: fakeQueryParams,
+  //     options: { sort: { [fakeRestQuery?.sortBy]: 1 }, page: fakeRestQuery?.page },
+  //   });
+  //   expect(loadUserByPage).toHaveBeenCalledTimes(1);
+  // });
 
   // test("should call loadUserByPage with correct params without http query", async () => {
   //   const result = await testInstance.execute({

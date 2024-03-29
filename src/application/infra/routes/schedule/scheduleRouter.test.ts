@@ -15,7 +15,7 @@ const userBody = {
   password: "123456",
   passwordConfirmation: "123456",
 };
-const scheduleBody = {
+export const scheduleBody = {
   name: "test",
   description: "test",
   minimumTimeForReSchedule: 40,
