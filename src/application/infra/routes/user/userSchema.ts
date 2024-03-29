@@ -65,6 +65,8 @@ const loadUserResponse = {
     },
     scheduleId: { type: "string", maxLength: 24, minLength: 24 },
     myScheduleId: { type: "string", maxLength: 24, minLength: 24 },
+    occupationArea: { type: "string" },
+    appointmentsTotal: { type: "integer" },
     active: { type: "boolean" },
     createdById: { type: "string" },
     createdAt: { type: "string" },
@@ -113,6 +115,7 @@ const updateUserResponse = {
       nullable: true,
       items: { type: "string", maxLength: 24, minLength: 24 },
     },
+    occupationArea: { type: "string" },
     createdById: { type: "string" },
   },
 };
@@ -120,6 +123,8 @@ const updateUserBody = {
   type: "object",
   properties: {
     name: { type: "string" },
+    occupationArea: { type: "string" },
+    active: { type: "boolean" },
   },
 };
 export const updateUserSchema = {

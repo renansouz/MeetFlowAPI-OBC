@@ -10,6 +10,7 @@ export const fakeUserEntity = {
   password: "string",
   scheduleId: "string",
   myScheduleId: "string",
+  occupationArea: "string",
   appointmentsTotal: 1,
   photoUrl: "string",
   photoId: "string",

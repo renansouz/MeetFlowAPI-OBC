@@ -31,6 +31,7 @@ export const updateSchedule: UpdateScheduleSignature =
             "days2",
             "days3",
             "name",
+            "description",
           ],
           bodyObject: data,
         })
