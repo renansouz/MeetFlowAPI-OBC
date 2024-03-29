@@ -181,7 +181,7 @@ describe("Appointment Mongo Repository", () => {
       {
         $match: {
           cancelled: false,
-          // active: true,
+          active: true,
           initDate: {
             $lte: fakeQueryAvailableTimesRepository.endDay,
             $gte: fakeQueryAvailableTimesRepository.initDay,

@@ -41,7 +41,7 @@ export class AppointmentRepository implements
         initDate: { $lte: query?.endDay, $gte: query?.initDay },
         endDate: { $lte: query?.endDay, $gte: query?.initDay },
         cancelled: false,
-        // active: true,
+        active: true,
       })
       .sort({ initDate: 1 })
       .lookup({
@@ -84,6 +84,7 @@ export class AppointmentRepository implements
       .project({ _id: 1, data: { initDate: 1, endDate: 1 } })
       .build();
     const appointments = await this.repository.aggregate(queryBuilded);
+    console.log( "Appointments", appointments);
     if (
       appointments?.length > 0 &&
             appointments?.[0]?._id &&
