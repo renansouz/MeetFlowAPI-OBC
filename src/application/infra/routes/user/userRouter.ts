@@ -23,6 +23,7 @@ export async function user(fastify: any, options: any) {
     fastify.addHook("preHandler", preHandlerRedis("user"));
     fastify.addHook("onSend", onSendRedis("user", 120)); // 2 minutes
   }
+  fastify.get("/user/loadByPage", loadUserByPageGetSchema, loadUserByPageAdapter());
   fastify.post("/user/add", addUserPostSchema, addUserAdapter());
   fastify.get("/user/load", loadUserGetSchema, loadUserAdapter());
   fastify.delete("/user/delete", deleteUserSchema, deleteUserAdapter());
@@ -30,7 +31,6 @@ export async function user(fastify: any, options: any) {
 }
 
 export async function userProfessionalByPage(fastify: any, options: any) {
-  fastify.get("/user/loadByPage", loadUserByPageGetSchema, loadUserByPageAdapter());
   fastify.get("/user/loadProfessional", loadProfessionalGetSchema, loadProfessionalByPageAdapter());
 
 }
