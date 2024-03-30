@@ -32,15 +32,14 @@ export class UserRepository implements
       })
       .sort({ initDate: 1 })
       .project({ photoId: 0, password: 0, updatedAt: 0, scheduleId: 0})
-      .group({ _id: "$name", data: { $push: "$$ROOT" } })
+      .group({ _id: null , data: { $push: "$$ROOT" } })
       .build();
     const professional = await this.repository.aggregate(queryBuilded);
     if (
       professional?.length > 0 &&
-    professional?.[0]?._id &&
-    professional?.[0]?.data
+      professional?.[0]?.data
     ) {
-      return success(professional);
+      return success(professional[0].data);
     }
     return null;
   }

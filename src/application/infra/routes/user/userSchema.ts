@@ -156,7 +156,6 @@ const queryStringJsonLoadProfessionalSchema = {
 const loadProfessionalResponse = {
   type: "object",
   nullable: true,
-  _id: { type: "string" },
   properties: {
     data: {type: "array"},
   },
