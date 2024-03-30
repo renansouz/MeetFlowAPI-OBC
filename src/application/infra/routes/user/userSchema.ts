@@ -10,7 +10,10 @@ const bodyAddUserJsonSchema = {
     },
     password: { type: "string" },
     passwordConfirmation: { type: "string" },
-    serviceIds: { type: "array", items: { type: "string", maxLength: 24, minLength: 24 } },
+    serviceIds: {
+      type: "array",
+      items: { type: "string", maxLength: 24, minLength: 24 },
+    },
     coord: {
       type: "object",
       properties: {
@@ -26,6 +29,9 @@ const headersJsonSchema = {
     authorization: { type: "string" },
   },
   required: ["authorization"],
+};
+const headersProfessionalJsonSchema = {
+  type: "object",
 };
 const addUserResponse = {
   type: "object",
@@ -177,7 +183,7 @@ const loadUserByPageResponse = {
 };
 export const loadUserByPageGetSchema = {
   schema: {
-    headers: headersJsonSchema,
+    headers: headersProfessionalJsonSchema,
     querystring: queryStringJsonLoadUserByPageSchema,
     response: {
       200: loadUserByPageResponse,
