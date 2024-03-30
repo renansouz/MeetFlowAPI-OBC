@@ -1,3 +1,4 @@
+import { QueryBuilder, success } from "@/application/helpers";
 import { Repository } from "@/application/infra/contracts/repository";
 import { Query } from "@/application/types";
 import { UserData, UserPaginated } from "@/slices/user/entities";
@@ -5,17 +6,18 @@ import { UserData, UserPaginated } from "@/slices/user/entities";
 import {
   AddUserRepository,
   DeleteUserRepository,
+  LoadProfessionalRepository,
   LoadUserByPageRepository,
   LoadUserRepository,
-  UpdateUserRepository,
-} from "./contracts";
+  UpdateUserRepository} from "./contracts";
 
 export class UserRepository implements
         AddUserRepository,
         DeleteUserRepository,
         LoadUserByPageRepository,
         LoadUserRepository,
-        UpdateUserRepository       
+        UpdateUserRepository,
+        LoadProfessionalRepository       
 {
   
   async incrementAppointmentsTotal(query: Query): Promise<UserData | null> {
@@ -23,6 +25,26 @@ export class UserRepository implements
   }
   constructor(private readonly repository: Repository) {}
 
+  async loadProfessional(): Promise<any> {
+    const queryBuilded = new QueryBuilder()
+      .match({
+        role: "professional"
+      })
+      .sort({ initDate: 1 })
+      .project({ photoId: 0, password: 0, updatedAt: 0, scheduleId: 0})
+      .group({ _id: "$name", data: { $push: "$$ROOT" } })
+      .build();
+    const professional = await this.repository.aggregate(queryBuilded);
+    if (
+      professional?.length > 0 &&
+    professional?.[0]?._id &&
+    professional?.[0]?.data
+    ) {
+      return success(professional);
+    }
+    return null;
+  }
+  
   async addUser(user: UserData): Promise<UserData | null> {
     return this.repository.add(user);
   }

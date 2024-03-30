@@ -30,7 +30,8 @@ const headersJsonSchema = {
   },
   required: ["authorization"],
 };
-const headersProfessionalJsonSchema = {
+
+const headersProfileJsonSchema = {
   type: "object",
 };
 const addUserResponse = {
@@ -149,8 +150,20 @@ const queryStringJsonLoadUserByPageSchema = {
     page: { type: "integer", minimum: 1 },
     sortBy: { type: "string" },
     typeSort: { type: "string" },
+    userId: { type: "string" }
   },
   required: ["page"],
+};
+const queryStringJsonLoadProfessionalSchema = {
+  type: "object",
+};
+const loadProfessionalResponse = {
+  type: "object",
+  nullable: true,
+  _id: { type: "string" },
+  properties: {
+    data: {type: "array"},
+  },
 };
 const loadUserByPageResponse = {
   type: "object",
@@ -183,7 +196,27 @@ const loadUserByPageResponse = {
 };
 export const loadUserByPageGetSchema = {
   schema: {
-    headers: headersProfessionalJsonSchema,
+    headers: headersProfileJsonSchema,
+    querystring: queryStringJsonLoadUserByPageSchema,
+    response: {
+      200: loadUserByPageResponse,
+    },
+  },
+};
+
+export const loadProfessionalGetSchema = {
+  schema: {
+    headers: headersProfileJsonSchema,
+    querystring: queryStringJsonLoadProfessionalSchema,
+    response: {
+      200: loadProfessionalResponse,
+    },
+  },
+};
+
+export const loadProfessionalByPageGetSchema = {
+  schema: {
+    headers: headersProfileJsonSchema,
     querystring: queryStringJsonLoadUserByPageSchema,
     response: {
       200: loadUserByPageResponse,
