@@ -70,6 +70,7 @@ const loadUserResponse = {
     scheduleId: { type: "string", maxLength: 24, minLength: 24 },
     myScheduleId: { type: "string", maxLength: 24, minLength: 24 },
     occupationArea: { type: "string" },
+    photoUrl: { type: "string" },
     appointmentsTotal: { type: "integer" },
     active: { type: "boolean" },
     createdById: { type: "string" },
