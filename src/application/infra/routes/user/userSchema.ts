@@ -66,6 +66,7 @@ const loadUserResponse = {
       nullable: true,
       items: { type: "string", maxLength: 24, minLength: 24 },
     },
+    email: { type: "string" },
     scheduleId: { type: "string", maxLength: 24, minLength: 24 },
     myScheduleId: { type: "string", maxLength: 24, minLength: 24 },
     occupationArea: { type: "string" },
