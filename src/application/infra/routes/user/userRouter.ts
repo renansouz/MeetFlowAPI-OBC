@@ -25,12 +25,11 @@ export async function user(fastify: any, options: any) {
   }
   fastify.get("/user/loadByPage", loadUserByPageGetSchema, loadUserByPageAdapter());
   fastify.post("/user/add", addUserPostSchema, addUserAdapter());
-  fastify.get("/user/load", loadUserGetSchema, loadUserAdapter());
   fastify.delete("/user/delete", deleteUserSchema, deleteUserAdapter());
   fastify.patch("/user/update", updateUserSchema, updateUserAdapter());
 }
 
 export async function userProfessionalByPage(fastify: any, options: any) {
+  fastify.get("/user/load", loadUserGetSchema, loadUserAdapter());
   fastify.get("/user/loadProfessional", loadProfessionalGetSchema, loadProfessionalByPageAdapter());
-
 }
