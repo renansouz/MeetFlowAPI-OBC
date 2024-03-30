@@ -148,6 +148,7 @@ export class MongoRepository extends Repository {
     return collection.countDocuments(mapQueryParamsToQueryMongo(query));
   }
   async aggregate(query: any): Promise<any> {
+    console.log("aggregate", query);
     const collection = await this.getCollection();
     const session = await MongoHelper.getSession();
     return collection.aggregate(query, { session }).toArray();
