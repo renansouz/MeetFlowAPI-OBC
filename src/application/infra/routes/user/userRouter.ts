@@ -4,13 +4,14 @@ import {onSendRedis, preHandlerRedis} from "@/application/infra/redis";
 import {
   addUserAdapter,
   deleteUserAdapter,
+  loadProfessionalByPageAdapter,
   loadUserAdapter,
   loadUserByPageAdapter,
-  updateUserAdapter,
-} from "./userAdapter";
+  updateUserAdapter} from "./userAdapter";
 import {
   addUserPostSchema,
   deleteUserSchema,
+  loadProfessionalGetSchema,
   loadUserByPageGetSchema,
   loadUserGetSchema,
   updateUserSchema,
@@ -28,6 +29,8 @@ export async function user(fastify: any, options: any) {
   fastify.patch("/user/update", updateUserSchema, updateUserAdapter());
 }
 
-export async function userByPage(fastify: any, options: any) {
+export async function userProfessionalByPage(fastify: any, options: any) {
   fastify.get("/user/loadByPage", loadUserByPageGetSchema, loadUserByPageAdapter());
+  fastify.get("/user/loadProfessional", loadProfessionalGetSchema, loadProfessionalByPageAdapter());
+
 }

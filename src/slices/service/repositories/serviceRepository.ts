@@ -28,15 +28,21 @@ implements
     return this.repository.deleteOne(query?.fields);
   }
   async loadServiceByPage(query: Query): Promise<ServicePaginated | null> {
+    const { userId } = query.options || {};
+
+    const filter: any = { ...query.fields };
+    if (userId) {
+      filter.createdById = userId;
+    }
 
     const services = await this.repository.getPaginate(
       query?.options?.page ?? 0,
-      query?.fields ?? {},
+      filter,
       query?.options?.sort ?? { createdAt: -1 },
       10,
       query?.options?.projection ?? {}
     );
-    const total = await this.repository.getCount(query?.fields ?? {});
+    const total = await this.repository.getCount(filter);
     return { services, total };
   }
   async loadService(query: Query): Promise<ServiceData | null> {

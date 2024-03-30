@@ -20,10 +20,10 @@ export class LoadServiceByPageController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    const { page, sortBy, typeSort = "asc", ...rest } = httpRequest?.query || {};
+    const { page, sortBy, typeSort = "asc", userId, ...rest } = httpRequest?.query || {};
     const fields = rest;
     const sort = { [sortBy]: typeSort === "asc" ? 1 : -1 };
-    const options = { sort, page };
+    const options = { sort, page, userId };
     const serviceLoaded = await this.loadServiceByPage({
       fields,
       options,

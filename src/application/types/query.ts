@@ -1,6 +1,6 @@
 export type Query = {
   fields: any;
-  options?: QueryOptions;
+  options?: QueryOptions & {userId?: string};
 };
 
 export type QueryOptions = {
