@@ -14,6 +14,7 @@ Bem-vindo ao repositório do backend do MeetFlow! Este é o servidor que suporta
 - **JWT (JSON Web Tokens)**: Método padrão da indústria para realizar autenticação em APIs web.
 - **Zod**: Biblioteca para validação de esquemas de dados.
 - **Redis**: Banco de dados em memória para cache.
+- **MongoDB**: Banco de dados NoSQL orientado a documentos.
 - **date-fns**: Biblioteca JavaScript para manipulação de datas.
 
 ## 🏗️ Arquitetura e Padrões
@@ -46,6 +47,23 @@ O projeto foi desenvolvido utilizando a arquitetura clean, seguindo os princípi
 - Gerar disponibilidade do profissional com base no horário de início e fim da sua jornada
 - Baseado no tempo informado pelo mesmo como duração do serviço
 
+## 🚀 Como Instalar e Executar o Projeto
+1. Clone este repositório utilizando o comando:
+    ```bash
+   git clone https://github.com/renansouz/MeetFlowAPI-OBC.git
+2. Acesse o diretório do projeto:
+   ```bash
+   cd MeetFlowAPI-OBC
+3. Instale as dependências utilizando o npm:
+   ```bash
+   npm install
+4. Construa o projeto:
+   ```bash
+   npm run build
+5. Após a construção do projeto, inicie o servidor:
+   ```bash
+   npm start
+
 # Colaboradores 🤝🤝
 
 | Foto                                                       | Nome                                                 |
@@ -54,16 +72,4 @@ O projeto foi desenvolvido utilizando a arquitetura clean, seguindo os princípi
 | <img src="https://github.com/renansouz.png" width="100"> | [Renan Souza](https://github.com/renansouz) |
 | <img src="https://github.com/WesleyR10.png" width="100"> | [Wesley Ribas](https://github.com/WesleyR10) |
 
-## 🚀 Como Instalar e Executar o Projeto
-1. Clone este repositório utilizando o comando:
-    ```bash
-   https://github.com/renansouz/MeetFlowAPI-OBC.git
-2. Acesse o diretório do projeto:
-   ```bash
-   cd MeetFlowAPI-OBC
-3. Instale as dependências utilizando o npm:
-   ```bash
-   npm install
-4. Após a instalação das dependências, inicie o servidor:
-   ```bash
-    npm start
+
