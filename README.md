@@ -1,3 +1,7 @@
+<div align="center">
+  <img width="500px" src="https://i.imgur.com/oLCyMZ2.jpeg" />
+</div>
+
 # 🚀 MeetFlowAPI - Simplifique seus Agendamentos 📅
 
 Bem-vindo ao repositório do backend do MeetFlow! Este é o servidor que suporta a plataforma de agendamento moderna, conectando profissionais e clientes para simplificar o processo de agendamento de serviços.
