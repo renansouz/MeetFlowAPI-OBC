@@ -43,6 +43,7 @@ const addUserResponse = {
     active: { type: "boolean" },
     createdById: { type: "string" },
     createdAt: { type: "string" },
+    headLine: { type: "string" },
   },
 };
 export const addUserPostSchema = {
@@ -75,6 +76,7 @@ const loadUserResponse = {
     myScheduleId: { type: "string", maxLength: 24, minLength: 24 },
     occupationArea: { type: "string" },
     photoUrl: { type: "string" },
+    headLine: { type: "string" },
     appointmentsTotal: { type: "integer" },
     active: { type: "boolean" },
     createdById: { type: "string" },
@@ -125,6 +127,10 @@ const updateUserResponse = {
       nullable: true,
       items: { type: "string", maxLength: 24, minLength: 24 },
     },
+    email: { type: "string" },
+    myScheduleId: { type: "string", maxLength: 24, minLength: 24 },
+    headLine: { type: "string" },
+    photoUrl: { type: "string", nullable: true },
     occupationArea: { type: "string" },
     createdById: { type: "string" },
   },
@@ -135,6 +141,10 @@ const updateUserBody = {
     name: { type: "string" },
     occupationArea: { type: "string" },
     active: { type: "boolean" },
+    photoUrl: { type: "string" },
+    email: { type: "string" },
+    password: { type: "string" },
+    headLine: { type: "string" },
   },
 };
 export const updateUserSchema = {
