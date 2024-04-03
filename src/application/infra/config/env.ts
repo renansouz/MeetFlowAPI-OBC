@@ -7,6 +7,10 @@ export const envSchema = z.object({
   redisPort: z.coerce.number().optional().default(40043),
   redisUrl: z.string().optional().default("us1-redis-example-40000.upstash.io"),
   redisPassword: z.string().optional(),
+  cloudflareAccountId: z.string(),
+  awsBucketName: z.string(),
+  awsAccessKeyId: z.string(),
+  awsSecretAccessKey: z.string(),
   port: z.coerce.number().optional().default(3333),
   environment: z.enum(["development", "test", "production"], {
     errorMap: () => ({ message: "O ambiente deve ser development, test ou production" })
@@ -27,6 +31,10 @@ const mappedEnv = {
   redisPassword: process.env.REDIS_PASSWORD,
   port: process.env.PORT,
   environment: process.env.NODE_ENV,
+  cloudflareAccountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+  awsBucketName: process.env.AWS_BUCKET_NAME,
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   //Update further RS256
   // jwtPrivateSecret: process.env.JWT_PRIVATE_KEY,
   // jwtPublicSecret: process.env.JWT_PUBLIC_KEY,

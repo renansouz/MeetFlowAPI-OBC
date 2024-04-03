@@ -8,6 +8,7 @@ export type UserData = {
     myScheduleId?: string;
     appointmentsTotal?: number;
     occupationArea?: string;
+    headLine?: string;
     photoUrl?: string;
     photoId?: string;
     active?: boolean;
@@ -31,6 +32,7 @@ export class UserEntity {
   myScheduleId?: string;
   appointmentsTotal?: number;
   occupationArea?: string;
+  headLine?: string;
   photoUrl?: string;
   photoId?: string;
   active?: boolean;
@@ -46,6 +48,7 @@ export class UserEntity {
     this.myScheduleId = data.myScheduleId;
     this.appointmentsTotal = 0;
     this.occupationArea = data.occupationArea;
+    this.headLine = data.headLine;
     this.photoUrl = data.photoUrl;
     this.photoId = data.photoId;
     this.serviceIds = data.serviceIds;
