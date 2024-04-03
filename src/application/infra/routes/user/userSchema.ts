@@ -79,6 +79,7 @@ const loadUserResponse = {
     active: { type: "boolean" },
     createdById: { type: "string" },
     createdAt: { type: "string" },
+    descripition: { type : "string" }
   },
 };
 export const loadUserGetSchema = {
