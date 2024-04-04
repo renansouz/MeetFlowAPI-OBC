@@ -1,3 +1,5 @@
+import { FastifyInstance } from "fastify";
+
 import { authLogged } from "@/application/infra/middlewares";
 import {onSendRedis, preHandlerRedis} from "@/application/infra/redis";
 
@@ -17,7 +19,7 @@ import {
   updateUserSchema,
 } from "./userSchema";
 
-export async function user(fastify: any, options: any) {
+export async function user(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", authLogged());
   if (process.env.NODE_ENV === "production") {
     fastify.addHook("preHandler", preHandlerRedis("user"));
@@ -29,7 +31,7 @@ export async function user(fastify: any, options: any) {
   fastify.patch("/user/update", updateUserSchema, updateUserAdapter());
 }
 
-export async function userProfessionalByPage(fastify: any, options: any) {
+export async function userProfessionalByPage(fastify: FastifyInstance, options: any) {
   fastify.get("/user/load", loadUserGetSchema, loadUserAdapter());
   fastify.get("/user/loadProfessional", loadProfessionalGetSchema, loadProfessionalByPageAdapter());
 }

@@ -1,3 +1,5 @@
+import { FastifyInstance } from "fastify";
+
 import { authLogged } from "@/application/infra/middlewares";
 
 import {
@@ -15,7 +17,7 @@ import {
   updateClientSchema,
 } from "./clientSchema";
 
-async function client(fastify: any, options: any) {
+async function client(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", authLogged());
   fastify.post("/client/add", addClientPostSchema, addClientAdapter());
   fastify.get("/client/load", loadClientGetSchema, loadClientAdapter());

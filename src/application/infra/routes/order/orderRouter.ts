@@ -1,3 +1,5 @@
+import { FastifyInstance } from "fastify";
+
 import { authLogged } from "@/application/infra/middlewares";
 
 import {
@@ -15,7 +17,7 @@ import {
   updateOrderSchema,
 } from "./orderSchema";
 
-async function order(fastify: any, options: any) {
+async function order(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", authLogged());
   fastify.post("/order/add", addOrderPostSchema, addOrderAdapter());
   fastify.get("/order/load", loadOrderGetSchema, loadOrderAdapter());

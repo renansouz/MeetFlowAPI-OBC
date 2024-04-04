@@ -33,6 +33,7 @@ const whoAmIResponse = {
           name: { type: "string" },
           role: { type: "string" },
           active: { type: "boolean" },
+          photoUrl: { type: "string", nullable: true },
         },
       },
     },
