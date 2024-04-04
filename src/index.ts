@@ -3,14 +3,24 @@ import "./application/infra/config/module-alias";
 
 import cors from "@fastify/cors";
 import Fastify, { FastifyInstance } from "fastify";
+import multer from "fastify-multer";
 
 import { env, MongoHelper,routes } from "@/application/infra";
 const { fastifyRequestContextPlugin } = require("@fastify/request-context");
+
 
 export const makeFastifyInstance = async (externalMongoClient = null) => {
   const fastify: FastifyInstance = Fastify({ logger: true });
   try {
     const client = externalMongoClient ?? (await MongoHelper.connect(env.mongoUri));
+
+    await fastify.register(multer.contentParser),{
+      limits: {
+        fieldSize: 1024 * 1024 * 7,
+        fileSize: 1024 * 1024 * 7, // 7MB 
+        files: 1, // 1 file per request
+      },
+    };
 
     await fastify.register(require("@fastify/helmet"), {
       contentSecurityPolicy: false,

@@ -14,6 +14,7 @@ export type HttpRequest<T = any> = {
   query?: T;
   userLogged?: T;
   userId?: string;
+  file?: T;
 };
 
 export const success = <T = any>(data: T): HttpResponse<T> => ({ statusCode: 200, data });

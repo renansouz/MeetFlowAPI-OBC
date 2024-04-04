@@ -1,3 +1,5 @@
+import { FastifyInstance } from "fastify";
+
 import { authLogged } from "@/application/infra/middlewares";
 
 import {
@@ -15,7 +17,7 @@ import {
   loadAvailableTimesSchema,
   updateAppointmentSchema} from "./appointmentSchema";
 
-async function appointment(fastify: any, options: any) {
+async function appointment(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", authLogged());
   fastify.post("/appointment/add", addAppointmentPostSchema, addAppointmentAdapter());
   fastify.get("/appointment/load", loadAppointmentGetSchema, loadAppointmentAdapter());

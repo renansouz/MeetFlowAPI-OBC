@@ -2,7 +2,7 @@ import { Optional,Query } from "@/application/types";
 import { UserData } from "@/slices/user/entities";
 import { UpdateUserRepository } from "@/slices/user/repositories";
 
-type UpdateUserDataInput = Optional<UserData, "email" | "name" | "password" | "role" >;
+type UpdateUserDataInput = Optional<UserData, "email" | "name" | "password" | "role" | "photoUrl">;
 
 export type UpdateUser = (query: Query, data: UpdateUserDataInput) => Promise<UserData | null>;
 

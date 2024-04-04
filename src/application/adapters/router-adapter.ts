@@ -5,7 +5,7 @@ import { Controller } from "@/application/infra/contracts";
 
 export const adaptRoute = (controller: Controller) => {
   return async (request: any, reply: any) => {
-    const { body, params, query, headers } = request;
+    const { body, params, query, headers, file } = request;
     const { userId = null, userLogged = null }: any =
       (requestContext as any).get("context" as any) || {};
     const httpRequest: HttpRequest = {
@@ -15,6 +15,7 @@ export const adaptRoute = (controller: Controller) => {
       userId,
       query,
       userLogged,
+      file
     };
     const { statusCode, data } = await controller.handle(httpRequest);
     reply.code(statusCode).send(data);
