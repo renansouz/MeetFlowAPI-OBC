@@ -9,8 +9,8 @@ let userCollection: Collection;
 let photoCollection: Collection;
 
 const userBody = {
-  email: "gustavoteste41@hotmail.com",
-  name: "Gustavo",
+  email: "wesleyteste@email.com",
+  name: "Wesley",
   role: "client",
   password: "123456",
   passwordConfirmation: "123456",
@@ -121,49 +121,6 @@ describe("Route api/photo", () => {
       const response = await fastify.inject({
         method: "DELETE",
         url: "/api/photo/delete",
-      });
-      expect(response.statusCode).toBe(400);
-    });
-  });
-  describe("PATCH /api/photo/update", () => {
-    test("Should return 400 for bad requests", async () => {
-      const { token } = await makeAccessToken("admin", "password");
-      const response = await fastify.inject({
-        method: "PATCH",
-        url: "/api/photo/update",
-        headers: { authorization: `Bearer ${token}` },
-      });
-      expect(response.statusCode).toBe(400);
-    });
-    test("Should return 200 on update", async () => {
-      const { token, _id } = await makeAccessToken("admin", "password");
-      const { insertedId } = await photoCollection.insertOne({
-        ...photoBody,
-        createdById: _id,
-      });
-      const response = await fastify.inject({
-        method: "PATCH",
-        url: `/api/photo/update?_id=${insertedId.toString()}`,
-        headers: { authorization: `Bearer ${token}` },
-        body: { name: "new name" },
-      });
-      const responseBody = JSON.parse(response.body);
-      expect(response.statusCode).toBe(200);
-      expect(responseBody.name).toEqual("new name");
-    });
-    test("Should return 401 for unauthorized access token", async () => {
-      const response = await fastify.inject({
-        method: "PATCH",
-        url: `/api/photo/update?_id=${new ObjectId().toString()}`,
-        headers: { authorization: "Bearer invalid_token" },
-        body: { name: "new name" },
-      });
-      expect(response.statusCode).toBe(401);
-    });
-    test("Should return 400 if i dont pass any token", async () => {
-      const response = await fastify.inject({
-        method: "PATCH",
-        url: "/api/photo/update",
       });
       expect(response.statusCode).toBe(400);
     });

@@ -1,8 +1,8 @@
 export type PhotoData = {
     _id?: string;
-    createdById: string;
+    createdById?: string;
     title: string;
-    url: string;
+    url?: string;
     active?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
@@ -15,10 +15,10 @@ export type PhotoPaginated = {
 
 export class PhotoEntity {
   _id?: string;
-  createdById: string;
+  createdById?: string;
   title: string;
   active?: boolean;
-  url: string;
+  url?: string;
   createdAt?: Date;
   updatedAt?: Date;
   constructor(data: PhotoData) {

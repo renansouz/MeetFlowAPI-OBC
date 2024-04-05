@@ -5,13 +5,11 @@ import { PhotoData } from "@/slices/photo/entities";
 import {
   AddPhotoRepository,
   DeletePhotoRepository,
-  UpdatePhotoRepository,
 } from "./contracts";
 export class PhotoRepository
 implements
         AddPhotoRepository,
-        DeletePhotoRepository,
-        UpdatePhotoRepository
+        DeletePhotoRepository
 {
   constructor(private readonly repository: Repository) {}
   async addPhoto(photo: PhotoData): Promise<PhotoData | null> {
@@ -19,8 +17,5 @@ implements
   }
   async deletePhoto(query: Query): Promise<PhotoData | null> {
     return this.repository.deleteOne(query?.fields);
-  }
-  async updatePhoto(query: Query, data: PhotoData): Promise<PhotoData | null> {
-    return this.repository.update(query?.fields ?? {}, data);
   }
 }

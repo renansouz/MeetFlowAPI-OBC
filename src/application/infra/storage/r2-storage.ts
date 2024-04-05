@@ -28,7 +28,7 @@ export class R2Storage {
     const uploadId = randomUUID();
     const uniqueFileName = `${uploadId}-${fileName}`;
 
-    const result = await this.client.send(
+    await this.client.send(
       new PutObjectCommand({
         Bucket: env.awsBucketName,
         Key: uniqueFileName,
@@ -37,21 +37,18 @@ export class R2Storage {
       })
     );
 
-    console.log("Upload result:", result);
-
     return {
       url: uniqueFileName,
     };
   }
 
   async delete({ fileName }: any): Promise<boolean> {
-    const result = await this.client.send(
+    await this.client.send(
       new DeleteObjectCommand({
         Bucket: env.awsBucketName,
         Key: fileName,
       })
     );
-    console.log("Delete result:", result);
     return true;
   }
 }

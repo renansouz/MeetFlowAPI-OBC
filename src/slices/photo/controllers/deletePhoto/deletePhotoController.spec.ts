@@ -3,7 +3,6 @@ import MockDate from "mockdate";
 
 import { MissingParamError } from "@/application/errors";
 import { badRequest, success, Validation } from "@/application/helpers";
-import { Delete } from "@/application/infra";
 import { Controller } from "@/application/infra/contracts";
 import { fakePhotoEntity } from "@/slices/photo/entities/PhotoEntity.spec";
 import { fakeUserEntity } from "@/slices/user/entities/UserEntity.spec";
@@ -15,7 +14,6 @@ describe("DeletePhotoController", () => {
   let deletePhoto: jest.Mock;
   let validation: MockProxy<Validation>;
   let updateUser: jest.Mock;
-  let deleted: MockProxy<Delete>;
   let fakeQuery: any;
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -25,15 +23,14 @@ describe("DeletePhotoController", () => {
     validation.validate.mockResolvedValue([] as never);
     updateUser = jest.fn();
     updateUser.mockResolvedValue(fakeUserEntity);
-    deleted = mock();
-    deleted.delete.mockResolvedValue(true);
+
   });
   afterAll(() => {
     MockDate.reset();
   });
   beforeEach(() => {
     fakeQuery = { url: fakePhotoEntity.url };
-    testInstance = new DeletePhotoController(validation, deletePhoto, deleted, updateUser);
+    testInstance = new DeletePhotoController(validation, deletePhoto, updateUser);
   });
   it("should extends class Controller", async () => {
     expect(testInstance).toBeInstanceOf(Controller);

@@ -6,7 +6,6 @@ import {
   success,
   Validation,
 } from "@/application/helpers";
-import { Delete } from "@/application/infra";
 import { Controller } from "@/application/infra/contracts";
 import { DeletePhoto } from "@/slices/photo/useCases";
 import { UpdateUser } from "@/slices/user/useCases";
@@ -15,7 +14,6 @@ export class DeletePhotoController extends Controller {
   constructor(
     private readonly validation: Validation,
     private readonly deletePhoto: DeletePhoto,
-    private readonly deleted: Delete,
     private readonly updateUser: UpdateUser
   ) {
     super();
@@ -26,14 +24,11 @@ export class DeletePhotoController extends Controller {
       return badRequest(errors);
     }
 
-    await this.deleted.delete({
-      fileName: httpRequest?.query?.url,
-    });
-
+    // Delete the photo and the photo data
     const photoDeleted = await this.deletePhoto({
       fields: { ...httpRequest?.query, createdById: httpRequest?.userId },
       options: {},
-    });
+    }, httpRequest?.query?.url);
 
     await this.updateUser({
       fields: { _id: httpRequest?.userId },
