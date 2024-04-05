@@ -1,8 +1,6 @@
-import { mock,MockProxy } from "jest-mock-extended";
 import MockDate from "mockdate";
 
 import { badRequest, success, Validation } from "@/application/helpers";
-import { Uploader } from "@/application/infra";
 import { Controller } from "@/application/infra/contracts";
 import { fakePhotoEntity } from "@/slices/photo/entities/PhotoEntity.spec";
 import { fakeUserEntity } from "@/slices/user/entities/UserEntity.spec";
@@ -13,7 +11,6 @@ describe("AddPhotoController", () => {
   let testInstance: AddPhotoController;
   let addPhoto: jest.Mock;
   let updateUser: jest.Mock;
-  let uploader: MockProxy<Uploader>;
   beforeAll(async () => {
     MockDate.set(new Date());
     addPhoto = jest.fn();
@@ -23,14 +20,12 @@ describe("AddPhotoController", () => {
     });
     updateUser = jest.fn();
     updateUser.mockResolvedValue(fakeUserEntity);
-    uploader = mock();
-    uploader.upload.mockResolvedValue({ url: "fakeUrl" });
   });
   afterAll(() => {
     MockDate.reset();
   });
   beforeEach(() => {
-    testInstance = new AddPhotoController( addPhoto, updateUser, uploader);
+    testInstance = new AddPhotoController( addPhoto, updateUser);
   });
   it("should extends class Controller", async () => {
     expect(testInstance).toBeInstanceOf(Controller);

@@ -9,7 +9,7 @@ jest.setTimeout(500000);
 let userCollection: Collection;
 
 const adminBody = {
-  email: "gustavo41@hotmail.com",
+  email: "wesleyteste@hotmail.com",
   name: "any_name",
   role: "admin",
   password: "111123",

@@ -15,8 +15,8 @@ const appointmentUpdateBody = {
   endDate: new Date().toISOString(),
 };
 const userBody = {
-  email: "gustavoteste41@hotmail.com",
-  name: "Gustavo",
+  email: "wesleyteste@email.com",
+  name: "Wesley",
   role: "client",
   password: "123456",
   passwordConfirmation: "123456",

@@ -6,21 +6,21 @@ import { authLogged } from "@/application/infra/middlewares";
 import {
   addPhotoAdapter,
   deletePhotoAdapter,
-  updatePhotoAdapter,
 } from "./photoAdapter";
 import {
   addPhotoPostSchema,
   deletePhotoSchema,
-  updatePhotoSchema,
 } from "./photoSchema";
 
-const upload = multer();
 
-export async function photo(fastify: FastifyInstance, options: any) {
+async function photo(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", authLogged());
+  
+  const upload = multer();
   fastify.addHook("preHandler", upload.single("file"));
 
   fastify.post("/photo/add", addPhotoPostSchema, addPhotoAdapter());
   fastify.delete("/photo/delete", deletePhotoSchema, deletePhotoAdapter());
-  fastify.patch("/photo/update", updatePhotoSchema, updatePhotoAdapter());
 }
+
+export { photo };

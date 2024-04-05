@@ -7,6 +7,12 @@ const headersJsonSchema = {
 };
 const addPhotoResponse = {
   type: "object",
+  properties: {
+    _id: { type: "string", maxLength: 24, minLength: 24 },
+    url: { type: "string" },
+    title: { type: "string" },
+    createdAt: { type: "string" },
+  },
 };
 export const addPhotoPostSchema = {
   schema: {
@@ -28,37 +34,6 @@ export const deletePhotoSchema = {
     querystring: queryStringJsonDeletePhotoSchema,
     response: {
       200: deletePhotoResponse,
-    },
-  },
-};
-const queryStringJsonUpdatePhotoSchema = {
-  type: "object",
-  properties: {
-    _id: { type: "string", maxLength: 24, minLength: 24 },
-  },
-  required: ["_id"],
-};
-const updatePhotoResponse = {
-  type: "object",
-  properties: {
-    _id: { type: "string", maxLength: 24, minLength: 24 },
-    name: { type: "string" },
-    createdById: { type: "string" },
-  },
-};
-const updatePhotoBody = {
-  type: "object",
-  properties: {
-    name: { type: "string" },
-  },
-};
-export const updatePhotoSchema = {
-  schema: {
-    headers: headersJsonSchema,
-    querystring: queryStringJsonUpdatePhotoSchema,
-    body: updatePhotoBody,
-    response: {
-      200: updatePhotoResponse,
     },
   },
 };

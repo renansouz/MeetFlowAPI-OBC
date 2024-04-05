@@ -8,8 +8,8 @@ jest.setTimeout(500000);
 let userCollection: Collection;
 
 const userBody = {
-  email: "gustavoteste41@hotmail.com",
-  name: "Gustavo",
+  email: "wesleyteste@email.com",
+  name: "Wesley",
   role: "client",
   password: "123456",
   passwordConfirmation: "123456",
@@ -80,7 +80,7 @@ describe("Route api/auth", () => {
         url: "/api/auth/signup",
         payload: {
           ...userBody,
-          email: "gustavoteste41hotmail.com",
+          email: "wesleytestehotmail.com",
         },
       });
       const responseBody = JSON.parse(response.body);
@@ -146,7 +146,7 @@ describe("Route api/auth", () => {
         url: "/api/auth/login",
         payload: {
           ...userBody,
-          email: "gustavoteste41hotmail.com",
+          email: "wesleytestehotmail.com",
         },
       });
       const responseBody = JSON.parse(response.body);
