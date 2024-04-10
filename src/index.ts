@@ -16,8 +16,8 @@ export const makeFastifyInstance = async (externalMongoClient = null) => {
 
     await fastify.register(multer.contentParser),{
       limits: {
-        fieldSize: 1024 * 1024 * 7,
-        fileSize: 1024 * 1024 * 7, // 7MB 
+        fieldSize: 1024 * 1024 * 5,
+        fileSize: 1024 * 1024 * 5, // 5MB 
         files: 1, // 1 file per request
       },
     };

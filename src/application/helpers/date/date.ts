@@ -541,17 +541,17 @@ export const calculateTimeAvailable = (
 
 export const queryDateGenerator = (date: string): QueryDate | null => {
   const dateRequest = trataTimezone(new Date(date));
-  if (!isBeforeToday(dateRequest)) { // Se a data não for antes de hoje
-    let dateQuery;
-    if (isToday(dateRequest)) { // Se a data for hoje
-      dateQuery = cloneDate(dateRequest); // Eu clono a data para não retornar os agendamentos antes do horário atual
-    } else {
-      dateQuery = startOfDay(dateRequest); 
-    }
-    const dayOfWeekFound = dayOfWeek(dateQuery); // Dia da semana
-    const endDay = formatISO(endOfDay(dateRequest)); // Fim do dia
-    const initDay = formatISO(startOfDay(dateRequest)); // Inicio do dia
-    return { dayOfWeekFound, endDay, initDay, dateQuery }; 
+  if (isBeforeToday(dateRequest)) { // Se a data for antes de hoje
+    return null;
   }
-  return null;
+  let dateQuery;
+  if (isToday(dateRequest)) { // Se a data for hoje
+    dateQuery = cloneDate(dateRequest); // Eu clono a data para não retornar os agendamentos antes do horário atual
+  } else {
+    dateQuery = startOfDay(dateRequest); 
+  }
+  const dayOfWeekFound = dayOfWeek(dateQuery); // Dia da semana
+  const endDay = formatISO(endOfDay(dateRequest)); // Fim do dia
+  const initDay = formatISO(startOfDay(dateRequest)); // Inicio do dia
+  return { dayOfWeekFound, endDay, initDay, dateQuery }; 
 };

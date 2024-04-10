@@ -61,9 +61,20 @@ export const isPast = (date: number | Date): boolean => {
 export const startOfDay = (date: number | Date): Date => startOfDayDateFns(date);
 export const endOfDay = (date: number | Date): Date => endOfDayDateFns(date);
 
+export const adjustDate = (date: number | Date): Date => {
+  if (typeof date === "number") {
+    return new Date(date);
+  } else {
+    return new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
+  }
+};
+
 export const isBeforeToday = (date: number | Date): boolean => {
+  let today = startOfDayDateFns(new Date());
+  today = setHours(today, today.getHours() - 3); // ajusta o fuso horário
+
   //Verifica se é antes de hoje
-  return isBeforeDateFns(date, startOfDayDateFns(new Date()));
+  return isBeforeDateFns(date, today);
 };
 
 export const formatISO = (date: number | Date): string => formatISODateFns(date); //Converte a data para formato string
@@ -231,8 +242,10 @@ export const isAfter = (date: number | Date, date2: number | Date): boolean => {
   //Saber se esta no passado
   return isAfterDateFns(date, date2);
 };
+
 export const isToday = (date: number | Date): boolean => {
-  return isTodayDateFns(date);
+  const adjustedDate = adjustDate(date);
+  return isTodayDateFns(adjustedDate);
 };
 
 export const cloneDate = (date: number | Date): Date => {

@@ -15,10 +15,8 @@ const addPhotoResponse = {
   },
 };
 export const addPhotoPostSchema = {
-  schema: {
-    response: { 200: addPhotoResponse },
-    headers: headersJsonSchema,
-  },
+  response: { 200: addPhotoResponse },
+  headers: headersJsonSchema,
 };
 const deletePhotoResponse = { type: "boolean" };
 const queryStringJsonDeletePhotoSchema = {

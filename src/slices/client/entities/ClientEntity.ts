@@ -6,6 +6,7 @@ export type ClientData = {
     createdAt?: Date;
     updatedAt?: Date;
     cpf?: string;
+    email?: string;
     phone?: string;
     userId: string;
     scheduleId: string;
@@ -25,6 +26,7 @@ export class ClientEntity {
   createdAt?: Date;
   updatedAt?: Date;
   cpf?: string;
+  email?: string;
   phone?: string;
   userId: string;
   scheduleId: string;
@@ -36,6 +38,7 @@ export class ClientEntity {
     this.active = false;
     this.createdAt = new Date();
     this.updatedAt = new Date();
+    this.email = data.email;
     this.phone = data.phone;
     this.cpf = data.cpf;
     this.userId = data.userId;

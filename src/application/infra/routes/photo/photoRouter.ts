@@ -12,15 +12,20 @@ import {
   deletePhotoSchema,
 } from "./photoSchema";
 
-
-async function photo(fastify: FastifyInstance, options: any) {
+export async function photo(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", authLogged());
-  
-  const upload = multer();
-  fastify.addHook("preHandler", upload.single("file"));
 
-  fastify.post("/photo/add", addPhotoPostSchema, addPhotoAdapter());
+  fastify.post("/photo/add", { onRequest: multer().single("file"), schema: addPhotoPostSchema }, addPhotoAdapter());
   fastify.delete("/photo/delete", deletePhotoSchema, deletePhotoAdapter());
 }
 
-export { photo };
+// Bug devido ao multer iniciar antes do preHandler
+// export async function photo(fastify: FastifyInstance, options: any) {
+//   fastify.addHook("preHandler", authLogged());
+//   
+//   const upload = multer();
+//   fastify.addHook("preHandler", upload.single("file"));
+// 
+//   fastify.post("/photo/add", addPhotoPostSchema, addPhotoAdapter());
+//   fastify.delete("/photo/delete", deletePhotoSchema, deletePhotoAdapter());
+// }

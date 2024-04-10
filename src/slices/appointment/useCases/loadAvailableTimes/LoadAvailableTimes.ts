@@ -15,19 +15,21 @@ export type LoadAvailableTimesSignature = (
 export const loadAvailableTimes: LoadAvailableTimesSignature =
   (loadAvailableTimesRepository, serviceRepository, userRepository, scheduleRepository) =>
     async (query: QueryAvailableTimes) => {
+      console.log("query", query);
       const {
         date = null,
         serviceId = null,
-        professionalId = null,
         scheduleId = null,
       } = query || {};
-      if (!date || !serviceId || !professionalId) {
+      if (!date || !serviceId) {
+        console.log("date or serviceId not found", date, serviceId);
         return null;
       }
       const service = await serviceRepository.loadService({
         fields: { _id: serviceId },
         options: {},
       });
+      console.log("service", service);
       if (service?.duration) {
         const {
           dayOfWeekFound = null,
@@ -36,14 +38,16 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
           dateQuery = null,
         } = queryDateGenerator(date) || {};
         if (!dayOfWeekFound || !endDay || !initDay || !dateQuery) {
+          console.log("dayOfWeekFound or endDay or initDay or dateQuery not found", dayOfWeekFound, endDay, initDay, dateQuery);
           return null;
         }
         const { _id: infoSchedule = null, data: appointments = null } =
         (await loadAvailableTimesRepository.loadAvailableTimes({
-          professionalId,
           endDay,
           initDay,
         })) || {};
+        console.log("infoSchedule", infoSchedule);
+        console.log("appointments", appointments);
         if (infoSchedule && appointments) {
           //esse é o caso em que existem agendamentos para o profissional no dia
           return getArrayTimes({
@@ -60,7 +64,9 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
             fields: { _id: scheduleId},
             options: {},
           }));
+          console.log("professionalScheduleId", professionalScheduleId);
           const _id: string | null = professionalScheduleId?.createdById;          
+          console.log("_id", _id);
           if (_id) {
             const {
               hourEnd1 = null,
@@ -83,6 +89,7 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
               options: {},
             })) || {};
             if (!days1 || !hourEnd1 || !hourStart1) {
+              console.log("days1 or hourEnd1 or hourStart1 not found", days1, hourEnd1, hourStart1);
               return null;
             }
             const infoScheduleAux: ScheduleAppointmentInfo = {

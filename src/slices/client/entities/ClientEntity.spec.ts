@@ -9,6 +9,7 @@ export const fakeClientEntity = {
   active: true,
   createdAt: new Date(),
   updatedAt: new Date(),
+  email: "fakeCliente@email.com",
   cpf: "11111111111",
   userId: "fakeUserId",
   phone: "2323323232",

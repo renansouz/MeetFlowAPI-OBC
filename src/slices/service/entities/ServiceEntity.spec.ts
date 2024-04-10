@@ -44,7 +44,7 @@ describe("Service", () => {
     expect(obj).toEqual({
       ...fakeServiceEntity,
       _id: undefined,
-      active: false,
+      active: true,
       createdAt: new Date(),
       updatedAt: new Date(),
       appointmentsTotal: 0,

@@ -101,7 +101,9 @@ const updateServiceResponse = {
     price: { type: "number" },
     duration: { type: "integer", minimum: 15, maximum: 200 },
     appointmentsTotal: { type: "number" },
+    active: { type: "boolean" },
     createdById: { type: "string" },
+    createdAt: { type: "string" },
   },
 };
 const updateServiceBody = {
@@ -111,7 +113,7 @@ const updateServiceBody = {
     description: { type: "string" },
     price: { type: "number" },
     duration: { type: "integer", minimum: 15, maximum: 200 },
-    appointmentsTotal: { type: "number" },
+    active: { type: "boolean" },
   },
 };
 export const updateServiceSchema = {
