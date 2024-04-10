@@ -1,7 +1,6 @@
 const bodyAddRequestJsonSchema = {
   type: "object",
   required: [
-    "message",
     "serviceId",
     "scheduleId",
     "clientId",

@@ -8,7 +8,7 @@ export type RequestData = {
     active?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
-    message: string;
+    message?: string;
     serviceId: string;
     scheduleId: string;
     clientId: string;
@@ -36,7 +36,7 @@ export class RequestEntity {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  message: string;
+  message?: string;
   serviceId: string;
   scheduleId: string;
   clientId: string;

@@ -30,7 +30,7 @@ export class ServiceEntity {
   constructor(data: ServiceData) {
     this.createdById = data.createdById;
     this.name = data.name;
-    this.active = false;
+    this.active = data.active;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.name = data.name;
