@@ -8,5 +8,5 @@ import { refreshGetSchema, whoAmIGetSchema } from "./accountSchema";
 export async function account(fastify: FastifyInstance, options: any) {
   fastify.addHook("preHandler", refreshtokenLogged());
   fastify.get("/account/refresh", refreshGetSchema, refreshAdapter());
-  fastify.get("/account/user", whoAmIGetSchema, whoAmIAdapter());
+  fastify.get("/account/whoami", whoAmIGetSchema, whoAmIAdapter());
 }

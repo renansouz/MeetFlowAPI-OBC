@@ -5,7 +5,6 @@ import { MissingParamError } from "@/application/errors";
 import { badRequest, success, Validation } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
 import { fakeAppointmentEntity } from "@/slices/appointment/entities/AppointmentEntity.spec";
-import { fakeScheduleEntity } from "@/slices/schedule/entities/ScheduleEntity.spec";
 import { fakeUserEntity } from "@/slices/user/entities/UserEntity.spec";
 
 import { AddAppointmentController } from "./addAppointmentController";
@@ -14,7 +13,6 @@ describe("AddAppointmentController", () => {
   let testInstance: AddAppointmentController;
   let addAppointment: jest.Mock;
   let validateAvailableTimes: jest.Mock;
-  let loadSchedule:jest.Mock;
   let validation: MockProxy<Validation>;
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -25,8 +23,6 @@ describe("AddAppointmentController", () => {
     });
     validateAvailableTimes = jest.fn();
     validateAvailableTimes.mockResolvedValue(true);
-    loadSchedule = jest.fn();
-    loadSchedule.mockResolvedValue(fakeScheduleEntity);
     validation = mock();
     validation.validate.mockReturnValue([] as never);
   });
@@ -38,7 +34,6 @@ describe("AddAppointmentController", () => {
       validation,
       addAppointment,
       validateAvailableTimes,
-      loadSchedule
     );
   });
   it("should extends class Controller", async () => {
@@ -77,7 +72,6 @@ describe("AddAppointmentController", () => {
       date: fakeAppointmentEntity?.initDate,
       initDate: fakeAppointmentEntity?.initDate,
       endDate: fakeAppointmentEntity?.endDate,
-      professionalId: fakeScheduleEntity?.createdById,
       scheduleId: fakeAppointmentEntity?.scheduleId,
       serviceId: fakeAppointmentEntity?.serviceId,
     });

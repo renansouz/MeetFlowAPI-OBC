@@ -31,7 +31,6 @@ export class UpdateRequestController extends Controller {
       date: httpRequest?.body?.date,
       initDate: httpRequest?.body?.initDate,
       endDate: httpRequest?.body?.endDate,
-      professionalId: httpRequest?.body?.professionalId,
       scheduleId: httpRequest?.body?.scheduleId,
       serviceId: httpRequest?.body?.serviceId,
     });

@@ -12,10 +12,8 @@ export type RequestData = {
     serviceId: string;
     scheduleId: string;
     clientId: string;
-    clientUserId?: string;
     professionalId: string;
     status: string;
-    createdForId: string;
     updatedById?: string | null;
     updatedByRole?: string | null;
     haveRecurrence?: boolean;
@@ -42,10 +40,8 @@ export class RequestEntity {
   serviceId: string;
   scheduleId: string;
   clientId: string;
-  clientUserId?: string;
   professionalId: string;
   status: string;
-  createdForId: string;
   updatedById?: string | null;
   updatedByRole?: string | null;
   haveRecurrence?: boolean;
@@ -65,10 +61,8 @@ export class RequestEntity {
     this.serviceId = data.serviceId;
     this.scheduleId = data.scheduleId;
     this.clientId = data.clientId;
-    this.clientUserId = data.clientUserId;
     this.professionalId = data.professionalId;
     this.status = "solicitado";
-    this.createdForId = data.createdForId;
     this.haveRecurrence = data.haveRecurrence;
     this.duration = data.duration;
     this.recurrence = data.recurrence;

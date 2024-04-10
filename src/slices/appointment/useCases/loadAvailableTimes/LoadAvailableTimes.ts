@@ -18,10 +18,9 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
       const {
         date = null,
         serviceId = null,
-        professionalId = null,
         scheduleId = null,
       } = query || {};
-      if (!date || !serviceId || !professionalId) {
+      if (!date || !serviceId) {
         return null;
       }
       const service = await serviceRepository.loadService({
@@ -40,7 +39,6 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
         }
         const { _id: infoSchedule = null, data: appointments = null } =
         (await loadAvailableTimesRepository.loadAvailableTimes({
-          professionalId,
           endDay,
           initDay,
         })) || {};

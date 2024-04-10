@@ -13,7 +13,6 @@ export type AppointmentData = {
     clientId?: string;
     professionalId?: string;
     status?: string;
-    createdForId?: string;
     cancelled?: boolean;
     email?: boolean;
     initDate?: Date;
@@ -41,7 +40,6 @@ export class AppointmentEntity {
   professionalId?: string;
   serviceId?: string;
   status?: string;
-  createdForId?: string;
   cancelled?: boolean;
   email?: boolean;
   initDate?: Date;
@@ -61,7 +59,6 @@ export class AppointmentEntity {
     this.clientId = data.clientId;
     this.professionalId = data.professionalId;
     this.status = data.status;
-    this.createdForId = data.createdForId;
     this.cancelled = false;
     this.email = data.email;
     this.initDate = data.initDate;
@@ -97,7 +94,6 @@ export type QueryAvailableTimesRepository = {
     initDay: string | undefined;
 };
 export type QueryAvailableTimes = {
-    professionalId?: string | null;
     date: string | null;
     serviceId: string | null;
     scheduleId: string | null;

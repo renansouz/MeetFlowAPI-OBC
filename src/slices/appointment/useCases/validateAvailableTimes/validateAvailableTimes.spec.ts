@@ -59,7 +59,6 @@ describe("ValidateAvailableTimes", () => {
       jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance({
-      professionalId: "fakeUserId",
       date: new Date(2021, 9, 14, 3, 0).toISOString(),
       serviceId: "fakeServiceId",
       scheduleId: "fakeScheduleId",
@@ -80,7 +79,6 @@ describe("ValidateAvailableTimes", () => {
       jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance({
-      professionalId: "fakeUserId",
       date: new Date(2021, 9, 14, 3, 0).toISOString(),
       serviceId: "fakeServiceId",
       scheduleId: "fakeScheduleId",
@@ -94,7 +92,6 @@ describe("ValidateAvailableTimes", () => {
       jest.fn().mockImplementation(() => null)
     );
     const appointment = await testInstance({
-      professionalId: "fakeUserId",
       date: new Date(2021, 9, 14, 3, 0).toISOString(),
       serviceId: "fakeServiceId",
       scheduleId: "fakeScheduleId",
@@ -108,7 +105,6 @@ describe("ValidateAvailableTimes", () => {
       jest.fn().mockImplementation(() => fakeAvailableTimesModel2)
     );
     const appointment = await testInstance({
-      professionalId: "fakeUserId",
       date: new Date(2021, 9, 14, 3, 0).toISOString(),
       serviceId: "fakeServiceId",
       scheduleId: "fakeScheduleId",
@@ -122,7 +118,6 @@ describe("ValidateAvailableTimes", () => {
       jest.fn().mockImplementation(() => fakeAvailableTimesModel)
     );
     const appointment = await testInstance({
-      professionalId: "fakeUserId",
       date: new Date(2021, 9, 14, 3, 0).toISOString(),
       serviceId: "fakeServiceId",
       scheduleId: "fakeScheduleId",

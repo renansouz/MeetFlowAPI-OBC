@@ -12,7 +12,6 @@ export const makeAddRequestController = (): Controller => {
     "scheduleId",
     "clientId",
     "professionalId",
-    "createdForId",
     "haveRecurrence",
     "initDate",
     "endDate",

@@ -3,6 +3,9 @@ const bodyAddClientJsonSchema = {
   required: ["name"],
   properties: {
     name: { type: "string" },
+    phone: { type: "string" },
+    cpf: { type: "string" },
+    email: { type: "string" },
   },
 };
 const headersJsonSchema = {
@@ -17,6 +20,9 @@ const addClientResponse = {
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
     name: { type: "string" },
+    phone: { type: "string" },
+    cpf: { type: "string" },
+    email: { type: "string" },
     active: { type: "boolean" },
     createdById: { type: "string" },
     userId: { type: "string" },
