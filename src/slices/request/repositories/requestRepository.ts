@@ -25,15 +25,24 @@ implements
     return this.repository.deleteOne(query?.fields);
   }
   async loadRequestByPage(query: Query): Promise<RequestPaginated | null> {
+    const { userId, status } = query.options || {};
+
+    const filter: RequestData = { ...query.fields };
+    if (userId) {
+      filter.scheduleId = userId;
+    }
+    if (status) {
+      filter.status = status;
+    }
 
     const requests = await this.repository.getPaginate(
       query?.options?.page ?? 0,
-      query?.fields ?? {},
+      filter,
       query?.options?.sort ?? { createdAt: -1 },
       10,
       query?.options?.projection ?? {}
     );
-    const total = await this.repository.getCount(query?.fields ?? {});
+    const total = await this.repository.getCount(filter ?? {});
     return { requests, total };
   }
   async loadRequest(query: Query): Promise<RequestData | null> {

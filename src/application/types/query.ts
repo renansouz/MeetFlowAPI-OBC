@@ -1,6 +1,6 @@
 export type Query = {
   fields: any;
-  options?: QueryOptions & {userId?: string};
+  options?: QueryOptions
 };
 
 export type QueryOptions = {
@@ -10,4 +10,6 @@ export type QueryOptions = {
   limit?: number;
   userLoggedId?: string;
   indexToCreate?: any;
+  userId?: string
+  status?: string
 };

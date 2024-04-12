@@ -51,6 +51,8 @@ const loadClientResponse = {
     name: { type: "string" },
     active: { type: "boolean" },
     createdById: { type: "string" },
+    phone: { type: "string" },
+    email: { type: "string" },
     userId: { type: "string" },
     createdAt: { type: "string" },
   },
@@ -93,6 +95,8 @@ const updateClientResponse = {
   properties: {
     _id: { type: "string", maxLength: 24, minLength: 24 },
     name: { type: "string" },
+    phone: { type: "string" },
+    email: { type: "string" },
     createdById: { type: "string" },
     userId: { type: "string" },
   },
@@ -133,6 +137,8 @@ const loadClientByPageResponse = {
         properties: {
           _id: { type: "string", maxLength: 24, minLength: 24 },
           name: { type: "string" },
+          phone: { type: "string" },
+          email: { type: "string" },
           active: { type: "boolean" },
           createdById: { type: "string" },
           userId: { type: "string" },

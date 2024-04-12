@@ -253,6 +253,10 @@ describe("dateFns functions", () => {
   test("dayOfWeek function when the day passed is thursday", () => {
     expect(dayOfWeek(new Date(2021, 9, 21))).toBe("thursday");
   });
+  test("dayOfWeek function when the day passed is sunday", () => {
+    console.log("sunday",dayOfWeek(new Date(2024, 4, 14)));
+    expect(dayOfWeek(new Date(2024, 3, 21))).toBe("sunday");
+  });
   test("subMinutes function", () => {
     expect(subMinutes(new Date(2021, 9, 21, 10, 30), 10)).toStrictEqual(
       new Date(2021, 9, 21, 10, 20)

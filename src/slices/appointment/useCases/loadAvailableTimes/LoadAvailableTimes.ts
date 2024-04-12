@@ -15,13 +15,14 @@ export type LoadAvailableTimesSignature = (
 export const loadAvailableTimes: LoadAvailableTimesSignature =
   (loadAvailableTimesRepository, serviceRepository, userRepository, scheduleRepository) =>
     async (query: QueryAvailableTimes) => {
-      console.log("query", query);
+      console.log("query loadAvailableTimes", query);
       const {
         date = null,
         serviceId = null,
+        professionalId = null,
         scheduleId = null,
       } = query || {};
-      if (!date || !serviceId) {
+      if (!date || !serviceId || !professionalId) {
         console.log("date or serviceId not found", date, serviceId);
         return null;
       }
@@ -41,8 +42,13 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
           console.log("dayOfWeekFound or endDay or initDay or dateQuery not found", dayOfWeekFound, endDay, initDay, dateQuery);
           return null;
         }
+        console.log("dayOfWeekFound loadAvailableTimes", dayOfWeekFound);
+        console.log("endDay loadAvailableTimes", endDay);
+        console.log("initDay loadAvailableTimes", initDay);
+        console.log("dateQuery loadAvailableTimes", dateQuery);
         const { _id: infoSchedule = null, data: appointments = null } =
         (await loadAvailableTimesRepository.loadAvailableTimes({
+          professionalId,
           endDay,
           initDay,
         })) || {};
@@ -50,6 +56,7 @@ export const loadAvailableTimes: LoadAvailableTimesSignature =
         console.log("appointments", appointments);
         if (infoSchedule && appointments) {
           //esse é o caso em que existem agendamentos para o profissional no dia
+          console.log("infoSchedule and appointments found", infoSchedule, appointments);
           return getArrayTimes({
             infoSchedule,
             appointments,

@@ -20,10 +20,10 @@ export class LoadAppointmentByPageController extends Controller {
     if (errors?.length > 0) {
       return badRequest(errors);
     }
-    const { page, sortBy, typeSort = "asc", ...rest } = httpRequest?.query || {};
+    const { page, sortBy, typeSort = "asc", userId, status, ...rest } = httpRequest?.query || {};
     const fields = rest;
     const sort = { [sortBy]: typeSort === "asc" ? 1 : -1 };
-    const options = { sort, page };
+    const options = { sort, page, userId, status };
     const appointmentLoaded = await this.loadAppointmentByPage({
       fields,
       options,

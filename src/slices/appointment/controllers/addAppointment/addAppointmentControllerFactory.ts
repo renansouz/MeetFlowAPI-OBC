@@ -9,6 +9,7 @@ export const makeAddAppointmentController = (): Controller => {
     "requestId",
     "serviceId",
     "scheduleId",
+    "professionalId",
     "clientId",
     "status",
     "initDate",

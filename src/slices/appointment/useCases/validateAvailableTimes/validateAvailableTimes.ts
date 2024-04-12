@@ -9,6 +9,7 @@ export type ValidateAvailableTimesSchema = (
 export const validateAvailableTimes =
     (loadAvailableTimes: LoadAvailableTimes) =>
       async (query: QueryVerifyAvailableTimes) => {
+        console.log("query validateAvailableTimes", query);
         const { initDate = null, endDate = null } = query || {};
         if (
           !initDate || !endDate ||
@@ -17,14 +18,23 @@ export const validateAvailableTimes =
         ) {
           return false;
         }
+        console.log("initDate validateAvailableTimes", initDate);
+        console.log("endDate validateAvailableTimes", endDate);
         const { timeAvailable = null, timeAvailableProfessional = null } =
             (await loadAvailableTimes(query)) || {};
         if (!timeAvailable && !timeAvailableProfessional) {
+          console.log("timeAvailable ou timeAvailableProfessional  false");
           return false;
         }
+        console.log("timeAvailable validateAvailableTimes", timeAvailable);
+        console.log(
+          "timeAvailableProfessional validateAvailableTimes",
+          timeAvailableProfessional
+        );
         const result = timeAvailable?.find(({ time }: any) => {
           return new Date(time).getTime() === new Date(initDate).getTime(); // Verificando se horário existe disponível.
         });
+        console.log("result validateAvailableTimes", result);
         if (!result) {
           // Verificando se existe horário alternativo disponível.
           const resultAlternative = timeAvailableProfessional?.find((time: any) => {
@@ -35,7 +45,9 @@ export const validateAvailableTimes =
               new Date(time.endDate)
             );
           });
+          console.log("resultAlternative validateAvailableTimes", resultAlternative);
           return !!resultAlternative;
         }
+        console.log("result true");
         return true;
       };

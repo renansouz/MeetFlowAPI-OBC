@@ -16,6 +16,7 @@ export const fakeAppointmentEntity = {
   cancelled: true,
   message: "Olá fulano, gostaria de marcar horário as 10h da manhã",
   serviceId: "fakeServiceId",
+  serviceName: "Corte de cabelo",
   scheduleId: "fakeUserId",
   clientId: "fakeUserId",
   professionalId: "fakeUserId",
