@@ -30,7 +30,7 @@ implements
   async loadServiceByPage(query: Query): Promise<ServicePaginated | null> {
     const { userId } = query.options || {};
 
-    const filter: any = { ...query.fields };
+    const filter: ServiceData = { ...query.fields };
     if (userId) {
       filter.createdById = userId;
     }

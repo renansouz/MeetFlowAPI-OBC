@@ -10,8 +10,10 @@ export type RequestData = {
     updatedAt?: Date;
     message?: string;
     serviceId: string;
+    serviceName?: string;
     scheduleId: string;
     clientId: string;
+    clientName?: string;
     professionalId: string;
     status: string;
     updatedById?: string | null;
@@ -22,7 +24,9 @@ export type RequestData = {
     duration?: number;
     initDate: string;
     endDate: string;
+    cancelled?: boolean;
     cancelledAt?: Date | null;
+    cancelledBy?: string;
 };
 
 export type RequestPaginated = {
@@ -38,8 +42,10 @@ export class RequestEntity {
   updatedAt?: Date;
   message?: string;
   serviceId: string;
+  serviceName?: string;
   scheduleId: string;
   clientId: string;
+  clientName?: string;
   professionalId: string;
   status: string;
   updatedById?: string | null;
@@ -50,17 +56,21 @@ export class RequestEntity {
   duration?: number;
   initDate: string;
   endDate: string;
+  cancelled?: boolean;
   cancelledAt?: Date | null;
+  cancelledBy?: string;
   constructor(data: RequestData) {
     this.createdById = data.createdById;
     this.name = data.name;
-    this.active = false;
+    this.active = data.active;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.message = data.message;
     this.serviceId = data.serviceId;
+    this.serviceName = data.serviceName;
     this.scheduleId = data.scheduleId;
     this.clientId = data.clientId;
+    this.clientName = data.clientName;
     this.professionalId = data.professionalId;
     this.status = "solicitado";
     this.haveRecurrence = data.haveRecurrence;
@@ -69,7 +79,9 @@ export class RequestEntity {
     this.order = data.order;
     this.initDate = data.initDate;
     this.endDate = data.endDate;
+    this.cancelled = data.cancelled;
     this.cancelledAt = data.cancelledAt;
+    this.cancelledBy = data.cancelledBy;
     this.updatedById = null;
     this.updatedByRole = null;
   }

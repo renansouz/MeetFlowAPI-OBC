@@ -17,6 +17,7 @@ export class AddAppointmentController extends Controller {
     super();
   }
   async execute(httpRequest: HttpRequest<any>): Promise<HttpResponse<any>> {
+    console.log("httpRequest appointment", httpRequest);
     const errors = this.validation.validate(httpRequest?.body);
     if (errors?.length > 0) {
       return badRequest(errors);
@@ -26,10 +27,13 @@ export class AddAppointmentController extends Controller {
       date: httpRequest?.body?.initDate,
       initDate: httpRequest?.body?.initDate,
       endDate: httpRequest?.body?.endDate,
+      professionalId: httpRequest?.body?.professionalId,
       scheduleId: httpRequest?.body?.scheduleId,
       serviceId: httpRequest?.body?.serviceId,
     });
+    console.log("appointmentIsValid", appointmentIsValid);
     if (!appointmentIsValid) {
+      console.log("appointmentIsValid false");
       return badRequest(errors);
     }
     const appointmentCreated = await this.addAppointment({

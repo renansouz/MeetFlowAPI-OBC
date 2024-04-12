@@ -61,13 +61,13 @@ export const isPast = (date: number | Date): boolean => {
 export const startOfDay = (date: number | Date): Date => startOfDayDateFns(date);
 export const endOfDay = (date: number | Date): Date => endOfDayDateFns(date);
 
-export const adjustDate = (date: number | Date): Date => {
-  if (typeof date === "number") {
-    return new Date(date);
-  } else {
-    return new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
-  }
-};
+// export const adjustDate = (date: number | Date): Date => {
+//   if (typeof date === "number") {
+//     return new Date(date);
+//   } else {
+//     return new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
+//   }
+// };
 
 export const isBeforeToday = (date: number | Date): boolean => {
   let today = startOfDayDateFns(new Date());
@@ -122,47 +122,6 @@ export const eachHourInterval = (
 ): Date[] => {
   return eachHourOfIntervalDateFns({ start, end }, options);
 };
-/* export const eachMinuteOfInterval = (dirtyInterval: any, options: Options): Date[] => {
-  const interval = dirtyInterval;
-  const startDate = toDateDateFns(interval.start);
-  const endDate = toDateDateFns(interval.end);
-  const startTime = startDate.getTime();
-  const endTime = endDate.getTime();
-  if (startTime > endTime) {
-    throw new Error("Start date is after end date");
-  }
-  const dates: Date[] = [];
-  const step = Number(options?.step);
-  if (step < 1 || isNaN(step)) {
-    throw new Error("Step must be a number greater than 0");
-  }
-  let currentDate = startDate;
-  let dateWithMinutes = currentDate;
-  dates.push(toDateDateFns(currentDate));
-  while (currentDate.getTime() <= endTime) {
-    let floorStep = 60;
-    let currentStep = 1;
-    if (step > 60 && step <= 120) {
-      floorStep = 120;
-    } else if (step > 120 && step <= 240) {
-      floorStep = 240;
-    } else if (step > 240 && step <= 360) {
-      floorStep = 360;
-    } else if (step > 360 && step <= 480) {
-      floorStep = 480;
-    }
-    const stepDivided = Math.floor(floorStep / step);
-    while (currentStep <= stepDivided) {
-      dateWithMinutes = addMinutesDateFns(dateWithMinutes, step);
-      dateWithMinutes.getTime() <= endTime &&
-                dates.push(toDateDateFns(dateWithMinutes));
-      currentStep += 1;
-    }
-    currentDate = addMinutesDateFns(currentDate, step);
-  }
-  return dates;
-};
-*/
 
 export const eachMinuteOfInterval = (setInterval: any, options: Options): Date[] => {
   const interval = setInterval;
@@ -209,8 +168,10 @@ export const differenceInDays = (date: number | Date, date2: number | Date): num
 };
 
 export const dayOfWeek = (date: number | Date): string => {
+  console.log("date dayOfWeek", date);
   // Retorna o dia da semana - Como getDayDateFns retorna número, fiz um switch para retornar o dia da semana
   const result = getDayDateFns(date);
+  console.log("result dayOfWeek", result);
   switch (result) {
   case 0:
     return "sunday";
@@ -244,8 +205,8 @@ export const isAfter = (date: number | Date, date2: number | Date): boolean => {
 };
 
 export const isToday = (date: number | Date): boolean => {
-  const adjustedDate = adjustDate(date);
-  return isTodayDateFns(adjustedDate);
+  // const adjustedDate = adjustDate(date);
+  return isTodayDateFns(date);
 };
 
 export const cloneDate = (date: number | Date): Date => {

@@ -7,8 +7,8 @@ export type AppointmentData = {
     updatedAt?: Date;
     requestId?: string; // Usuario que vai solicitar o serviço
     message?: string; // Mensagem para mandar via push notification ou email
-    service?: string; // Nome do serviço
     serviceId?: string;
+    serviceName?: string;
     scheduleId?: string; // Id da agenda do profissional
     clientId?: string;
     professionalId?: string;
@@ -34,7 +34,7 @@ export class AppointmentEntity {
   updatedAt?: Date;
   requestId?: string;
   message?: string;
-  service?: string;
+  serviceName?: string;
   scheduleId?: string;
   clientId?: string;
   professionalId?: string;
@@ -55,6 +55,7 @@ export class AppointmentEntity {
     this.requestId = data.requestId;
     this.message = data.message;
     this.serviceId = data.serviceId;
+    this.serviceName = data.serviceName;
     this.scheduleId = data.scheduleId;
     this.clientId = data.clientId;
     this.professionalId = data.professionalId;
@@ -94,6 +95,7 @@ export type QueryAvailableTimesRepository = {
     initDay: string | undefined;
 };
 export type QueryAvailableTimes = {
+    professionalId?: string | null;
     date: string | null;
     serviceId: string | null;
     scheduleId: string | null;

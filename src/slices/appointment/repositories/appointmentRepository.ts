@@ -35,6 +35,7 @@ export class AppointmentRepository implements
     if (!query?.professionalId || !query?.initDay || !query?.endDay) {
       return null;
     }
+    console.log("query loadAvailableTimes Repository", query);
     const queryBuilded = new QueryBuilder()
       .match({
         professionalId: new ObjectId(query.professionalId),
@@ -84,7 +85,7 @@ export class AppointmentRepository implements
       .project({ _id: 1, data: { initDate: 1, endDate: 1 } })
       .build();
     const appointments = await this.repository.aggregate(queryBuilded);
-    console.log( "Appointments", appointments);
+    console.log( "Appointments loadAvailableTimes Repository", appointments);
     if (
       appointments?.length > 0 &&
             appointments?.[0]?._id &&
@@ -104,15 +105,24 @@ export class AppointmentRepository implements
   }
 
   async loadAppointmentByPage(query: Query): Promise<AppointmentPaginated | null> {
+    const { userId, status } = query.options || {};
+
+    const filter: AppointmentData = { ...query.fields };
+    if (userId) {
+      filter.scheduleId = userId;
+    }
+    if (status) {
+      filter.status = status;
+    }
 
     const appointments = await this.repository.getPaginate(
       query?.options?.page ?? 0,
-      query?.fields ?? {},
+      filter,
       query?.options?.sort ?? { createdAt: -1 },
       10,
       query?.options?.projection ?? {}
     );
-    const total = await this.repository.getCount(query?.fields ?? {});
+    const total = await this.repository.getCount(filter ?? {});
     return { appointments, total };
   }
 

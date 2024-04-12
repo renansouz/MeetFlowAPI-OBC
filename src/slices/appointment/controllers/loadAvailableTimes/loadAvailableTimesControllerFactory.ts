@@ -5,7 +5,7 @@ import { LoadAvailableTimesController } from "@/slices/appointment/controllers";
 import { makeLoadAvailableTimesFactory } from "@/slices/appointment/useCases";
 
 export const makeLoadAvailableTimesController = (): Controller => {
-  const requiredFields = ["date", "serviceId", "scheduleId"];
+  const requiredFields = ["date", "serviceId", "scheduleId", "professionalId"];
   return makeLogController(
     "loadAvailableTimes",
     new LoadAvailableTimesController(
