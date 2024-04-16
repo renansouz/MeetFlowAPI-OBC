@@ -1,6 +1,6 @@
 const bodyJsonSchema = {
   type: "object",
-  required: ["email", "password", "passwordConfirmation", "name", "role"],
+  required: ["email", "password"],
   properties: {
     name: { type: "string" },
     email: { type: "string" },

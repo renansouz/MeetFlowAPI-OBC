@@ -1,3 +1,4 @@
+import { google } from "googleapis";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { mock,MockProxy } from "jest-mock-extended";
 import MockDate from "mockdate";
@@ -26,6 +27,7 @@ describe("SignUpController", () => {
   let loadUser: jest.Mock;
   let addAccount: jest.Mock;
   let authentication: MockProxy<Authentication>;
+  let googleOAuthService: MockProxy<any>;
   let validation: MockProxy<Validation>;
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -42,6 +44,10 @@ describe("SignUpController", () => {
       refreshToken: "fakeRefreshToken",
     });
     validation.validate.mockResolvedValue([] as never);
+    googleOAuthService = mock();
+    googleOAuthService.getGoogleOAuthToken.mockResolvedValue(
+      new google.auth.OAuth2("fakeClientId ", "fakeClientSecret")
+    );
   });
   afterAll(() => {
     MockDate.reset();
@@ -52,7 +58,8 @@ describe("SignUpController", () => {
       addUser,
       loadUser,
       authentication,
-      addAccount
+      addAccount,
+      googleOAuthService
     );
   });
   it("should extends class Controller", async () => {

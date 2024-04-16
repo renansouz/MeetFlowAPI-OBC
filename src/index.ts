@@ -2,6 +2,8 @@
 import "./application/infra/config/module-alias";
 
 import cors from "@fastify/cors";
+import fastifyPassport from "@fastify/passport";
+import fastifySecureSession from "@fastify/secure-session";
 import Fastify, { FastifyInstance } from "fastify";
 import multer from "fastify-multer";
 
@@ -22,6 +24,20 @@ export const makeFastifyInstance = async (externalMongoClient = null) => {
       },
     };
 
+    await fastify.register(fastifySecureSession, {
+      key: env.oAuthSecret,
+      cookieName: "session",
+      cookie: {
+        path: "/",
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        secure: env.environment === "production",
+      },
+    });
+
+    await fastify.register(fastifyPassport.initialize());
+    await fastify.register(fastifyPassport.secureSession());
+
     await fastify.register(require("@fastify/helmet"), {
       contentSecurityPolicy: false,
       global: true,
@@ -35,16 +51,16 @@ export const makeFastifyInstance = async (externalMongoClient = null) => {
       methods: ["POST", "GET", "PATCH", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization", "authorization", "refreshtoken"],
     });
-    if (env.environment === "production") {
-      await fastify.register(require("@fastify/under-pressure"), {
-        maxEventLoopDelay: 1000,
-        maxHeapUsedBytes: 100000000,
-        maxRssBytes: 100000000,
-        maxEventLoopUtilization: 0.98,
-        message: "Estamos sobrecarregados!",
-        retryAfter: 50,
-      });
-    }
+    // if (env.environment === "production") {
+    //   await fastify.register(require("@fastify/under-pressure"), {
+    //     maxEventLoopDelay: 1000,
+    //     maxHeapUsedBytes: 100000000,
+    //     maxRssBytes: 100000000,
+    //     maxEventLoopUtilization: 0.98,
+    //     message: "Estamos sobrecarregados!",
+    //     retryAfter: 50,
+    //   });
+    // }
 
     await fastify.register(fastifyRequestContextPlugin, {
       hook: "onRequest",

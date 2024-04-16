@@ -28,6 +28,7 @@
     "@types/module-alias": "^2.0.4",
     "@types/mongodb": "^4.0.7",
     "@types/node": "^20.11.30",
+    "@types/passport-google-oauth20": "^2.0.14",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -51,8 +52,10 @@
     "@fastify/helmet": "^11.1.1",
     "@fastify/mongodb": "^8.0.0",
     "@fastify/multipart": "^8.2.0",
+    "@fastify/passport": "^2.4.0",
     "@fastify/rate-limit": "^9.1.0",
     "@fastify/request-context": "^5.1.0",
+    "@fastify/secure-session": "^7.5.0",
     "@fastify/under-pressure": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
@@ -63,10 +66,14 @@
     "fastify-multer": "^2.0.3",
     "fastify-multipart": "^5.4.0",
     "file-type": "^19.0.0",
+    "googleapis": "^134.0.0",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.2",
     "module-alias": "^2.2.3",
     "mongodb": "^6.5.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
     "zod": "^3.22.4"
   }
 }
