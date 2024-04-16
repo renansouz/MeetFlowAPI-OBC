@@ -11,13 +11,6 @@ const bodyAddUserJsonSchema = {
     password: { type: "string" },
     passwordConfirmation: { type: "string" },
     serviceIds: { type: "array", items: { type: "string", maxLength: 24, minLength: 24 } },
-    coord: {
-      type: "object",
-      properties: {
-        type: { type: "string", enum: ["Point"] },
-        coordinates: { type: "array", items: { type: "number" } },
-      },
-    },
   },
 };
 const headersJsonSchema = {
@@ -40,6 +33,7 @@ const addUserResponse = {
     createdById: { type: "string" },
     createdAt: { type: "string" },
     headLine: { type: "string" },
+    occupationArea: { type: "string" },
   },
 };
 export const addUserPostSchema = {

@@ -11,6 +11,9 @@ export const envSchema = z.object({
   awsBucketName: z.string(),
   awsAccessKeyId: z.string(),
   awsSecretAccessKey: z.string(),
+  oAuthSecret: z.string(),
+  googleClientId: z.string(),
+  googleClientSecret: z.string(),
   port: z.coerce.number().optional().default(3333),
   environment: z.enum(["development", "test", "production"], {
     errorMap: () => ({ message: "O ambiente deve ser development, test ou production" })
@@ -35,6 +38,9 @@ const mappedEnv = {
   awsBucketName: process.env.AWS_BUCKET_NAME,
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  oAuthSecret: process.env.FASTIFY_oAuth_SECRET,
+  googleClientId: process.env.GOOGLE_CLIENT_ID,
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   //Update further RS256
   // jwtPrivateSecret: process.env.JWT_PRIVATE_KEY,
   // jwtPublicSecret: process.env.JWT_PUBLIC_KEY,
