@@ -20,6 +20,7 @@ export const fakeRequestEntity = {
   scheduleId: "fakeUserId",
   clientId: "fakeUserId",
   clientName: "fakeUser1",
+  clientEmail: "fakeclient@email.com",
   professionalId: "fakeUser2Id",
   status: "finalizado",
   duration: 30,

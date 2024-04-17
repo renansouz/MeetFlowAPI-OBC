@@ -19,6 +19,8 @@ export const fakeAppointmentEntity = {
   serviceName: "Corte de cabelo",
   scheduleId: "fakeUserId",
   clientId: "fakeUserId",
+  clientName: "Fulano",
+  clientEmail: "fakeclient@email.com",
   professionalId: "fakeUserId",
   status: "solicitado",
   initDate: new Date(),

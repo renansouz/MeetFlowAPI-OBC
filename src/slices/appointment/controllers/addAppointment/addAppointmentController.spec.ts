@@ -4,6 +4,7 @@ import MockDate from "mockdate";
 import { MissingParamError } from "@/application/errors";
 import { badRequest, success, Validation } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
+import { GoogleOAuthService } from "@/application/infra/oAuth";
 import { fakeAppointmentEntity } from "@/slices/appointment/entities/AppointmentEntity.spec";
 import { fakeUserEntity } from "@/slices/user/entities/UserEntity.spec";
 
@@ -14,6 +15,10 @@ describe("AddAppointmentController", () => {
   let addAppointment: jest.Mock;
   let validateAvailableTimes: jest.Mock;
   let validation: MockProxy<Validation>;
+  // let loadAccount: jest.Mock;
+  // let updateAccount: jest.Mock;
+  let googleOAuthService: MockProxy<GoogleOAuthService>;
+
   beforeAll(async () => {
     MockDate.set(new Date());
     addAppointment = jest.fn();
@@ -25,6 +30,9 @@ describe("AddAppointmentController", () => {
     validateAvailableTimes.mockResolvedValue(true);
     validation = mock();
     validation.validate.mockReturnValue([] as never);
+    // loadAccount = jest.fn();
+    // updateAccount = jest.fn();
+    googleOAuthService = mock();
   });
   afterAll(() => {
     MockDate.reset();
@@ -34,6 +42,7 @@ describe("AddAppointmentController", () => {
       validation,
       addAppointment,
       validateAvailableTimes,
+      googleOAuthService
     );
   });
   it("should extends class Controller", async () => {

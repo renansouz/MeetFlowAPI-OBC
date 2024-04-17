@@ -16,6 +16,8 @@ const googleAuthOptions = {
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/calendar",
   ],
+  accessType: "offline",
+  prompt: "consent",
 };
 
 const cookieOptions = { path: "/", maxAge: 7 * 24 * 60 * 60 }; // 7 days

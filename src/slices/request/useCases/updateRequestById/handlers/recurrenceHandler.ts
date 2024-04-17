@@ -13,7 +13,7 @@ export class RecurrenceHandler extends AbstractHandler {
     ) {
       const recurrenceCreated = await this.recurrenceRepository.addRecurrence({
         requestId: request?._id,
-        name: "recorrenciaCriada",
+        name: "recorrênciaCriada",
         serviceId: request?.serviceId,
         scheduleId: request?.scheduleId,
         professionalId: request?.professionalId,

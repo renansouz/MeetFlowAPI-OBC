@@ -11,7 +11,7 @@ interface Profile {
   photos?: { value: string }[];
 }
 
-export async function handleGoogleProfile(profile: any) {
+export async function handleGoogleProfile(profile: Profile, accessToken: string, refreshToken: string, expiresIn: number) {
   const loadUser = makeLoadUserFactory();
   const addUser = makeAddUserFactory();
   const authentication = makeDbAuthentication();
@@ -23,13 +23,13 @@ export async function handleGoogleProfile(profile: any) {
   });
 
   if (!userExists) {
-    return await handleNewUser(profile, addUser, authentication, addAccount);
+    return await handleNewUser(profile, addUser, authentication, addAccount, accessToken, refreshToken, expiresIn);
   } else {
     return await handleExistingUser(profile, authentication);
   }
 }
 
-async function handleNewUser(profile: Profile, addUser: AddUser, authentication: Authentication, addAccount: AddAccount) {
+async function handleNewUser(profile: Profile, addUser: AddUser, authentication: Authentication, addAccount: AddAccount, googleAccessToken: string, googleRefreshToken: string, expiresIn: number) {
   const userCreated = await addUser({
     name: profile.displayName ?? profile.name?.givenName ?? "",
     email: profile.emails?.[0]?.value ?? "",
@@ -38,10 +38,8 @@ async function handleNewUser(profile: Profile, addUser: AddUser, authentication:
     photoUrl: profile.photos?.[0]?.value,
     active: true,
   });
-
   const authResult = await authentication.auth(userCreated?.email ?? "", profile.id ?? "");
   if (!authResult) {
-    console.error("Authentication failed");
     return;
   }
   const { accessToken, refreshToken } = authResult;
@@ -50,12 +48,15 @@ async function handleNewUser(profile: Profile, addUser: AddUser, authentication:
     createdById: userCreated?._id,
     name: userCreated?.name,
     refreshToken,
+    googleAccessToken: googleAccessToken,
+    googleRefreshToken: googleRefreshToken,
     provider: "google",
     idToken: profile.id,
     tokenType: "Bearer",
     active: true,
     createdAt: new Date(),
     expiresAt: addDays(new Date(), 1) as unknown as string,
+    googleExpiresAt: expiresIn,
   });
 
   return { user: userCreated, accessToken, refreshToken };
@@ -70,7 +71,6 @@ async function handleExistingUser(profile: Profile, authentication: Authenticati
 
   const authResult = await authentication.auth(userExists?.email ?? "", profile.id ?? "");
   if (!authResult) {
-    console.error("Authentication failed");
     return;
   }
   const { accessToken, refreshToken } = authResult;
