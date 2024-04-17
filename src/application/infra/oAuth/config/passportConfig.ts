@@ -11,9 +11,10 @@ fastifyPassport.use(new GoogleStrategy({
   clientSecret: env.googleClientSecret,
   callbackURL: "http://localhost:3333/api/auth/google/callback"
 },
-async (accessToken, refreshToken, profile, done) => {
+async (accessToken: string, refreshToken: string, params: any ,profile: any, done: any) => {
+  const expiresIn = params.expires_in;
   try {
-    const user = await handleGoogleProfile(profile);
+    const user = await handleGoogleProfile(profile, accessToken, refreshToken, expiresIn);
     done(null, user);
   } catch (error) {
     done(error as Error);

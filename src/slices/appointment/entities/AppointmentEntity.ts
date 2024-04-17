@@ -11,6 +11,8 @@ export type AppointmentData = {
     serviceName?: string;
     scheduleId?: string; // Id da agenda do profissional
     clientId?: string;
+    clientName?: string;
+    clientEmail?: string;
     professionalId?: string;
     status?: string;
     cancelled?: boolean;
@@ -27,6 +29,7 @@ export type AppointmentPaginated = {
 };
 
 export class AppointmentEntity {
+  _id?: string;
   createdById: string;
   name: string;
   active?: boolean;
@@ -37,6 +40,8 @@ export class AppointmentEntity {
   serviceName?: string;
   scheduleId?: string;
   clientId?: string;
+  clientName?: string;
+  clientEmail?: string;
   professionalId?: string;
   serviceId?: string;
   status?: string;
@@ -58,6 +63,8 @@ export class AppointmentEntity {
     this.serviceName = data.serviceName;
     this.scheduleId = data.scheduleId;
     this.clientId = data.clientId;
+    this.clientName = data.clientName;
+    this.clientEmail = data.clientEmail;
     this.professionalId = data.professionalId;
     this.status = data.status;
     this.cancelled = false;

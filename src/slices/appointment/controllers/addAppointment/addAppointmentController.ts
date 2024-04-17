@@ -1,11 +1,16 @@
+import { google } from "googleapis";
+
 import {
+  addHours,
   badRequest,
   HttpRequest,
   HttpResponse,
+  parseISO,
   success,
   Validation,
 } from "@/application/helpers";
 import { Controller } from "@/application/infra/contracts";
+import { GoogleOAuthService } from "@/application/infra/oAuth";
 import { AddAppointment, ValidateAvailableTimesSchema } from "@/slices/appointment/useCases";
 
 export class AddAppointmentController extends Controller {
@@ -13,11 +18,11 @@ export class AddAppointmentController extends Controller {
     private readonly validation: Validation,
     private readonly addAppointment: AddAppointment,
     private readonly validateAvailableTimes: ValidateAvailableTimesSchema,
+    private readonly googleOAuthService: GoogleOAuthService,
   ) {
     super();
   }
   async execute(httpRequest: HttpRequest<any>): Promise<HttpResponse<any>> {
-    console.log("httpRequest appointment", httpRequest);
     const errors = this.validation.validate(httpRequest?.body);
     if (errors?.length > 0) {
       return badRequest(errors);
@@ -31,15 +36,48 @@ export class AddAppointmentController extends Controller {
       scheduleId: httpRequest?.body?.scheduleId,
       serviceId: httpRequest?.body?.serviceId,
     });
-    console.log("appointmentIsValid", appointmentIsValid);
     if (!appointmentIsValid) {
-      console.log("appointmentIsValid false");
       return badRequest(errors);
     }
     const appointmentCreated = await this.addAppointment({
       ...httpRequest?.body,
       createdById: httpRequest?.userId,
     });
+
+    if(httpRequest?.userId){
+      // After creating the appointment, create a Google Calendar event
+      const auth = await this.googleOAuthService.getGoogleOAuthToken(httpRequest?.userId);
+      const calendar = google.calendar({ version: "v3", auth });
+      
+      const event = {
+        summary: `Meet Flow: ${httpRequest?.body?.serviceName}`,
+        description: httpRequest?.body?.message,
+        start: {
+          dateTime: addHours(parseISO(httpRequest?.body?.initDate), 3), // Adiciona 3 horas
+          "timeZone": "America/Sao_Paulo", // Fuso horário do Brasil
+        },
+        end: {
+          dateTime: addHours(parseISO(httpRequest?.body?.endDate), 3), // Adiciona 3 horas
+          "timeZone": "America/Sao_Paulo", // Fuso horário do Brasil
+        },
+        attendees: [{ email: httpRequest?.body?.clientEmail, displayName: httpRequest?.body?.clientName }],
+        conferenceData: {
+          createRequest: {
+            requestId: appointmentCreated?._id,
+            conferenceSolutionKey: {
+              type: "hangoutsMeet",
+            },
+          },
+        },
+      };
+
+      await calendar.events.insert({
+        calendarId: "primary",
+        conferenceDataVersion: 1,
+        requestBody: event,
+      });
+    }
+
     return success(appointmentCreated);
   }
 }

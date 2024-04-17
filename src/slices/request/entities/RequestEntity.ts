@@ -14,6 +14,7 @@ export type RequestData = {
     scheduleId: string;
     clientId: string;
     clientName?: string;
+    clientEmail?: string;
     professionalId: string;
     status: string;
     updatedById?: string | null;
@@ -46,6 +47,7 @@ export class RequestEntity {
   scheduleId: string;
   clientId: string;
   clientName?: string;
+  clientEmail?: string;
   professionalId: string;
   status: string;
   updatedById?: string | null;
@@ -71,6 +73,7 @@ export class RequestEntity {
     this.scheduleId = data.scheduleId;
     this.clientId = data.clientId;
     this.clientName = data.clientName;
+    this.clientEmail = data.clientEmail;
     this.professionalId = data.professionalId;
     this.status = "solicitado";
     this.haveRecurrence = data.haveRecurrence;
