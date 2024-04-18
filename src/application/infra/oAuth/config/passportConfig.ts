@@ -9,12 +9,17 @@ import { handleGoogleProfile } from "../googleProfileHandler";
 fastifyPassport.use(new GoogleStrategy({
   clientID: env.googleClientId,
   clientSecret: env.googleClientSecret,
-  callbackURL: "http://localhost:3333/api/auth/google/callback"
+  callbackURL: "http://localhost:3333/api/auth/google/callback",
+  passReqToCallback: true,
 },
-async (accessToken: string, refreshToken: string, params: any ,profile: any, done: any) => {
+async (request: any, accessToken: string, refreshToken: string, params: any ,profile: any, done: any) => {
   const expiresIn = params.expires_in;
+
+  const role = request.session.get("role"); // Get role from session
+  console.log("role",role);
+
   try {
-    const user = await handleGoogleProfile(profile, accessToken, refreshToken, expiresIn);
+    const user = await handleGoogleProfile(profile, accessToken, refreshToken, expiresIn, role);
     done(null, user);
   } catch (error) {
     done(error as Error);

@@ -11,7 +11,7 @@ interface Profile {
   photos?: { value: string }[];
 }
 
-export async function handleGoogleProfile(profile: Profile, accessToken: string, refreshToken: string, expiresIn: number) {
+export async function handleGoogleProfile(profile: Profile, accessToken: string, refreshToken: string, expiresIn: number, role: string) {
   const loadUser = makeLoadUserFactory();
   const addUser = makeAddUserFactory();
   const authentication = makeDbAuthentication();
@@ -23,17 +23,17 @@ export async function handleGoogleProfile(profile: Profile, accessToken: string,
   });
 
   if (!userExists) {
-    return await handleNewUser(profile, addUser, authentication, addAccount, accessToken, refreshToken, expiresIn);
+    return await handleNewUser(profile, addUser, authentication, addAccount, accessToken, refreshToken, expiresIn, role);
   } else {
     return await handleExistingUser(profile, authentication);
   }
 }
 
-async function handleNewUser(profile: Profile, addUser: AddUser, authentication: Authentication, addAccount: AddAccount, googleAccessToken: string, googleRefreshToken: string, expiresIn: number) {
+async function handleNewUser(profile: Profile, addUser: AddUser, authentication: Authentication, addAccount: AddAccount, googleAccessToken: string, googleRefreshToken: string, expiresIn: number, role: string) {
   const userCreated = await addUser({
     name: profile.displayName ?? profile.name?.givenName ?? "",
     email: profile.emails?.[0]?.value ?? "",
-    role: "professional",
+    role,
     password: profile.id,
     photoUrl: profile.photos?.[0]?.value,
     active: true,

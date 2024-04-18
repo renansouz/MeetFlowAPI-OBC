@@ -25,7 +25,7 @@ implements
     return this.repository.deleteOne(query?.fields);
   }
   async loadRequestByPage(query: Query): Promise<RequestPaginated | null> {
-    const { userId, status } = query.options || {};
+    const { userId, status, createdById } = query.options || {};
 
     const filter: RequestData = { ...query.fields };
     if (userId) {
@@ -34,7 +34,10 @@ implements
     if (status) {
       filter.status = status;
     }
-
+    if (createdById) {
+      filter.createdById = createdById;
+    }
+    
     const requests = await this.repository.getPaginate(
       query?.options?.page ?? 0,
       filter,
