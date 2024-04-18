@@ -25,8 +25,11 @@ const cookieOptions = { path: "/", maxAge: 7 * 24 * 60 * 60 }; // 7 days
 export async function auth(fastify: FastifyInstance) {
   fastify.post("/auth/signup", signupPostSchema, signupAdapter());
   fastify.post("/auth/login", loginPostSchema, loginAdapter());
-  fastify.get("/auth/google", fastifyPassport.authenticate("google", googleAuthOptions));
-
+  fastify.get("/auth/google", (request, reply) => {
+    const role = (request.query as { role: string }).role;
+    (request.session.set as (key: string, value: string) => void)("role", role);
+    fastifyPassport.authenticate("google", googleAuthOptions).bind(fastify)(request, reply);
+  });
   
   fastify.get("/auth/google/callback", 
     {
@@ -54,7 +57,15 @@ export async function auth(fastify: FastifyInstance) {
         reply.setCookie("meetFlow.refreshToken", user.refreshToken, cookieOptions);
         reply.setCookie("meetFlow.user", JSON.stringify(user.user), cookieOptions);
       }
-      reply.redirect("http://localhost:5173/dashboard");
+      if (user.user.role === "client") {
+        reply.redirect("http://localhost:5173/dashboard/services");
+      } else if (user.user.role === "professional") {
+        if (user.user.myScheduleId) {
+          reply.redirect("http://localhost:5173/professional/dashboard");
+        } else {
+          reply.redirect("http://localhost:5173/professional/register/google");
+        }
+      }
     }
   );
 }

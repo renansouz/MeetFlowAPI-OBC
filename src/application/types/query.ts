@@ -12,4 +12,5 @@ export type QueryOptions = {
   indexToCreate?: any;
   userId?: string
   status?: string
+  createdById?: string;
 };
