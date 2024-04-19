@@ -44,7 +44,7 @@ export async function auth(fastify: FastifyInstance) {
       const user = request.user as User;
 
       // Extract the scope parameter from the URL
-      const url = new URL(request.url, "http://localhost:3333");
+      const url = new URL(request.url, "https://meetflow.fly.dev/");
       const scopes = url.searchParams.get("scope");
 
       const decodedScopes = decodeURIComponent(scopes || "").split(" ");
