@@ -14,7 +14,7 @@ export const envSchema = z.object({
   oAuthSecret: z.string(),
   googleClientId: z.string(),
   googleClientSecret: z.string(),
-  port: z.coerce.number().optional().default(3333),
+  port: z.coerce.number().optional().default(8080),
   environment: z.enum(["development", "test", "production"], {
     errorMap: () => ({ message: "O ambiente deve ser development, test ou production" })
   }).default("development"),

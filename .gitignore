@@ -4,3 +4,8 @@ coverage
 dist
 data
 globalConfig.json
+
+#Deploy
+fly.toml
+Dockerfile
+.dockerignore
