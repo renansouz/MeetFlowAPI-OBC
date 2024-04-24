@@ -47,9 +47,10 @@ export const makeFastifyInstance = async (externalMongoClient = null) => {
       timeWindow: "5 minute",
     });
     await fastify.register(cors, {
-      origin: "*",
+      origin: "https://www.meetflow.tech", // Altere para a sua origem exata
       methods: ["POST", "GET", "PATCH", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization", "authorization", "refreshtoken"],
+      credentials: true, // Permitir cookies
     });
     // if (env.environment === "production") {
     //   await fastify.register(require("@fastify/under-pressure"), {
