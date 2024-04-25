@@ -47,7 +47,8 @@ export const makeFastifyInstance = async (externalMongoClient = null) => {
       timeWindow: "5 minute",
     });
     await fastify.register(cors, {
-      origin: "https://www.meetflow.tech", // Altere para a sua origem exata
+      // Como coloco o localhost na origin abaixo 
+      origin: ["https://www.meetflow.tech", "http://localhost:4173", "http://localhost:5173"], // Altere para a sua origem exata
       methods: ["POST", "GET", "PATCH", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization", "authorization", "refreshtoken"],
       credentials: true, // Permitir cookies
