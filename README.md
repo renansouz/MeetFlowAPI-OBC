@@ -22,6 +22,9 @@ Teste da API via insomnia e amostra em banco de dados: [Assistir ao Vídeo](http
 - **Redis**: Banco de dados em memória para cache.
 - **MongoDB**: Banco de dados NoSQL orientado a documentos.
 - **date-fns**: Biblioteca JavaScript para manipulação de datas.
+- **@aws-sdk/client-s3**: SDK da AWS para interação com o serviço S3 (usado para armazenamento de imagens).
+- **Passport-google**: Middleware de autenticação para Node.js que suporta autenticação com Google.
+- **Fastify/passport**: Plugin Fastify para integração com Passport.js.
 
 ## 🏗️ Arquitetura e Padrões
 
@@ -29,28 +32,36 @@ O projeto foi desenvolvido utilizando a arquitetura clean, seguindo os princípi
 
 ## 🚀 Funcionalidades
 
+### Integrações
+- Upload de imagens para a Cloudflare utilizando o Fastify-multipart e o @aws-sdk/client-s3.
+- Autenticação com o Google utilizando o Passport-google e o Fastify/passport.
+- Integração com o Google Calendar para adicionar eventos automaticamente quando um agendamento é aceito.
+
 ### Usuário
 - Criar usuário
 - Criptografar senha
+- Atualizar dados
+- Upload de fotos
+- Buscar por profisional e categoria
 
 ### Agenda
-- Criar agenda personalizada por semana
+- Criar agenda personalizada
 - Definir horários de funcionamento
-- Busca paginada em todos os domínios
 
 ### Autenticação
 - Autenticação de usuários
+- Autenticação com o google
 
 ### Agendamento
 - Criar um agendamento
 - Aceitar ou recusar agendamento
-- Status personalizado e regras entre eles
+- Status personalizado
 
 ### Serviços
 - Criação de serviços personalizados mediante a valores
 
 ### Disponibilidade
-- Gerar disponibilidade do profissional com base no horário de início e fim da sua jornada
+- Gerar disponibilidade do profissional com base no horário de início e fim da sua jornada, incluindo ou não horário de almoço.
 - Baseado no tempo informado pelo mesmo como duração do serviço
 
 ## 🚀 Como Instalar e Executar o Projeto
@@ -63,10 +74,11 @@ O projeto foi desenvolvido utilizando a arquitetura clean, seguindo os princípi
 3. Instale as dependências utilizando o npm:
    ```bash
    npm install
-4. Construa o projeto:
+4. Altere o arquivo .env.example para .env e insira as chaves:
+5. Construa o projeto:
    ```bash
    npm run build
-5. Após a construção do projeto, inicie o servidor:
+6. Após a construção do projeto, inicie o servidor:
    ```bash
    npm start
 
