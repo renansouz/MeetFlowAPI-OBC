@@ -1,10 +1,25 @@
+# 🚀 MeetFlowAPI - Simplifique seus Agendamentos 📅
+
+<p align="left">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/Styled_Components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white" />
+  <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white" />
+  <img src="https://img.shields.io/badge/Zod-3068B7?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Shadcn_UI-000000?style=for-the-badge" />
+</p>
+
+Backend API for appointment scheduling, professional availability management, and Google Calendar integration
+
+
 <div align="center">
 
  ![MeetFlow - Imgur](https://github.com/renansouz/MeetFlow-OBC/assets/115756312/c4258b2a-a63f-4dcb-bbc8-e9ea5a16f9e2)
 
 </div>
 
-# 🚀 MeetFlowAPI - Simplifique seus Agendamentos 📅
 
 Bem-vindo ao repositório do backend do MeetFlow! Este é o servidor que suporta a plataforma de agendamento moderna, conectando profissionais e clientes para simplificar o processo de agendamento de serviços.
 
